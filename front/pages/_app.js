@@ -1,8 +1,21 @@
 import propTypes from 'prop-types';
+import '../styles/utils.scss'
+import Head from 'next/head';
+import AppLayout from '../components/AppLayout';
+
 
 const App = ({Component})=>{
     return(
-        <Component />
+        <>
+        <Head>
+            <meta charSet="utf-8" />
+            <title>My BooooK</title>
+        </Head>
+        <AppLayout>
+            <Component />
+        </AppLayout>
+        
+        </>
     )
 }
 

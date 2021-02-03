@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+$pink:rgb(255, 82, 82);
+$lightPink : rgb(255, 242, 242);
+$lightGray : rgb(241, 241, 241);
+
+
+
+
+
+
+$titleFont: 'Fredoka One';
+$radius : 2em;
+
+@mixin rounded{
+    border-radius: 2em;
+}
+
+input:focus { outline: none; }

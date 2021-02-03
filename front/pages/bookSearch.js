@@ -1,7 +1,14 @@
+import BookDetail from '../components/BookDetail';
+import BookSearchList from '../components/BookSearchList';
+import SearchBar from '../components/SearchBar';
+import '../styles/bookSearch.scss'
+
 const BookSearch = ()=>{
     return(
-        <div>
-            책 검색
+        <div className="bookSearch">
+            <SearchBar />
+            <BookDetail />
+            <BookSearchList />
         </div>
     )
 }

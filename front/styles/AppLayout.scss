@@ -1,0 +1,47 @@
+@import './utils.scss';
+
+.container{
+        margin:auto ;
+        display:flex;
+        justify-content:space-around;
+        align-items: center;
+        width:98vw;
+        height:98vh;
+        background-color : $pink;
+        @include rounded;
+
+        nav {
+                display: flex;
+                flex-direction: column;
+                width:10%;        
+                height: 90%;
+                justify-content:space-between;
+                
+                .title{
+                        font-family: $titleFont;
+                        font-size: 2vw;
+                        text-align: center;
+                        a{
+                                color: white;
+                        }
+                        
+                        
+                }
+
+                .menu{
+                        color: white;
+                }
+        }
+        
+        section{
+                background-color: $lightGray;
+        }
+        
+        .main{
+                width:85%;              
+                height:95%;                
+                background-color:white;
+                @include rounded;
+        }
+}
+
