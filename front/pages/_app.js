@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 import '../styles/utils.scss'
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
-
+import 'antd/dist/antd.css';
 
 const App = ({Component})=>{
     return(
