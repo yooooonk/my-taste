@@ -25,14 +25,14 @@
     .BookDetail{
         
         height: 100%;
-        flex-basis : 70%;
+        flex-basis : 60%;
         border-top-left-radius: $radius;   
         border-bottom-left-radius: $radius;   
     }
     
     .BookSearchList{
-        background-color: $lightPink;
-        flex-basis : 30%;
+        background-color: $pageRightSideColor;
+        flex-basis : 40%;
         border-top-right-radius: $radius;
         border-bottom-right-radius: $radius;
         

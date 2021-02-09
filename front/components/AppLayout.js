@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 import Menu from './Menu';
-import '../styles/AppLayout.scss'
+import '../styles/pageLayout.scss'
 import Link from 'next/Link';
 
 

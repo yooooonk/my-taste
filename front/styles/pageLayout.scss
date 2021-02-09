@@ -1,5 +1,7 @@
 @import './utils.scss';
 
+// applayout
+
 .container{
         margin:auto ;
         display:flex;
@@ -7,7 +9,7 @@
         align-items: center;
         width:98vw;
         height:98vh;
-        background-color : $pink;
+        background-color : $mainColor;
         @include rounded;
 
         nav {
@@ -34,14 +36,37 @@
         }
         
         section{
-                background-color: $lightGray;
+                background-color: $backgroundWhite;
         }
         
         .main{
                 width:85%;              
                 height:95%;                
-                background-color:white;
+               
                 @include rounded;
         }
 }
 
+// index.js
+.Dashboard{
+    
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .login-section{        
+        padding: $padding-normal;
+        width: 100%;
+        height: 100%;
+        flex-basis:30%;
+        background-color: aliceblue;
+
+    }
+
+    .dashboard-section{
+        padding: $padding-normal;        
+        width: 100%;
+        height: 100%;
+        flex-basis:70%;
+    }
+}
