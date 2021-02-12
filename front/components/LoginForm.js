@@ -1,7 +1,7 @@
 import '../styles/pageLayout.scss'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers';
+import { login } from '../store/loginReducer';
 
 const LoginForm = ()=>{
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const LoginForm = ()=>{
   };
 
   const onFinish = (values) => {
-      dispatch(loginAction(values))
+      dispatch(login(values))
   };
 
   const onFinishFailed = (errorInfo) => {

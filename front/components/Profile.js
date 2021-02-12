@@ -2,11 +2,12 @@ import { Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../reducers';
 import '../styles/pageLayout.scss'
+import { logout } from '../store/loginReducer';
 
 const Profile = ()=>{
     const dispatch = useDispatch();
     const onClickLogoutBtn = ()=>{
-      dispatch(logoutAction())
+      dispatch(logout())
     }
     return (
       <div className="login-section">
