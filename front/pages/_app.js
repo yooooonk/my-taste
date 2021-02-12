@@ -3,7 +3,8 @@ import '../styles/utils.scss'
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
 import 'antd/dist/antd.css';
-import wrapper from '../store/configureStore';
+import wrapper from '../modules/index';
+import withReduxSaga from 'next-redux-saga'
 
 const App = ({Component})=>{
     return(
@@ -26,4 +27,4 @@ App.propTypes = {
 
 
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(withReduxSaga(App));

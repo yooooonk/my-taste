@@ -1,16 +1,19 @@
 import { Input, Space } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { bookSearchRequest } from '../modules/book';
+
 
 const { Search } = Input;
 
 const SearchBar = ()=>{
-    const onSearch = ()=>{
-
+    const dispatch = useDispatch();
+    const onSearch = (value)=>{
+        dispatch(bookSearchRequest(value));
     }
 
     return (
       <div className="SearchBar">
-        <input type="text" className="searchInput"/>
+        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
       </div>
     );
 };
