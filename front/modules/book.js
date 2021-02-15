@@ -23,10 +23,8 @@ const book = createReducer(initialState,{
         state.bookSearchSuccess=false;
         state.bookSearchError=null;
     },
-    [bookSearchSuccess]:(state,action)=>{
-        state.isLoggedIn = true;
-        state.user = action.data;
-        
+    [bookSearchSuccess]:(state,{payload})=>{
+        state.bookSearchList = payload.searchResult;        
         state.bookSearchRequest=false;
         state.bookSearchSuccess=true;
         
@@ -46,13 +44,16 @@ function* watchSearchBook(){
 }
 
 function* searchBook({payload}){
-    console.log('검색어',payload)
+    
     try{        
         const result = yield call(bookAPI.getBookList, payload); //동기
-        yield put(bookSearchSuccess(result.data))
+        
+        yield put(bookSearchSuccess({searchResult:result.data.documents}));
+        
     }catch(err){
         console.error(err)
-        yield put(bookSearchFailure(err.response.data))
+        yield put(bookSearchFailure(err.response))
+        //yield put(bookSearchFailure(err.response.data))
     }
 }
 

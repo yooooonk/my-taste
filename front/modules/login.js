@@ -29,7 +29,7 @@ const user = createReducer(initialState,{
     [loginRequest]:(state,action)=>{        
         state.loginRequest=true;
         state.loginSuccess=false;
-        state.loginError=null;
+        stat,e.loginError=null;
     },
     [loginSuccess]:(state,action)=>{
         state.isLoggedIn = true;

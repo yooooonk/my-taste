@@ -7,35 +7,91 @@
     height: 100%;    
     background-size:contain;
     @include rounded;
+    background-color: $backgroundWhite;
     
     .SearchBar{
         position: fixed;        
         background-color: yellow;
+        width: 100%;
 
-        .searchInput{
-            border-color: pink;
+        input{
+            position: absolute;            
+            left: 20%;
+            top:10px;
+            height: 35px;
+            width: 40vw;
+            background-color: white;
+            padding-left: 5%;            
+            @include rounded;
+            box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
         }
 
-        &:focus{
-            border-color: none;
-        }
-        
+        .icon{
+            position: absolute;
+            top:20px;
+            left: 22%;
+            color: rgb(177, 177, 177);
+            z-index: 1;
+            cursor: pointer;
+            
+        }        
     }
     
-    .BookDetail{
-        
+    .BookDetail{        
         height: 100%;
         flex-basis : 60%;
         border-top-left-radius: $radius;   
         border-bottom-left-radius: $radius;   
     }
     
-    .BookSearchList{
+    .BookSearchList{        
+        
         background-color: $pageRightSideColor;
         flex-basis : 40%;
         border-top-right-radius: $radius;
         border-bottom-right-radius: $radius;
+        padding: 50px 0 0 0;
+        overflow-y: scroll;
+
+        .BookCard{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+            height: 120px;
+            margin: 10px auto;
+            padding: 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:hover{
+                background-color: $backgroundWhite;
+            }
+
+            img{
+                height: 90%;
+                border-radius: 10px;
+            }
+
+            .content{
+                width: 70%;
+                display: flex;
+                flex-direction: column;
+                span{                    
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .title{
+                    font-size: large;
+                }
+                
+            }
+        }
         
+       
     }
     
 }

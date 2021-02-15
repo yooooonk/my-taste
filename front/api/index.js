@@ -2,8 +2,11 @@ import axios from 'axios';
 
 //axios.defaults.baseURL
 //axios.defaults.withCredentials = true;
-axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
+//axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+//axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'; 
+
+const openApi = axios.create();
+const token = `KakaoAK 08f47c215f89ea20492b07610fc231dc`
 
 export const loginAPI = {
     login : function(data){
@@ -14,6 +17,16 @@ export const loginAPI = {
 
 export const bookAPI = {
     getBookList : function(keyword){
-        return axios.get(`https://openapi.naver.com/v1/search/book.json?query=${keyword}`)
+        
+        return openApi.get('https://dapi.kakao.com/v3/search/book',{
+            params: {
+                query: keyword,
+                page:1
+                
+            },
+            headers: {                
+                Authorization: token
+            }}
+        )
     }
 }
