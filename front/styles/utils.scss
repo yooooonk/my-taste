@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Do+Hyeon&family=Jua&family=Noto+Serif+KR:wght@500&family=Fredoka+One&display=swap');
 
 $mainColor:rgb(255, 82, 82);
 $pageRightSideColor : rgb(255, 242, 242);
 $lightGray : rgb(241, 241, 241);
+$middleGray:rgb(150, 150, 150);
+$gray:rgb(88, 88, 88);
 $backgroundWhite : rgb(255, 255, 255);
 
 $padding-normal : 3vh;
@@ -10,11 +12,21 @@ $padding-normal : 3vh;
 
 
 $titleFont: 'Fredoka One';
+$dohyeon : 'Do Hyeon', sans-serif;
+$jua : 'Jua', sans-serif;
+$noto : 'Noto Serif KR', serif; 
+
+
 $radius : 2em;
 
 @mixin rounded{
     border-radius: 2em;
 }
 
-input:focus { outline: none; }
+input:focus, button:focus { outline: none; }
 input {border:none}
+body {
+    
+    font-family: $noto;
+    color: $gray
+}

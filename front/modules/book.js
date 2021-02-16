@@ -7,7 +7,9 @@ export const initialState = {
     bookSearchRequest:false,
     bookSearchSuccess:false,
     bookSearchError:null,
-    bookSearchList:[]
+    bookSearchList:[],
+    detailBook:null,
+    selectedCard:null
 };
 
 const BOOK_SEARCH_REQUEST = 'BOOK_SEARCH_REQUEST';
@@ -16,6 +18,8 @@ export const bookSearchRequest = createAction(BOOK_SEARCH_REQUEST);
 export const bookSearchSuccess = createAction("BOOK_SEARCH_SUCCESS");
 export const bookSearchFailure = createAction("BOOK_SEARCH_FAILURE");
 
+export const setDetailBook = createAction("SET_DETAIL_BOOK");
+export const setSelectedCard = createAction("SET_SELECTED_CARD");
 
 const book = createReducer(initialState,{    
     [bookSearchRequest]:(state,action)=>{        
@@ -33,6 +37,12 @@ const book = createReducer(initialState,{
         state.bookSearchRequest=false;        
         state.bookSearchError=action.error;
     },
+    [setDetailBook]:(state,{payload})=>{        
+        state.detailBook = payload    
+    },
+    [setSelectedCard]:(state,{payload})=>{
+        state.selectedCard = payload
+    }
    
 })
 

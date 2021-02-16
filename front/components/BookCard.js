@@ -1,10 +1,30 @@
 import propTypes from 'prop-types';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDetailBook, setSelectedCard } from '../modules/book';
+import styles from "../styles/bookSearch.scss";
 
 const BookCard = ({book})=>{
+    const dispatch = useDispatch();
+    const {selectedCard} = useSelector((state)=>state.book)
+    let card = null;    
     
+    const onClickBookCard = useCallback(()=>{      
+      dispatch(setDetailBook(book))
+      changeCardStyle()      
+    })
+
+    const changeCardStyle = useCallback(()=>{
+      
+      if(selectedCard){
+        selectedCard.classList.toggle('selected')}
+      card.classList.toggle('selected')
+      
+      dispatch(setSelectedCard(card))
+    })
 
     return (
-      <div className="BookCard">
+      <div className="BookCard" onClick={onClickBookCard} ref={ref=>{card = ref}}>
         <img src={book.thumbnail} />
         <div className="content">
             <span className="title">{book.title}</span> 

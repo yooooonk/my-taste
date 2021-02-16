@@ -29,7 +29,7 @@ const user = createReducer(initialState,{
     [loginRequest]:(state,action)=>{        
         state.loginRequest=true;
         state.loginSuccess=false;
-        stat,e.loginError=null;
+        state.loginError=null;
     },
     [loginSuccess]:(state,action)=>{
         state.isLoggedIn = true;
@@ -48,14 +48,14 @@ const user = createReducer(initialState,{
         state.logoutSuccess=false;
         state.logoutError=null;
     },
-    [loginSuccess]:(state,action)=>{
-        state.isLoggedIn = true;
-        state.user = action.data  
+    [logoutSuccess]:(state,action)=>{
+        state.isLoggedIn = false;
+        state.user = null; 
         
         state.logoutRequest=false;
         state.logoutSuccess=true;
     },
-    [loginFailure]:(state,action)=>{
+    [logoutFailure]:(state,action)=>{
         state.looutnRequest=false;        
         state.logoutError=action.error;
     },
@@ -79,13 +79,14 @@ function* login({payload}){
 }
 
 function* watchLogout(){    
-    yield take(LOGOUT_REQUEST, logout)
+    yield takeLatest(LOGOUT_REQUEST, logout)
 }
 
 function* logout({payload}){      
     try{
         //const result = yield call(loginAPI.login, action.data); //동기
-        yield put(logoutSuccess(result.data))
+        
+        yield put(logoutSuccess())
     }catch(err){
         console.error(err)
         yield put(logoutFailure(err.response.data))
