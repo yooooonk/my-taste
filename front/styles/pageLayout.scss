@@ -50,16 +50,17 @@
 // index.js
 .Dashboard{
     
-    display: flex;
+    display: flex;    
     width: 100%;
     height: 100%;
 
-    .login-section{        
+    .login-section{    
+        display: flex;    
+        justify-content: center;
         padding: $padding-normal;
         width: 100%;
         height: 100%;
         flex-basis:30%;
-        background-color: aliceblue;
 
     }
 

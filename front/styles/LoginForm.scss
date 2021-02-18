@@ -1,4 +1,49 @@
-.login-form{
+@import '../styles/utils.scss';
+
+.login-section-box{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    background-color: white;    
+    width: 80%;
+    height: 80%;
+    @include rounded;
+    
+    .avatar{
+        margin: 5vh 0;
+    }
+
+    span{
+        color: white;
+        background-color:pink;
+    }
+
+    .login-text{
+        display: inline-block;
+        background-color: rgb(255, 255, 255);
+        color: gray;
+        font-family: $dohyeon;
+    }
+
+    input{
+        margin: 1vh 0;
+        border-bottom: 2px dashed pink;
+        width: 70%;
+    }
+
+    .button-box{
+        display: flex;
+        justify-content: center;
+        
+        width: 100%;
+        button{
+            @include button-style;
+            width: 5vw;  
+            margin: 3%;      
+            font-size: 13px;                  
+
+        }
+    }
+    
+    
 }

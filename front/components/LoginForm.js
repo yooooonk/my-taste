@@ -1,61 +1,47 @@
-import '../styles/pageLayout.scss'
-import { Form, Input, Button, Checkbox } from 'antd';
+import '../styles/LoginForm.scss'
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../modules/login';
+import useInput from '../hooks/useInput';
+import { useCallback } from 'react';
 
 const LoginForm = ()=>{
   const dispatch = useDispatch();
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
+  
+  const [id,onChangeId] = useInput('')
+  const [pw,onChangePw] = useInput('')
+  
+  const idErrorMsg = 'ID를 입력해주세요'
+  const pwErrorMsg = '비밀번호를 입력해주세요'
+
+  let idError = false;
+  let pwError = false;
+
+  const login = () => {  
+        if(id && pw){
+      dispatch(loginRequest({id:id, pw:pw}))
+    }
   };
 
-  const onFinish = (values) => {
-      dispatch(loginRequest(values))
-  };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onEnter = useCallback((e)=>{    
+    if(e.code === 'Enter'){
+      login()
+    }      
+  },[id,pw])
 
     return (
-      <div className="login-form">
-        <Form
-      {...layout}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      <div className="login-section-box">
+          <div className="avatar"><Avatar size={200} icon={<UserOutlined />} /></div>
+          <span className="login-text">아이디</span>           
+          <input type="text" onChange={onChangeId} maxLength="20"></input>          
+          <span className="login-text">비밀번호</span>           
+          <input type="password"  onChange={onChangePw} onKeyPress={onEnter} maxLength="30"></input>          
+          <div className="button-box">
+              <button>회원가입</button>
+              <button onClick={login}>로그인</button>
+          </div> 
       </div>
     );
 };
