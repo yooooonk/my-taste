@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { loginRequest } from '../modules/login';
 import useInput from '../hooks/useInput';
 import { useCallback } from 'react';
+import Link from 'next/Link';
+                
 
 const LoginForm = ()=>{
   const dispatch = useDispatch();
@@ -36,10 +38,13 @@ const LoginForm = ()=>{
           <div className="avatar"><Avatar size={100} icon={<UserOutlined />} /></div>
           <span className="login-text">아이디</span>           
           <input type="text" onChange={onChangeId} maxLength="20"></input>          
-          <span className="login-text">비밀번호호호</span>           
+          <span className="login-text">비밀번호</span>           
           <input type="password"  onChange={onChangePw} onKeyPress={onEnter} maxLength="30"></input>          
           <div className="button-box">
-              <button>회원가입</button>
+                <Link href="/signup">
+                    <a><button>회원가입</button></a>
+                </Link>
+              
               <button onClick={login}>로그인</button>
           </div> 
       </div>

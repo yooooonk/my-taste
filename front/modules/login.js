@@ -10,12 +10,16 @@ export const initialState = {
     logoutRequest:false,
     logoutSuccess:false,
     logoutError:null,
+    signUpRequest:false,
+    signUpSuccess:false,
+    signUpError:null,
     isLoggedIn : false,
     user:null
 };
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 
 export const loginRequest = createAction(LOGIN_REQUEST);
 export const loginSuccess = createAction("LOGIN_SUCCESS");
@@ -24,6 +28,10 @@ export const loginFailure = createAction("LOGIN_FAILURE");
 export const logoutRequest = createAction(LOGOUT_REQUEST)
 export const logoutSuccess = createAction("LOGOUT_SUCCESS")
 export const logoutFailure = createAction("LOGOUT_FAILURE")
+
+export const signUpRequest = createAction(SIGN_UP_REQUEST)
+export const signUpSuccess = createAction("SIGN_UP_SUCCESS")
+export const signUpFailure = createAction("SIGN_UP_FAILURE")
 
 const user = createReducer(initialState,{    
     [loginRequest]:(state,action)=>{        
@@ -59,6 +67,19 @@ const user = createReducer(initialState,{
         state.looutnRequest=false;        
         state.logoutError=action.error;
     },
+    [signUpRequest]:(state,action)=>{        
+        state.signUpRequest=true;
+        state.signUpSuccess=false;
+        state.signUpError=null;
+    },
+    [signUpSuccess]:(state,action)=>{               
+        state.signUpRequest=false;
+        state.signUpSuccess=true;
+    },
+    [signUpFailure]:(state,action)=>{
+        state.signUpRequest=false;        
+        state.signUpError=action.error;
+    },
 })
 
 
@@ -93,11 +114,26 @@ function* logout({payload}){
     }
 }
 
+function* watchSignUp(){    
+    yield takeLatest(SIGN_UP_REQUEST, signUp)
+}
+
+function* signUp({payload}){      
+    try{        
+        const result = yield call(loginAPI.signup, payload); //동기
+        
+        //yield put(signUpSuccess())
+    }catch(err){
+        console.error(err)
+        //yield put(signUpFailure(err.response.data))
+    }
+}
 
 export function* loginSaga(){
     yield all([
         fork(watchLogin),
-        fork(watchLogout)
+        fork(watchLogout),
+        fork(watchSignUp)
     ])
 }
 

@@ -30,8 +30,7 @@ $shadow: 2px 2px 10px 1px ;
      
 }
 
-@mixin button-style{
-            
+@mixin button-style{            
         border: $mainColor 1px solid;
         border-radius: 20px;
         background-color: white;
@@ -43,15 +42,27 @@ $shadow: 2px 2px 10px 1px ;
         &:hover{
             background-color: $mainColor;
             color: white;
-        }
-    
+        }    
 }
 
 input:focus, button:focus { outline: none; }
 input {border:none}
-body {
-    
+body {    
     font-family: $noto;
     color: $gray
 }
 
+button{
+    border: $mainColor 1px solid;
+        border-radius: 20px;
+        background-color: white;
+        font-size: 1.1vw;
+        font-family: $jua;
+        text-align: center;
+        color: $mainColor;
+        cursor: pointer;
+        &:hover{
+            background-color: $mainColor;
+            color: white;
+        }    
+}
