@@ -33,10 +33,10 @@ const LoginForm = ()=>{
 
     return (
       <div className="login-section-box">
-          <div className="avatar"><Avatar size={200} icon={<UserOutlined />} /></div>
+          <div className="avatar"><Avatar size={100} icon={<UserOutlined />} /></div>
           <span className="login-text">아이디</span>           
           <input type="text" onChange={onChangeId} maxLength="20"></input>          
-          <span className="login-text">비밀번호</span>           
+          <span className="login-text">비밀번호호호</span>           
           <input type="password"  onChange={onChangePw} onKeyPress={onEnter} maxLength="30"></input>          
           <div className="button-box">
               <button>회원가입</button>
