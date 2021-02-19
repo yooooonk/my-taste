@@ -14,8 +14,11 @@ export const loginAPI = {
         return data
         //return axios.post('/api/login')
     },
-    signup : function(data){                
+    signup : function(data){                        
         return axios.post('/user/signup',data)
+    },
+    checkIdMultiple : function(data){        
+        return axios.post('/user/checkIdMultiple',data)
     }
 }
 

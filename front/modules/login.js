@@ -12,7 +12,10 @@ export const initialState = {
     logoutError:null,
     signUpRequest:false,
     signUpSuccess:false,
-    signUpError:null,
+    signUpError:null,  
+    checkIdMultipleRequest:false,
+    checkIdMultipleSuccess:false,
+    checkIdMultipleError:null,     
     isLoggedIn : false,
     user:null
 };
@@ -20,6 +23,8 @@ export const initialState = {
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+const CHECK_ID_MULTIPLE_REQUEST = 'CHECK_ID_MULTIPLE_REQUEST';
+const RESET_SIGN_UP_STATE = "RESET_SIGN_UP_STATE"
 
 export const loginRequest = createAction(LOGIN_REQUEST);
 export const loginSuccess = createAction("LOGIN_SUCCESS");
@@ -33,6 +38,11 @@ export const signUpRequest = createAction(SIGN_UP_REQUEST)
 export const signUpSuccess = createAction("SIGN_UP_SUCCESS")
 export const signUpFailure = createAction("SIGN_UP_FAILURE")
 
+export const checkIdMultipleRequest = createAction(CHECK_ID_MULTIPLE_REQUEST)
+export const checkIdMultipleSuccess = createAction("CHECK_ID_MULTIPLE_SUCCESS")
+export const checkIdMultipleFailure = createAction("CHECK_ID_MULTIPLE_FAILURE")
+
+export const resetSignupState = createAction("RESET_SIGN_UP_STATE")
 const user = createReducer(initialState,{    
     [loginRequest]:(state,action)=>{        
         state.loginRequest=true;
@@ -76,10 +86,31 @@ const user = createReducer(initialState,{
         state.signUpRequest=false;
         state.signUpSuccess=true;
     },
-    [signUpFailure]:(state,action)=>{
+    [signUpFailure]:(state,action)=>{        
         state.signUpRequest=false;        
-        state.signUpError=action.error;
+        state.signUpError=action.payload.errorMsg;
     },
+    [checkIdMultipleRequest]:(state,action)=>{        
+        state.checkIdMultipleRequest=true;
+        state.checkIdMultipleSuccess=false;
+        state.checkIdMultipleError=null;
+    },
+    [checkIdMultipleSuccess]:(state,action)=>{               
+        state.checkIdMultipleRequest=false;
+        state.checkIdMultipleSuccess=true;
+    },
+    [checkIdMultipleFailure]:(state,action)=>{        
+        state.checkIdMultipleRequest=false;        
+        state.checkIdMultipleError=action.payload.errorMsg;
+    },
+    [resetSignupState]:(state,action)=>{
+        state.signUpRequest=false
+        state.signUpSuccess=false
+        state.signUpError=null
+        state.checkIdMultipleRequest=false
+        state.checkIdMultipleSuccess=false
+        state.checkIdMultipleError=null
+    }
 })
 
 
@@ -91,7 +122,7 @@ function* watchLogin(){
 function* login({payload}){
     
     try{        
-        const result = yield call(loginAPI.login, payload); //동기
+        const result = yield call(loginAPI.login, payload); 
         yield put(loginSuccess(result.data))
     }catch(err){
         console.error(err)
@@ -120,12 +151,25 @@ function* watchSignUp(){
 
 function* signUp({payload}){      
     try{        
-        const result = yield call(loginAPI.signup, payload); //동기
-        
-        //yield put(signUpSuccess())
-    }catch(err){
-        console.error(err)
-        //yield put(signUpFailure(err.response.data))
+        const result = yield call(loginAPI.signup, payload); //동기        
+        yield put(signUpSuccess())
+    }catch(err){   
+        console.error(err.response.data)
+        yield put(signUpFailure(err.response.data))
+    }
+}
+
+function* watchCheckIdMultiple(){    
+    yield takeLatest(CHECK_ID_MULTIPLE_REQUEST, checkIdMultiple)
+}
+
+function* checkIdMultiple({payload}){      
+    try{                
+        const result = yield call(loginAPI.checkIdMultiple, payload); //동기        
+        yield put(checkIdMultipleSuccess(result))
+    }catch(err){   
+        console.error(err.response.data)
+        yield put(checkIdMultipleFailure(err.response.data))
     }
 }
 
@@ -133,7 +177,9 @@ export function* loginSaga(){
     yield all([
         fork(watchLogin),
         fork(watchLogout),
-        fork(watchSignUp)
+        fork(watchSignUp),
+        fork(watchCheckIdMultiple),
+      
     ])
 }
 

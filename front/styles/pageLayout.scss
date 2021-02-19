@@ -41,8 +41,10 @@
         
         .main{
                 width:85%;              
-                height:95%;                
-               
+                height:95%; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 @include rounded;
         }
 }
