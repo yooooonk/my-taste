@@ -57,9 +57,9 @@ const user = createReducer(initialState,{
         state.loginSuccess=true;
         
     },
-    [loginFailure]:(state,action)=>{
+    [loginFailure]:(state,action)=>{        
         state.loginRequest=false;        
-        state.loginError=action.error;
+        state.loginError=action.payload;
     },
     [logoutRequest]:(state)=>{
         state.logoutRequest=true;
@@ -74,6 +74,7 @@ const user = createReducer(initialState,{
         state.logoutSuccess=true;
     },
     [logoutFailure]:(state,action)=>{
+        
         state.looutnRequest=false;        
         state.logoutError=action.error;
     },
@@ -90,7 +91,7 @@ const user = createReducer(initialState,{
         state.signUpRequest=false;        
         state.signUpError=action.payload.errorMsg;
     },
-    [checkIdMultipleRequest]:(state,action)=>{        
+    [checkIdMultipleRequest]:(state,action)=>{                
         state.checkIdMultipleRequest=true;
         state.checkIdMultipleSuccess=false;
         state.checkIdMultipleError=null;
@@ -136,7 +137,7 @@ function* watchLogout(){
 
 function* logout({payload}){      
     try{
-        //const result = yield call(loginAPI.login, action.data); //동기
+        const result = yield call(loginAPI.logout); //동기
         
         yield put(logoutSuccess())
     }catch(err){
@@ -168,7 +169,7 @@ function* checkIdMultiple({payload}){
         const result = yield call(loginAPI.checkIdMultiple, payload); //동기        
         yield put(checkIdMultipleSuccess(result))
     }catch(err){   
-        console.error(err.response.data)
+        console.error(err)
         yield put(checkIdMultipleFailure(err.response.data))
     }
 }

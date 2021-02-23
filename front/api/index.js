@@ -10,9 +10,11 @@ const openApi = axios.create();
 const token = `KakaoAK 08f47c215f89ea20492b07610fc231dc`
 
 export const loginAPI = {
-    login : function(data){
-        return data
-        //return axios.post('/api/login')
+    login : function(data){        
+        return axios.post('/user/login',data)
+    },
+    logout: function(){        
+        return axios.post('/user/logout')
     },
     signup : function(data){                        
         return axios.post('/user/signup',data)

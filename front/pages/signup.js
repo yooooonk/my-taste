@@ -32,7 +32,7 @@ const Signup = ()=>{
             return;
         }     
         
-        dispatch(checkIdMultipleRequest({id}))
+        dispatch(checkIdMultipleRequest({id}))        
         setIdMsg('')
                
     })

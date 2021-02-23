@@ -26,9 +26,16 @@
     }
 
     input{
-        margin: 1vh 0;
+        margin-bottom:20px;
         border-bottom: $input-bottom;
         width: 70%;
+    }
+
+    .error-msg{        
+        background-color: transparent;
+        color: rgb(255, 138, 157);                               
+        font-size: small;
+        margin-bottom: 15px;        
     }
 
     .button-box{

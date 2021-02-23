@@ -1,28 +1,24 @@
 import '../styles/LoginForm.scss'
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../modules/login';
 import useInput from '../hooks/useInput';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/Link';
                 
 
 const LoginForm = ()=>{
+  const {loginError} = useSelector(state=>state.user);
   const dispatch = useDispatch();
   
   const [id,onChangeId] = useInput('')
   const [pw,onChangePw] = useInput('')
-  
-  const idErrorMsg = 'ID를 입력해주세요'
-  const pwErrorMsg = '비밀번호를 입력해주세요'
-
-  let idError = false;
-  let pwError = false;
-
+  const [errorMsg,setErrorMsg] = useState('');
+    
   const login = () => {  
         if(id && pw){
-      dispatch(loginRequest({id:id, pw:pw}))
+      dispatch(loginRequest({id, pw}))
     }
   };
 
@@ -33,6 +29,12 @@ const LoginForm = ()=>{
     }      
   },[id,pw])
 
+  useEffect(()=>{
+    if(loginError){
+        setErrorMsg(loginError)   
+    }
+  },[loginError])
+
     return (
       <div className="login-section-box">
           <div className="avatar"><Avatar size={100} icon={<UserOutlined />} /></div>
@@ -40,6 +42,7 @@ const LoginForm = ()=>{
           <input type="text" onChange={onChangeId} maxLength="20"></input>          
           <span className="login-text">비밀번호</span>           
           <input type="password"  onChange={onChangePw} onKeyPress={onEnter} maxLength="30"></input>          
+          <span className="error-msg">{errorMsg}</span>
           <div className="button-box">
                 <Link href="/signup">
                     <a><button>회원가입</button></a>
