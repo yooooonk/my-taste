@@ -2,9 +2,9 @@ const bookBasket = require('../model/bookBasket')
 
 exports.likeBook = async(req,res,next)=>{
     try {
-        const book = req.body.detailBook
+        const book = req.body
         const addedBook = await bookBasket.create({
-            email:req.body.email,
+            email:req.user.email,
             title:book.title,
             url:book.url,
             authors:book.authors[0],
@@ -22,7 +22,9 @@ exports.likeBook = async(req,res,next)=>{
 
 exports.unlikeBook = async(req,res,next)=>{
     try {
-        console.log('unlike',req.body)
+        await bookBasket.deleteOne({isbn:req.params.isbn}) 
+
+        res.status(200).send(req.params.isbn)
     } catch (error) {
         console.error(error)
         next(error);

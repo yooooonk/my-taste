@@ -1,33 +1,31 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart, FaPencilAlt } from "react-icons/fa"; 
 import { bookLikeRequest, bookUnlikeRequest } from "../modules/book";
 const BookDetail = ()=>{
     const {detailBook,bookBasket} = useSelector((state)=>state.book)
-    const {email}  = useSelector((state)=>state.user.user)
+    
     const dispatch = useDispatch();
     
     const authors = `${detailBook.authors[0]} ${detailBook.authors.length>2? '외': ''}`
     const status = `${detailBook.status? '': '절판'}`
     
     const liked = bookBasket.find((v)=> v.isbn === detailBook.isbn);
-
+    
     const onLike = useCallback(()=>{
       
-       dispatch(bookLikeRequest({email,detailBook}))
+       dispatch(bookLikeRequest(detailBook))
 
     })
 
-    const onUnlike = useCallback(()=>{
-      console.log('onclick unlike',detailBook.isbn)
-        dispatch(bookUnlikeRequest({isbn:detailBook.isbn}))
-        
+    const onUnlike = useCallback(()=>{      
+        dispatch(bookUnlikeRequest(detailBook.isbn))        
     })
 
     const onWrite = useCallback(()=>{
       console.log('기록하기')
-
     })
+
     return (
       
       <div className="BookDetail" >

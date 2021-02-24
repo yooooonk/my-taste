@@ -82,7 +82,10 @@ const book = createReducer(initialState,{
         state.bookUnlikeError=null;
     },
     [bookUnlikeSuccess]:(state,{payload})=>{
-        state.bookUnlikedList = payload.searchResult;        
+        const isbn = payload;
+        const basket = state.bookBasket
+        state.bookBasket = basket.filter((b)=>b.isbn !== isbn)
+        
         state.bookUnlikeRequest=false;
         state.bookUnlikeSuccess=true;        
     },
@@ -95,9 +98,9 @@ const book = createReducer(initialState,{
         state.getBookBasketSuccess=false;
         state.getBookBasketError=null;
     },
-    [getBookBasketSuccess]:(state,{payload})=>{
-        console.log('basket',payload)
-        //state.BookBasket = payload.searchResult;        
+    [getBookBasketSuccess]:(state,{payload})=>{        
+        
+        state.bookBasket = payload;        
         state.getBookBasketRequest=false;
         state.getBookBasketSuccess=true;        
     },
@@ -156,15 +159,15 @@ function* watchUnlikeBook(){
 }
 
 function* unlikeBook({payload}){
-    console.log(payload)
+    
     try{        
         const result = yield call(bookAPI.unlikeBook, payload); //동기
         
-        yield put(bookLikeSuccess());
+        yield put(bookUnlikeSuccess(result.data));
         
     }catch(err){
         console.error(err)
-        yield put(bookLikeFailure(err.response.data))        
+        yield put(bookUnikeFailure(err.response.data))        
     }
 }
 
@@ -177,7 +180,7 @@ function* getBookBasket(){
     try{        
         const result = yield call(bookAPI.getBookBasket); //동기
         
-        yield put(getBookBasketSuccess(result));
+        yield put(getBookBasketSuccess(result.data));
         
     }catch(err){
         console.error(err)

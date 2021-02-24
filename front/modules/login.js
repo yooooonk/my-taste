@@ -64,7 +64,6 @@ const user = createReducer(initialState,{
             state.isLoggedIn = true;
         }
         state.user = payload;
-        
         state.loadMyInfoRequest=false;
         state.loadMyInfoSuccess=true;
         

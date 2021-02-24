@@ -4,6 +4,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:3065';
 
 const openApi = axios.create();
+openApi.defaults.withCredentials=false;
 const token = `KakaoAK 08f47c215f89ea20492b07610fc231dc`
 
 export const loginAPI = {
@@ -42,7 +43,8 @@ export const bookAPI = {
         return axios.post('/book/like',data)
     },
     unlikeBook:function(data){
-        return axios.delete('/book/unlike',data)
+        
+        return axios.delete(`/book/unlike/${data}`)
     },
     getBookBasket:function(){
         return axios.get('/book/basket')
