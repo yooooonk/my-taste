@@ -15,24 +15,30 @@ var db = mongoose.connect(uri);
 dotenv.config();
 app.use(express.json())
 app.use(cors({
-    origin:'http://localhost:3000'    
+    origin:'http://localhost:3000',
+    credentials:true // 쿠키전달
 }))
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(session({ 
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(session({
     saveUninitialized:false,
     resave:false,
     secret:process.env.COOKIE_SECRET,
-    /* cookie:{
+    cookie:{
         secure:false
-    } */
+    }
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
+
+
 
 passportConfig();
 
 const userRoutes = require('./router/user')
 app.use('/user',userRoutes)  
+
+const bookRoutes = require('./router/book')
+app.use('/book',bookRoutes)  
 
 
 app.get('/',(req,res)=>{

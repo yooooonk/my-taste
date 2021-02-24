@@ -11,7 +11,7 @@ const App = ({Component})=>{
         <>
         <Head>
             <meta charSet="utf-8" />
-            <title>My BooooK</title>
+            <title>My Taste</title>
         </Head>
         <AppLayout>
             <Component />

@@ -2,6 +2,21 @@ const userModel = require('../model/user')
 const bcrypt = require('bcrypt')
 const passport = require('passport');
 
+exports.getUser = async(req,res,next)=>{
+    try {
+        if(req.user){
+            const user = await userModel.findById(req.user._id)
+            res.status(201).json(user);
+        }else{
+            res.status(200).json(null);
+        }
+        
+        
+    } catch (error) {
+        console.error(error)
+        next(error)
+    }
+}
 
 exports.signUp = async(req,res,next)=>{
     try{
@@ -50,18 +65,21 @@ exports.login = async(req,res,next)=>{
                     console.error(loginErr)
                     return next(loginErr)
                 }
-
-                return res.status(200).json(user);
+                
+                const userWithoutPW = await userModel.findById(user.id).select('_id email nickname');
+                
+                return res.status(200).json(userWithoutPW);
             })
         })(req,res,next);
 }
 
 exports.logout = async(req,res,next)=>{
     try {        
+        console.log('로그아웃',req.user)
         req.logout();
         req.session.destroy();
         res.status(200).send('ok')
     } catch (error) {
-        next(err)
+        next(error)
     }
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Do+Hyeon&family=Jua&family=Noto+Serif+KR:wght@500&family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji&family=Gothic+A1:wght@500&family=Do+Hyeon&family=Jua&family=Noto+Serif+KR:wght@500&family=Fredoka+One&display=swap');
 
 $mainColor:rgb(255, 82, 82);
 $pageRightSideColor : rgb(255, 242, 242);
@@ -13,11 +13,10 @@ $padding-normal : 3vh;
 $input-bottom:2px dashed pink;
 
 
-$titleFont: 'Fredoka One';
 $dohyeon : 'Do Hyeon', sans-serif;
 $jua : 'Jua', sans-serif;
 $noto : 'Noto Serif KR', serif; 
-
+$ballo : 'Baloo Paaji', cursive;
 
 $radius : 2em;
 
@@ -67,4 +66,8 @@ button{
             background-color: $mainColor;
             color: white;
         }    
+}
+
+.icon{
+    cursor: pointer;
 }

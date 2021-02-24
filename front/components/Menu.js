@@ -9,17 +9,17 @@ const Menu = ()=>{
             <ul>
             <li>
                 <Link href="/bookSearch">
-                    <a>책 검색</a>
+                    <a>Search</a>
                 </Link>
             </li>
             <li>
-                <Link href="/bookList">
-                    <a>담은 책 </a>
+                <Link href="/bookBasket">
+                    <a>Basket</a>
                 </Link>
             </li>
             <li>
                 <Link href="/bookPost">
-                    <a>기록</a>
+                    <a>Write</a>
                 </Link>
             </li>
             </ul>

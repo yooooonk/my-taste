@@ -1,15 +1,18 @@
 const mongoose = require('mongoose')
 const bookBasketSchema = new mongoose.Schema({
-    id:{
+    email:{
         type:String,
         required:true
     },
-    title:String,
+    title:{
+        type:String,
+        required:true
+    },
     url:String,
     authors:String,
-    publisher:String,
-    price:String,
+    publisher:String,    
     isbn:String,
+    thumbnail:String,
     date:{type:Date, default:Date.now}
 
 })

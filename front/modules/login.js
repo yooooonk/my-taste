@@ -4,6 +4,9 @@ import {all, call, fork, put, take, takeLatest} from 'redux-saga/effects'
 
 
 export const initialState = {    
+    loadMyInfoRequest:false,
+    loadMyInfoSuccess:false,
+    loadMyInfoError:null,  
     loginRequest:false,
     loginSuccess:false,
     loginError:null,
@@ -16,15 +19,20 @@ export const initialState = {
     checkIdMultipleRequest:false,
     checkIdMultipleSuccess:false,
     checkIdMultipleError:null,     
-    isLoggedIn : false,
+    isLoggedIn : false,    
     user:null
 };
 
+const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST'
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 const CHECK_ID_MULTIPLE_REQUEST = 'CHECK_ID_MULTIPLE_REQUEST';
 const RESET_SIGN_UP_STATE = "RESET_SIGN_UP_STATE"
+
+export const loadMyInfoRequest = createAction(LOAD_MY_INFO_REQUEST);
+export const loadMyInfoSuccess = createAction("LOAD_MY_INFO_SUCCESS");
+export const loadMyInfoFailure = createAction("LOAD_MY_INFO_FAILURE");
 
 export const loginRequest = createAction(LOGIN_REQUEST);
 export const loginSuccess = createAction("LOGIN_SUCCESS");
@@ -42,8 +50,29 @@ export const checkIdMultipleRequest = createAction(CHECK_ID_MULTIPLE_REQUEST)
 export const checkIdMultipleSuccess = createAction("CHECK_ID_MULTIPLE_SUCCESS")
 export const checkIdMultipleFailure = createAction("CHECK_ID_MULTIPLE_FAILURE")
 
-export const resetSignupState = createAction("RESET_SIGN_UP_STATE")
-const user = createReducer(initialState,{    
+export const resetSignupState = createAction(RESET_SIGN_UP_STATE)
+
+const user = createReducer(initialState,{   
+    [loadMyInfoRequest]:(state,action)=>{        
+        state.loadMyInfoRequest=true;
+        state.loadMyInfoSuccess=false;
+        state.loadMyInfoError=null;
+    },
+    [loadMyInfoSuccess]:(state,{payload})=>{
+        
+        if(payload){
+            state.isLoggedIn = true;
+        }
+        state.user = payload;
+        
+        state.loadMyInfoRequest=false;
+        state.loadMyInfoSuccess=true;
+        
+    },
+    [loadMyInfoFailure]:(state,action)=>{        
+        state.loadMyInfoRequest=false;        
+        state.loadMyInfoError=action.payload;
+    }, 
     [loginRequest]:(state,action)=>{        
         state.loginRequest=true;
         state.loginSuccess=false;
@@ -51,7 +80,7 @@ const user = createReducer(initialState,{
     },
     [loginSuccess]:(state,action)=>{
         state.isLoggedIn = true;
-        state.user = action.data;
+        state.user = action.payload;
         
         state.loginRequest=false;
         state.loginSuccess=true;
@@ -116,6 +145,22 @@ const user = createReducer(initialState,{
 
 
 //saga
+
+function* watchLoadMyInfo(){    
+    yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo)
+}
+
+function* loadMyInfo({payload}){
+    
+    try{        
+        const result = yield call(loginAPI.loadMyInfo);         
+        yield put(loadMyInfoSuccess(result.data))
+    }catch(err){
+        console.error(err)
+        yield put(loadMyInfoFailure(err.response.data))
+    }
+}
+
 function* watchLogin(){    
     yield takeLatest(LOGIN_REQUEST, login)
 }
@@ -124,7 +169,7 @@ function* login({payload}){
     
     try{        
         const result = yield call(loginAPI.login, payload); 
-        yield put(loginSuccess(result.data))
+        yield put(loginSuccess(result))
     }catch(err){
         console.error(err)
         yield put(loginFailure(err.response.data))
@@ -176,6 +221,7 @@ function* checkIdMultiple({payload}){
 
 export function* loginSaga(){
     yield all([
+        fork(watchLoadMyInfo),
         fork(watchLogin),
         fork(watchLogout),
         fork(watchSignUp),

@@ -13,7 +13,7 @@ const AppLayout = ({children})=>{
             <Link href="/">
               <a>
                 My <br />
-                BoooooK
+                Taste
               </a>
             </Link>
           </div>

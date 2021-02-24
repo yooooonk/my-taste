@@ -6,7 +6,7 @@
     align-items: center;
     background-color: white;    
     width: 80%;
-    height: 80%;
+    height: 100%;
     @include rounded;
     
     .avatar{
@@ -41,14 +41,18 @@
     .button-box{
         display: flex;
         justify-content: center;
-        
+        align-items: center;               
         width: 100%;
         button{
             @include button-style;
             width: 5vw;  
             margin: 3%;      
-            font-size: 13px;                  
+            font-size: 13px;
+        }
 
+        img{
+            width: 35px;
+            height: 35px;
         }
     }
     

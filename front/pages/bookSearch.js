@@ -8,7 +8,7 @@ import '../styles/bookSearch.scss'
 const BookSearch = ()=>{
     const {detailBook} = useSelector((state)=>state.book)
     return(
-        <div className="bookSearch">
+        <div className="book-search">
             <SearchBar />
             {detailBook? <BookDetail /> : <NoDetailBook />}
             <BookSearchList />

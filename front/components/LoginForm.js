@@ -6,7 +6,7 @@ import { loginRequest } from '../modules/login';
 import useInput from '../hooks/useInput';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/Link';
-                
+     
 
 const LoginForm = ()=>{
   const {loginError} = useSelector(state=>state.user);
@@ -48,8 +48,12 @@ const LoginForm = ()=>{
                     <a><button>회원가입</button></a>
                 </Link>
               
-              <button onClick={login}>로그인</button>
+              <button onClick={login}>로그인</button>              
           </div> 
+          <div className="button-box">
+            <img src="/kakao.png" />
+          </div>
+          
       </div>
     );
 };

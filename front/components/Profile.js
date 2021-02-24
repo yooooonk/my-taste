@@ -13,9 +13,9 @@ const Profile = ()=>{
     return (
       <div className="login-section-box">
         <div className="avatar"><Avatar size={100} icon={<UserOutlined />} /></div>
-        <Button type="primary" onClick={onClickLogoutBtn}>
-          로그아웃
-        </Button>
+        <div className="button-box">
+          <button onClick={onClickLogoutBtn}>로그아웃</button>                      
+        </div>
       </div>
     );
 };
