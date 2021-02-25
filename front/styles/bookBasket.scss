@@ -1,169 +1,92 @@
 @import '../styles/utils.scss';
 
 .book-basket{   
-    display: flex; 
+    display: flex;
+    justify-content: start;     
     margin: 0;    
     width: 100%;
     height: 100%;    
     background-size:contain;
     @include rounded;
     background-color: $backgroundWhite;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{ display:none; };
+    padding:3vh;
+    flex-wrap:wrap;
     
-    .SearchBar{
-        position: fixed;                
-        width: 100%;
-        
-        input{
-            position: absolute;            
-            left: 20%;
-            top:10px;
-            height: 50px;
-            width: 40vw;
-            background-color: white;
-            padding-left: 4%;            
-            @include rounded;
-            box-shadow: $shadow rgba(32, 32, 32, 0.329);         
-            font-size: 20px;
-        }
-
-        .icon{
-            position: relative;
-            top:27px;
-            left: 22%;
-            color: rgb(177, 177, 177);
-            z-index: 1;
-            cursor: pointer;
-            
-        }        
-    }
-    
-    .BookDetail{                   
+    .no-result{                
         display: flex;
-        flex-direction: column;                     
-        justify-content: center;  
-        align-items: center;      
-        flex-basis : 60%;
-        border-top-left-radius: $radius;   
-        border-bottom-left-radius: $radius;           
-        
-        .bookInfo{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;                            
-            width: 90%;
-            img{
-                width: 30%;                
-                border-radius: 20px;
-                box-shadow: $shadow rgba(255, 99, 99, 0.2);
-            }
-
-            .bookInfo-content{                
-                width: 50%;
-
-                div{
-                    margin: 1vh 0;
-                }
-                
-                .title{
-                    font-size: 2.3vw;
-                    line-height:2.5vw;
-                    font-family: $dohyeon;
-                }
-
-                .author{
-                    font-size: 1.2vw;
-                    color: $middleGray;
-                }
-
-                .description{
-                    a{
-                        color: $mainColor;
-                    }
-                }
-
-                .price{
-                    span{
-                        display: inline-block;
-                        background-color: pink;
-                        color: white;
-                        border-radius: 15px;
-                        font-size: 10px;
-                        text-align: center;
-                        width: 40px;
-                    }
-                }
-                
-            }
-        }
-
-        .button-box{            
-            display: flex;                      
-            justify-content: center;
-            
-            button{
-                margin: 4vh 1vw;
-                width: 10vw;                
-                @include button-style
-            }
-            
-        }
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
-    
-    .BookSearchList{                
-        background-color: $pageRightSideColor;
-        flex-basis : 40%;
-        border-top-right-radius: $radius;
-        border-bottom-right-radius: $radius;
-        padding: 50px 0 0 0;
-        overflow-y: scroll;
-        -ms-overflow-style: none;
-        &::-webkit-scrollbar{ display:none; }
+
+    .basket-card{        
+        background-color: pink;         
+        margin: 1vw;
+        width: 150px;
+        height: 260px;
+        @include rounded;
         
-        .BookCard{
-            display: flex;            
+        a{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: space-around;
-            width: 80%;
-            height: 120px;
-            margin: 10px auto;
-            padding: 5px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: 0.3s;            
-
-            &:hover{
-                background-color: $backgroundWhite;
+            
+            
+            
+            img{                               
+                @include rounded;
+                width: 100%;
+                
             }
-
-            img{
-                height: 90%;
-                border-radius: 10px;
-            }
-
+            
             .content{
-                width: 70%;
-                display: flex;
-                flex-direction: column;
-                span{                    
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;                    
+                position: relative;
+                background-color: white;                      
+                color: black;                     
+                width: 90%;
+                top:-50px;
+                border-radius: 12px;
+                transition: .3s ease-in-out;
+                opacity: 0;
+
+                span{
+                    display: block;    
+                    overflow:hidden;   
+                    white-space:nowrap;
+                    text-overflow:ellipsis;                                 
                 }
 
                 .title{
                     font-size: large;
                     font-family: $dohyeon;
                 }
+            }            
+
+            &:hover .content{
+                opacity: 1;
+                transform: translateY(-10px);
+                
+            }
+        }
+        
+        .button-box{
+            display: flex;
+            position: relative;
+            top: -50px;
+            justify-content: space-around;
+
+            .icon{
+                color: white;
             }
         }
 
-        .selected{            
-            transform: translateX(-10%);
-            background-color: white;            
-        }
-        
-       
+    
     }
+
     
 }
 

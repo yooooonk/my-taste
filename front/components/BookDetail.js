@@ -39,7 +39,6 @@ const BookDetail = ()=>{
                     : <FaHeart className="icon unlike" onClick={onLike}/>}            
                   <FaPencilAlt className="icon penceil" onClick={onWrite} />
                   
-                  
               </div>  
           </div>          
           <div className="bookInfo-content">

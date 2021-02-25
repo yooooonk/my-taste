@@ -1,7 +1,8 @@
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as book from "../modules/book";
 import BookCard from "./BookCard";
-import NoSearchResult from './NoSearchResult'
+import NoResult from './NoResult.js'
 
 const BookSearchList = ()=>{
     const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const BookSearchList = ()=>{
       return <BookCard book={book} key={book.isbn} />
     })
 
-    const onScroll = (e)=>{
+    const onScroll = useCallback(e=>{
 
       const scrollPer = Math.floor(e.target.scrollTop/(e.target.scrollHeight-e.target.clientHeight)*100)
 
@@ -22,11 +23,11 @@ const BookSearchList = ()=>{
           dispatch(book.bookSearchRequest({page,keyword}))
         }
       }
-    }
+    })
 
     return (
       <div className="BookSearchList" onScroll={onScroll}  >        
-        { bookSearchList.length>0? mapToComponent : <NoSearchResult/>}
+        { bookSearchList.length>0? mapToComponent : <NoResult msg='검색결과가 없습니다. &#128166;' />}
       </div>
     );
 };

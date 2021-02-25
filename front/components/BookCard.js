@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDetailBook, setSelectedCard } from '../modules/book';
-import styles from "../styles/bookSearch.scss";
+
 
 const BookCard = ({book})=>{
     const dispatch = useDispatch();

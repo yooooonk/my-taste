@@ -37,6 +37,14 @@
         }        
     }
     
+    .no-result{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;            
+        flex-basis : 60%;
+    }
+
     .BookDetail{                   
         display: flex;
         flex-direction: column;                     
@@ -46,6 +54,7 @@
         border-top-left-radius: $radius;   
         border-bottom-left-radius: $radius;           
         
+
         .bookInfo{
             display: flex;
             justify-content: space-around;
@@ -192,12 +201,11 @@
             background-color: white;            
         }
 
-        .no-search-result{
+        .no-result{
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 92%;
-            
+            height: 92%;            
         }
         
        
