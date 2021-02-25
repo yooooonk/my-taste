@@ -29,7 +29,7 @@ const SearchBar = ()=>{
     return (
       <div className="SearchBar">
         {/* <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} /> */}
-        <FaSearch className="icon" onClick={onClickSearchBtn}/><input type="text" onKeyPress={onEnter} placeholder="검색할 책은 무엇인가요?" onChange={onChangeQuery}></input>
+        <FaSearch className="icon" onClick={onClickSearchBtn}/><input type="text" onKeyPress={onEnter} onChange={onChangeQuery}></input>
         
       </div>
     );

@@ -1,14 +1,12 @@
 const NoDetailBook = ()=>{
-
+    
+    
     return (
       <div className="BookDetail">
-        책을 검색해주세용
+        좋아하는 책을 검색해주세요 &#128151;
       </div>
     );
 };
 
-/* AppLayout.propTypes = {
-    children : propTypes.node.isRequired
-}; */
 
 export default NoDetailBook;

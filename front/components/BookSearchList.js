@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import book from "../modules/book";
 import BookCard from "./BookCard";
+import NoSearchResult from './NoSearchResult'
 
 const BookSearchList = ()=>{
     const {bookSearchList} = useSelector((state)=>state.book)
@@ -15,7 +16,7 @@ const BookSearchList = ()=>{
     return (
       <div className="BookSearchList">
         
-        {mapToComponent}
+        { bookSearchList.length>0? mapToComponent : <NoSearchResult/>}
       </div>
     );
 };

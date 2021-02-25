@@ -191,6 +191,14 @@
             transform: translateX(-10%);
             background-color: white;            
         }
+
+        .no-search-result{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 92%;
+            
+        }
         
        
     }
