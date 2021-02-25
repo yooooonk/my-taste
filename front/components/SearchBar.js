@@ -6,14 +6,13 @@ import '../styles/bookSearch.scss'
 import useInput from '../hooks/useInput';
 import { useCallback } from 'react';
 
-const { Search } = Input;
 
 const SearchBar = ()=>{
     const dispatch = useDispatch();
     const [query,onChangeQuery] = useInput('')
     
     const searchBook = (value)=>{
-        dispatch(bookSearchRequest(value));
+        dispatch(bookSearchRequest({page:1, keyword:value}));
     }
 
     const onEnter = useCallback((e)=>{
@@ -28,7 +27,7 @@ const SearchBar = ()=>{
 
     return (
       <div className="SearchBar">
-        {/* <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} /> */}
+        
         <FaSearch className="icon" onClick={onClickSearchBtn}/><input type="text" onKeyPress={onEnter} onChange={onChangeQuery}></input>
         
       </div>

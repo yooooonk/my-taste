@@ -11,6 +11,8 @@ export const initialState = {
     bookSearchRequest:false,
     bookSearchSuccess:false,
     bookSearchError:null,    
+    is_end:false,
+    keyword:null,
     getBookBasketRequest:false,
     getBookBasketSuccess:false,
     getBookBasketError:null,    
@@ -47,15 +49,28 @@ export const setDetailBook = createAction("SET_DETAIL_BOOK");
 export const setSelectedCard = createAction("SET_SELECTED_CARD");
 
 const book = createReducer(initialState,{    
-    [bookSearchRequest]:(state,action)=>{        
+    [bookSearchRequest]:(state,{payload})=>{     
+                   
         state.bookSearchRequest=true;
         state.bookSearchSuccess=false;
         state.bookSearchError=null;
+        state.is_end=false;
+        state.keyword=payload.keyword;
+        
     },
-    [bookSearchSuccess]:(state,{payload})=>{
-        state.bookSearchList = payload.searchResult;        
+    [bookSearchSuccess]:(state,{payload})=>{                
+        
         state.bookSearchRequest=false;
         state.bookSearchSuccess=true;        
+
+        if(payload.page===1){
+            state.bookSearchList = payload.searchResult;
+        }else{
+            const xList = state.bookSearchList
+            state.bookSearchList = xList.concat(payload.searchResult)
+        }
+        state.is_end = payload.is_end;
+        
     },
     [bookSearchFailure]:(state,action)=>{
         state.bookSearchRequest=false;        
@@ -128,12 +143,13 @@ function* searchBook({payload}){
     
     try{        
         const result = yield call(bookAPI.getBookList, payload); //동기        
-        yield put(bookSearchSuccess({searchResult:result.data.documents}));
+        
+        yield put(bookSearchSuccess({searchResult:result.data.documents,is_end:result.data.meta.is_end, page:payload.page}));
         
     }catch(err){
         console.error(err)
         yield put(bookSearchFailure(err.response))
-        //yield put(bookSearchFailure(err.response.data))
+        
     }
 }
 

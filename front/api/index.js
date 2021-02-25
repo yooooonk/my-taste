@@ -26,11 +26,12 @@ export const loginAPI = {
 }
 
 export const bookAPI = {
-    getBookList : function(keyword){        
+    getBookList : function(data){  
+        
         return openApi.get('https://dapi.kakao.com/v3/search/book',{
             params: {
-                query: keyword,
-                page:1
+                query: data.keyword,
+                page:data.page
                 
             },
             headers: {                
