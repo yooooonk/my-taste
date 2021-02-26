@@ -16,7 +16,7 @@ const SearchBar = ()=>{
     }
 
     const onEnter = useCallback((e)=>{
-      if(e.code === 'Enter'){
+      if(e.code === 'Enter' && query){
         searchBook(query)
       }      
     },[query])
@@ -26,7 +26,7 @@ const SearchBar = ()=>{
     },[query])
 
     return (
-      <div className="SearchBar">
+      <div className="search-bar">
         
         <FaSearch className="icon" onClick={onClickSearchBtn}/><input type="text" onKeyPress={onEnter} onChange={onChangeQuery}></input>
         

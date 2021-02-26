@@ -9,27 +9,27 @@
     @include rounded;
     background-color: $backgroundWhite;
     
-    .SearchBar{
+    .search-bar{
         position: fixed;                
         width: 100%;
         
         input{
             position: absolute;            
-            left: 20%;
+            left: 5%;
             top:10px;
-            height: 50px;
+            height: 40px;
             width: 40vw;
             background-color: white;
-            padding-left: 4%;            
+            padding-left: 5%;            
             @include rounded;
             box-shadow: $shadow rgba(32, 32, 32, 0.329);         
-            font-size: 20px;
+            font-size: 17px;
         }
 
         .icon{
             position: relative;
-            top:27px;
-            left: 22%;
+            top:21px;
+            left: 7%;
             color: rgb(177, 177, 177);
             z-index: 1;
             cursor: pointer;
