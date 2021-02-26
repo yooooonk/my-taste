@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
 const bookBasketSchema = new mongoose.Schema({
-    email:{
-        type:String,
-        required:true
-    },
+    email:{ type:String, required:true},
     title:{
         type:String,
         required:true
     },
+    isRead:{type:Boolean, default:false},
+    isWrite:{type:Boolean, default:false},
     url:String,
     authors:String,
     publisher:String,    

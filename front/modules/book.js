@@ -21,13 +21,17 @@ export const initialState = {
     bookLikeError:null,
     bookUnlikeRequest:false,
     bookUnlikeSuccess:false,
-    bookUnlikeError:null    
+    bookUnlikeError:null,    
+    updateBookStateRequest:false,
+    updateBookStateSuccess:false,
+    updateBookStateError:null,
 };
 
 const BOOK_SEARCH_REQUEST = 'BOOK_SEARCH_REQUEST';
 const BOOK_LIKE_REQUEST = 'BOOK_LIKE_REQUEST';
 const BOOK_UNLIKE_REQUEST = 'BOOK_UNLIKE_REQUEST';
 const GET_BOOK_BASKET_REQUEST = 'GET_BOOK_BASKET_REQUEST';
+const UPDATE_BOOK_STATE_REQUEST = 'UPDATE_BOOK_STATE_REQUEST';
 
 export const bookSearchRequest = createAction(BOOK_SEARCH_REQUEST);
 export const bookSearchSuccess = createAction("BOOK_SEARCH_SUCCESS");
@@ -44,6 +48,10 @@ export const bookUnlikeFailure = createAction("BOOK_UNLIKE_FAILURE");
 export const getBookBasketRequest = createAction(GET_BOOK_BASKET_REQUEST);
 export const getBookBasketSuccess = createAction("GET_BOOK_BASKET_SUCCESS");
 export const getBookBasketFailure = createAction("GET_BOOK_BASKET_FAILURE");
+
+export const updateBookStateRequest = createAction(UPDATE_BOOK_STATE_REQUEST);
+export const updateBookStateSuccess = createAction("UPDATE_BOOK_STATE_SUCCESS");
+export const updateBookStateFailure = createAction("UPDATE_BOOK_STATE_FAILURE");
 
 export const setDetailBook = createAction("SET_DETAIL_BOOK");
 export const setSelectedCard = createAction("SET_SELECTED_CARD");
@@ -99,6 +107,7 @@ const book = createReducer(initialState,{
     [bookUnlikeSuccess]:(state,{payload})=>{
         const isbn = payload;
         const basket = state.bookBasket
+        
         state.bookBasket = basket.filter((b)=>b.isbn !== isbn)
         
         state.bookUnlikeRequest=false;
@@ -123,6 +132,25 @@ const book = createReducer(initialState,{
         state.getBookBasketRequest=false;        
         state.getBookBasketError=action.error;
     },
+    [updateBookStateRequest]:(state,action)=>{        
+        state.updateBookStateRequest=true;
+        state.updateBookStateSuccess=false;
+        state.updateBookStateError=null;
+    },
+    [updateBookStateSuccess]:(state,{payload})=>{  
+        let temp = state.bookBasket;        
+        
+        temp.slice(temp.findIndex(v=>v._id===payload.id),1,payload.book);
+        console.log(payload.book)
+        state.bookBasket = temp;
+        
+        state.updateBookStateRequest=false;
+        state.updateBookStateSuccess=true;        
+    },
+    [updateBookStateFailure]:(state,action)=>{
+        state.updateBookStateRequest=false;        
+        state.updateBookStateError=action.error;
+    },    
     [setDetailBook]:(state,{payload})=>{        
         state.detailBook = payload    
     },
@@ -204,12 +232,30 @@ function* getBookBasket(){
     }
 }
 
+function* watchUpdateBookState(){        
+    yield takeLatest(UPDATE_BOOK_STATE_REQUEST, updateBookState)
+}
+
+function* updateBookState({payload}){
+    
+    try{        
+        const result = yield call(bookAPI.updateBookState,payload); //동기
+        
+        yield put(updateBookStateSuccess({id:payload.id,state:payload.state,book:result.data}));
+        
+    }catch(err){
+        console.error(err)
+        yield put(updateBookStateFailure(err.response.data))        
+    }
+}
+
 export function* bookSaga(){
     yield all([
         fork(watchSearchBook),       
         fork(watchLikeBook),       
         fork(watchUnlikeBook),       
         fork(watchGetBookBasket),       
+        fork(watchUpdateBookState),       
     ])
 }
 

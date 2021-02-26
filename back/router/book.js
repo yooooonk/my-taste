@@ -6,6 +6,7 @@ const {isLoggedIn, isNotLoggedIn} = require('./middlewares')
 router.post('/like',bookController.likeBook);
 router.delete('/unlike/:isbn',bookController.unlikeBook);
 router.get('/basket',isLoggedIn, bookController.getBookBasket);
+router.post('/update',isLoggedIn, bookController.updateBookState);
 
 
 

@@ -49,5 +49,8 @@ export const bookAPI = {
     },
     getBookBasket:function(){
         return axios.get('/book/basket')
+    },
+    updateBookState:function(data){
+        return axios.post('/book/update',data)
     }
 }

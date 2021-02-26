@@ -1,14 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDetailBook, setSelectedCard } from '../modules/book';
-import { FaPencilAlt,FaTrashAlt } from "react-icons/fa"; 
+import { bookUnlikeRequest, setDetailBook, setSelectedCard, updateBookStateRequest } from '../modules/book';
+import { FaPencilAlt,FaTrashAlt, FaBookOpen } from "react-icons/fa"; 
 
 const BasketCard = ({book})=>{
     const dispatch = useDispatch();
     const {selectedCard} = useSelector((state)=>state.book)
     let card = null;    
     
-  
+    
+    
     const changeCardStyle = useCallback(()=>{
       
       if(selectedCard){
@@ -26,7 +27,11 @@ const BasketCard = ({book})=>{
     })
 
     const onRemove = useCallback(e=>{
-        console.log('삭제',book.isbn)
+      dispatch(bookUnlikeRequest(book.isbn))        
+    })
+
+    const onRead = useCallback(e=>{
+      dispatch(updateBookStateRequest({id:book._id, state:'isRead'}))
     })
     return (
       <div className="basket-card" >
@@ -38,10 +43,11 @@ const BasketCard = ({book})=>{
                     <span className="author">{book.authors}</span> 
                     <span className="publisher">{book.publisher}</span>       
                 </div>
-          </a>
-        
+          </a>        
         <div className="button-box">
-            <FaPencilAlt className="icon penceil" onClick={onWrite} />
+          {book.isRead? <FaBookOpen className="icon can done" onClick={onRead}/>:<FaBookOpen className="icon can" onClick={onRead}/>}
+          {book.isWrite? <FaPencilAlt className="icon penceil done" onClick={onWrite} /> :<FaPencilAlt className="icon penceil" onClick={onWrite} />}  
+            
             <FaTrashAlt className="icon can" onClick={onRemove} />
         </div> 
         

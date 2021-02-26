@@ -12,11 +12,13 @@ const LoginForm = ()=>{
   const {loginError} = useSelector(state=>state.user);
   const dispatch = useDispatch();
   
-  const [id,onChangeId] = useInput('')
-  const [pw,onChangePw] = useInput('')
+  const [id,onChangeId,setId] = useInput('')
+  const [pw,onChangePw,setPw] = useInput('')
   const [errorMsg,setErrorMsg] = useState('');
     
   const login = () => {  
+    setId('qwe@gmail.com');
+    setPw('qwe');
         if(id && pw){
       dispatch(loginRequest({id, pw}))
     }

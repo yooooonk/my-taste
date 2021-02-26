@@ -41,3 +41,25 @@ exports.getBookBasket = async(req,res,next)=>{
         next(error);
     }
 }
+
+exports.updateBookState = async(req,res,next)=>{
+    try {
+        let result = null;
+            
+        const bookInfo = await bookBasket.findById(req.body.id); 
+        
+        if(req.body.state === 'isRead'){
+            const isRead = bookInfo.isRead;
+            result = await bookBasket.findByIdAndUpdate(req.body.id,{isRead:!isRead},{new:true}); 
+            
+            
+        }else{
+            const isWrite = bookInfo.isWrite;
+            result = await bookBasket.findByIdAndUpdate(req.body.id,{isWrite:!isWrite},{new:true}); 
+        }
+        
+        res.status(201).json(result);
+    } catch (error) {
+        next(error);
+    }
+}
