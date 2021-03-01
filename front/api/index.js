@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {backUrl} from '../config/config'
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:3065';
+axios.defaults.baseURL = backUrl;
 
 const openApi = axios.create();
 openApi.defaults.withCredentials=false;
@@ -52,5 +53,11 @@ export const bookAPI = {
     },
     updateBookState:function(data){
         return axios.post('/book/update',data)
+    }
+}
+
+export const utillAPI = {
+    uploadImage:function(data){
+        return axios.post('/utill/image',data);
     }
 }

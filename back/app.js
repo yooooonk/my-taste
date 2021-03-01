@@ -40,6 +40,8 @@ app.use('/user',userRoutes)
 const bookRoutes = require('./router/book')
 app.use('/book',bookRoutes)  
 
+const utillRoutes = require('./router/utill')
+app.use('/utill',utillRoutes)  
 
 app.get('/',(req,res)=>{
     res.send('hello express')

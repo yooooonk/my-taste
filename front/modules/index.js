@@ -5,9 +5,10 @@ import createSagaMiddleware from 'redux-saga';
 import {createReducer} from '@reduxjs/toolkit'
 import {combineReducers} from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
+import { all, fork } from 'redux-saga/effects';
 import user, { loginSaga } from './login'
 import book, { bookSaga } from './book'
-import { all, fork } from 'redux-saga/effects';
+import utill, { utillSaga } from './utill';
 
 //reducer
 const index = createReducer({},{
@@ -20,14 +21,16 @@ const index = createReducer({},{
 const rootReducer = combineReducers({
     index,
     user,
-    book
+    book,
+    utill
 })
 
 // saga
 function* rootSaga(){
     yield all([
         fork(loginSaga),       
-        fork(bookSaga),       
+        fork(bookSaga),    
+        fork(utillSaga)   
     ])
 }
 
