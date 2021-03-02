@@ -23,6 +23,14 @@
     }
 
     .body{
+        .image{                      
+            .icon{
+                position: absolute;
+                left: 180px; 
+                cursor: pointer;
+            }
+        }
+        
         img {
             width: 200px;
             height: 200px;

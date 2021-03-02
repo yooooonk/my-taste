@@ -15,6 +15,9 @@ export const uploadImageRequest = createAction(UPLOAD_IMAGE_REQUEST);
 export const uploadImageSuccess = createAction('UPLOAD_IMAGE_SUCCESS');
 export const uploadImageFailure = createAction('UPLOAD_IMAGE_FAILURE');
 
+export const removeImage = createAction('REMOVE_IMAGE');
+
+
 const utill = createReducer(initialState,{
     [uploadImageRequest]:(state,{payload})=>{
         state.uploadImageRequest=true;
@@ -29,7 +32,11 @@ const utill = createReducer(initialState,{
     [uploadImageFailure]:(state,{payload})=>{
         state.uploadImageRequest=false;
         state.uploadImageError=action.error;
+    },
+    [removeImage] : (state,{payload})=>{
+        state.imagePath = null;
     }
+
 })
 
 function* watchUploadImage(){
