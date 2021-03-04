@@ -49,16 +49,22 @@ const PostForm = ({msg})=>{
     })
 
     const addPhrase = useCallback(e=>{
-      console.log('ㅎㅎㅎ')
-    })
+
+      
+      
+      
+    },[])
+ 
 
     const onRemovePhrase = useCallback((phrase)=> (e) => {
         console.log('onremove',phrase)
     },[])
-    const mapToPhraseInput =  phraseInputList.map((book,idx)=>{   
-      console.log(book, idx)         
-      return <PhraseInput  />
+    const mapToPhraseInput =  phraseInputList?.map((book,idx)=>{   
+         
+      return <PhraseInput key={idx}  onRemovePhrase={onRemovePhrase}/>
     }) 
+
+      
 
     return (
       <div className="post-form">
@@ -78,7 +84,8 @@ const PostForm = ({msg})=>{
                   <button onClick={onClickImageUpload}>이미지업로드</button>               
             </form>
             <div className="phrase-wrapper">
-                    <PhraseInput onRemovePhrase={onRemovePhrase}/>
+                    {/* <PhraseInput onRemovePhrase={onRemovePhrase}/> */}
+                    {mapToPhraseInput}
                     
                 <button onClick={addPhrase}>문장 추가</button>
             </div>
