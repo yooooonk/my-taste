@@ -13,15 +13,15 @@ const PostForm = ({msg})=>{
     
     const [img, setImage] = useState(null);
     const imageInput = useRef();  
-    const [phraseInputList, setPhraseInputList] = useState([]);
+    const [phraseInputList, setPhraseInputList] = useState([1]);
+    console.log(phraseInputList,'배열')
     const onChange = (e) => {
         setImage(e.target.files[0]);
     }
     
       const onClick = async () => {
         const formData = new FormData();
-        formData.append('file', img);
-        // 서버의 upload API 호출
+        formData.append('file', img);        
         const res = await axios.post("/api/upload", formData);
         console.log(res);
       }
@@ -30,8 +30,7 @@ const PostForm = ({msg})=>{
         e.preventDefault();
       })
 
-      const onClickImageUpload = useCallback(()=>{
-        
+      const onClickImageUpload = useCallback(()=>{        
         imageInput.current.click()
       },[imageInput.current])
       
@@ -53,12 +52,13 @@ const PostForm = ({msg})=>{
       console.log('ㅎㅎㅎ')
     })
 
-    const onRemovePhrase = useCallback((idx,phrase)=>(e)=>{
-      console.log('onremove',idx,phrase)
-    })
-    const mapToPhraseInput =  phraseInputList.map((book,idx)=>{            
-      return <PhraseInput key={idx} />
-    })
+    const onRemovePhrase = useCallback((phrase)=> (e) => {
+        console.log('onremove',phrase)
+    },[])
+    const mapToPhraseInput =  phraseInputList.map((book,idx)=>{   
+      console.log(book, idx)         
+      return <PhraseInput  />
+    }) 
 
     return (
       <div className="post-form">
@@ -78,9 +78,9 @@ const PostForm = ({msg})=>{
                   <button onClick={onClickImageUpload}>이미지업로드</button>               
             </form>
             <div className="phrase-wrapper">
-                    {{mapToPhraseInput}}
+                    <PhraseInput onRemovePhrase={onRemovePhrase}/>
                     
-                <button onclick="addPhrase">문장 추가</button>
+                <button onClick={addPhrase}>문장 추가</button>
             </div>
             <textarea></textarea>
                 
