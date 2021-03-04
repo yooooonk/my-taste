@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from "../hooks/useInput";
 import { removeImage, uploadImageRequest } from "../modules/utill";
 import {backUrl, imgUrl} from '../config/config'
+import PhraseInput from '../components/PhraseInput';
 
 
 const PostForm = ({msg})=>{
@@ -11,22 +12,11 @@ const PostForm = ({msg})=>{
     const {imagePath} = useSelector(state=>state.utill)
     
     const [img, setImage] = useState(null);
-    const imageInput = useRef();
-   /*  const [ph1, onChangePh1] = useInput('');
-    const [ph2, onChangePh2] = useInput('');
-    const [ph3, onChangePh3] = useInput('');
-    const [ph4, onChangePh4] = useInput('');
-    const [ph5, onChangePh5] = useInput('');
-    const [ph6, onChangePh6] = useInput('');
-    const [ph6, onChangePh6] = useInput('');
-    const [ph, onChangePh1] = useInput('');
-    const [ph1, onChangePh1] = useInput('');
-    const [ph1, onChangePh1] = useInput('');
-    const [ph1, onChangePh1] = useInput(''); */
-
+    const imageInput = useRef();  
+    const [phraseInputList, setPhraseInputList] = useState([]);
     const onChange = (e) => {
         setImage(e.target.files[0]);
-      }
+    }
     
       const onClick = async () => {
         const formData = new FormData();
@@ -59,12 +49,23 @@ const PostForm = ({msg})=>{
         dispatch(removeImage());
     })
 
+    const addPhrase = useCallback(e=>{
+      console.log('ㅎㅎㅎ')
+    })
+
+    const onRemovePhrase = useCallback((idx,phrase)=>(e)=>{
+      console.log('onremove',idx,phrase)
+    })
+    const mapToPhraseInput =  phraseInputList.map((book,idx)=>{            
+      return <PhraseInput key={idx} />
+    })
+
     return (
       <div className="post-form">
-          <div className="head">
+          <section className="head">
                 <FaTimesCircle className="icon"/>
-          </div>
-          <div className="body">            
+          </section>
+          <section className="body">            
             {imagePath && 
               <div className="image">
                   <FaTimes className="icon" onClick={onRemoveImage}/>
@@ -72,23 +73,20 @@ const PostForm = ({msg})=>{
               </div>
             }
                   
-            <form encType="multipart/form-data" onSubmit={onSubmit}>
-                
+            <form encType="multipart/form-data" onSubmit={onSubmit}>                
                   <input type="file" name="image"  multiple hidden ref={imageInput} onChange={onChangeImages}/>
-                  <button onClick={onClickImageUpload}>이미지업로드</button>
+                  <button onClick={onClickImageUpload}>이미지업로드</button>               
+            </form>
+            <div className="phrase-wrapper">
+                    {{mapToPhraseInput}}
+                    
+                <button onclick="addPhrase">문장 추가</button>
+            </div>
+            <textarea></textarea>
                 
-                
-                </form>
-                <div className="phrase">
-                    <span className="title">문장</span>
-                    <div className="content">{}</div>
-
-                </div>
-                <textarea></textarea>
-                
-                <button type="submit">저장</button>
+            <button type="submit">저장</button>
             
-          </div>
+          </section>
       </div>
     );
 };
