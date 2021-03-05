@@ -1,6 +1,6 @@
 import useInput from "../hooks/useInput";
 
-const PhraseInput = ({onRemovePhrase})=>{
+const PhraseInput = ({idx, onRemovePhrase, onPushPhrease})=>{
     
     
 
@@ -9,7 +9,7 @@ const PhraseInput = ({onRemovePhrase})=>{
     
     return (
       <div className="phrase-input">
-        <input type="text" onChange={onChangePhrase}></input>
+        <input type="text" onChange={onChangePhrase} onBlur={onPushPhrease(idx, phrase)}></input>
         <button onClick={onRemovePhrase(phrase)}>-</button>
       </div>
     );

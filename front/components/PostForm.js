@@ -13,7 +13,7 @@ const PostForm = ({msg})=>{
     
     const [img, setImage] = useState(null);
     const imageInput = useRef();  
-    const [phraseInputList, setPhraseInputList] = useState([1]);
+    const [phraseInputList, setPhraseInputList] = useState([1,2,3,4,5]);
     console.log(phraseInputList,'배열')
     const onChange = (e) => {
         setImage(e.target.files[0]);
@@ -49,9 +49,6 @@ const PostForm = ({msg})=>{
     })
 
     const addPhrase = useCallback(e=>{
-
-      
-      
       
     },[])
  
@@ -59,9 +56,24 @@ const PostForm = ({msg})=>{
     const onRemovePhrase = useCallback((phrase)=> (e) => {
         console.log('onremove',phrase)
     },[])
+
+    const onPushPhrease = useCallback((idx,phrase)=>e=>{
+        let arr =[0,1,2,3,4,5] //-6 -5 -4 -3 -2 -1
+        let len = (arr.length*-1)+1;
+        console.log('index',idx,len)
+        let temp = arr.splice(len+idx ,idx-1 )
+        console.log(temp)
+
+
+        /* const temp = phraseInputList;
+        console.log(idx, phrase,temp);
+        const newList = temp.slice(idx,1,phrase)
+        console.log('newList',newList, temp) */
+        //setPhraseInputList(newList)
+    });
     const mapToPhraseInput =  phraseInputList?.map((book,idx)=>{   
          
-      return <PhraseInput key={idx}  onRemovePhrase={onRemovePhrase}/>
+      return <PhraseInput key={idx} idx={idx} onPushPhrease={onPushPhrease} onRemovePhrase={onRemovePhrase}/>
     }) 
 
       
