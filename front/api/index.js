@@ -53,6 +53,9 @@ export const bookAPI = {
     },
     updateBookState:function(data){
         return axios.post('/book/update',data)
+    },
+    writeBookDiary:function(data){
+        return axios.post('/book/diary',data)
     }
 }
 

@@ -6,6 +6,7 @@ import {all, call, fork, put, take, takeLatest} from 'redux-saga/effects'
 export const initialState = {    
     bookSearchList:[],
     bookBasket:[],
+    phraseInputList:[],
     detailBook:null,
     selectedCard:null,
     bookSearchRequest:false,
@@ -25,6 +26,10 @@ export const initialState = {
     updateBookStateRequest:false,
     updateBookStateSuccess:false,
     updateBookStateError:null,
+    writeBookDiraryRequest:false,
+    writeBookDirarySuccess:false,
+    writeBookDiraryError:null,
+    
 };
 
 const BOOK_SEARCH_REQUEST = 'BOOK_SEARCH_REQUEST';
@@ -32,6 +37,7 @@ const BOOK_LIKE_REQUEST = 'BOOK_LIKE_REQUEST';
 const BOOK_UNLIKE_REQUEST = 'BOOK_UNLIKE_REQUEST';
 const GET_BOOK_BASKET_REQUEST = 'GET_BOOK_BASKET_REQUEST';
 const UPDATE_BOOK_STATE_REQUEST = 'UPDATE_BOOK_STATE_REQUEST';
+const WRITE_BOOK_DIARY_REQUEST = 'WRITE_BOOK_DIARY_REQUEST';
 
 export const bookSearchRequest = createAction(BOOK_SEARCH_REQUEST);
 export const bookSearchSuccess = createAction("BOOK_SEARCH_SUCCESS");
@@ -53,8 +59,14 @@ export const updateBookStateRequest = createAction(UPDATE_BOOK_STATE_REQUEST);
 export const updateBookStateSuccess = createAction("UPDATE_BOOK_STATE_SUCCESS");
 export const updateBookStateFailure = createAction("UPDATE_BOOK_STATE_FAILURE");
 
+export const writeBookDiraryRequest = createAction(WRITE_BOOK_DIARY_REQUEST);
+export const writeBookDirarySuccess = createAction("WRITE_BOOK_DIARY_SUCCESS");
+export const writeBookDiraryFailure = createAction("WRITE_BOOK_DIARY_FAILURE");
+
 export const setDetailBook = createAction("SET_DETAIL_BOOK");
 export const setSelectedCard = createAction("SET_SELECTED_CARD");
+export const addPhrase = createAction("ADD_PHARSE");
+export const removePhrase = createAction("REMOVE_PHRASE");
 
 const book = createReducer(initialState,{    
     [bookSearchRequest]:(state,{payload})=>{     
@@ -151,11 +163,37 @@ const book = createReducer(initialState,{
         state.updateBookStateRequest=false;        
         state.updateBookStateError=action.error;
     },    
+    [writeBookDiraryRequest]:(state,action)=>{        
+        state.writeBookDiraryRequest=true;
+        state.writeBookDirarySuccess=false;
+        state.writeBookDiraryError=null;
+    },
+    [writeBookDirarySuccess]:(state,{payload})=>{  
+        
+        
+        state.writeBookDiraryRequest=false;
+        state.writeBookDirarySuccess=true;        
+    },
+    [writeBookDiraryFailure]:(state,action)=>{
+        state.writeBookDiraryRequest=false;        
+        state.writeBookDiraryError=action.error;
+    },
     [setDetailBook]:(state,{payload})=>{        
         state.detailBook = payload    
     },
     [setSelectedCard]:(state,{payload})=>{
         state.selectedCard = payload
+    },
+    [addPhrase]:(state,{payload})=>{        
+        
+        state.phraseInputList.push(payload);
+    },
+    [removePhrase]:(state,{payload})=>{
+        
+        state.phraseInputList = state.phraseInputList.filter(p=>
+            p.id != payload
+        )
+        
     },
    
 })
@@ -249,6 +287,25 @@ function* updateBookState({payload}){
     }
 }
 
+function* writeBookDiary(){
+    
+    try{        
+        const result = yield call(bookAPI.writeBookDiary); //동기
+        
+        yield put(writeBookDirarySuccess(result.data));
+        
+    }catch(err){
+        console.error(err)
+        yield put(writeBookDiraryFailure(err.response.data))        
+    }
+}
+
+function* watchWriteBookDiary(){        
+    yield takeLatest(WRITE_BOOK_DIARY_REQUEST, writeBookDiary)
+}
+
+
+
 export function* bookSaga(){
     yield all([
         fork(watchSearchBook),       
@@ -256,6 +313,7 @@ export function* bookSaga(){
         fork(watchUnlikeBook),       
         fork(watchGetBookBasket),       
         fork(watchUpdateBookState),       
+        fork(watchWriteBookDiary),       
     ])
 }
 

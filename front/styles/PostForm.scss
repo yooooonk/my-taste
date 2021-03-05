@@ -36,4 +36,21 @@
             height: 200px;
         }
     }
+
+    .image-form{
+        @include rounded;
+        overflow: hidden;
+        width: 200px;
+        height: 200px;
+        .camera-img{
+            background-color: rgb(255, 247, 247);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+    }
 }
