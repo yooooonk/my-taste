@@ -287,10 +287,10 @@ function* updateBookState({payload}){
     }
 }
 
-function* writeBookDiary(){
+function* writeBookDiary({payload}){
     
     try{        
-        const result = yield call(bookAPI.writeBookDiary); //동기
+        const result = yield call(bookAPI.writeBookDiary,payload); //동기
         
         yield put(writeBookDirarySuccess(result.data));
         

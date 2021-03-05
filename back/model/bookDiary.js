@@ -13,6 +13,6 @@ const bookDiarySchema = new mongoose.Schema({
     date:{type:Date, default:Date.now}
 })
 
-const bookDiary = mongoose.model('book',bookDiarySchema)
+const bookDiary = mongoose.model('bookDiary',bookDiarySchema)
 
 module.exports = bookDiary;

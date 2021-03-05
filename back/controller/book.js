@@ -67,19 +67,19 @@ exports.updateBookState = async(req,res,next)=>{
 exports.writeBookDiary = async(req,res,next)=>{
     try {
         let result = null;
-
+        const payload = req.body;
         //insert
         const createDiary = await bookDiary.create({
-            email:req.body.id,
-            title:hashedPassword, //책제목
-            authros:req.body.nickname, // 작가
-            phrases: '',//문장들
-            comment:'', // 서평
-            isbn:'',
-            src:'image'
+            email:req.user.email,
+            title:payload.title, //책제목
+            authros:payload.authors, // 작가
+            phrases: payload.phrases,//문장들
+            comment:payload.comment, // 서평
+            isbn:payload.isbn,
+            src:payload.src
         })   
         //is write 상태 바꿈
-        result = await bookBasket.findByIdAndUpdate(req.body.id,{isWrite:true},{new:true}); 
+        //result = await bookBasket.findByIdAndUpdate(req.body.id,{isWrite:true},{new:true}); 
         res.status(201).json({createDiary,result});
     } catch (error) {
         next(error)
