@@ -26,22 +26,27 @@ const PhraseInput = ()=>{
           return;
         }
 
+        if(!value) return;
+
         const id = getId();
         
         dispatch(addPhrase({id,phrase:value}))
         setValue('')
         setIsOverTen(false);
       }
-    },[value]) 
+    },[value,phraseInputList]) 
 
     const mapToPhraseItem = phraseInputList.map((p)=>{
         return <PhraseItem phraseData={p} key={p.id} />
     })
 
     return (
-      <div className="phrase">  
-         <input type="text" onChange={onChangeValue} onKeyPress={onEnter} placeholder="기록하고 싶은 문장이 있었나요?" value={value}></input>         
-         {isOverTen? <span className="error-msg">10개까지만 등록가능합니다</span> : ''}
+      <div className="phrase-section">  
+          <div className="input-wrapper">
+                <input type="text" onChange={onChangeValue} onKeyPress={onEnter} placeholder="기록하고 싶은 문장이 있나요?" value={value}></input>         
+               {isOverTen? <span className="error-msg">10개까지만 등록가능합니다</span> : ''}
+          </div>
+         
          <div className="phrase-wrapper">          
             {mapToPhraseItem}
          </div>

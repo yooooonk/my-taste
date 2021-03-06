@@ -28,16 +28,78 @@
         justify-content: space-around;
         height: 100%;
         background-color: white;
+
         .up-part{
             display: flex;
             justify-content: space-around;
             align-items: center;
-            background-color: yellowgreen;
             height: 60%;
+
+            .phrase-section{           
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width:60%;
+    
+                .input-wrapper{
+                    padding-top: 20px;
+                    display: flex;
+                    flex-direction: column;                   
+                    height: 20%;
+    
+                    input{
+                        width: 80%;
+                        border-bottom: $input-bottom;
+                    }    
+
+                    .error-msg{
+                        color:rgb(255, 79, 105);
+                    }
+                }
+
+               .phrase-wrapper{
+                   height: 80%;              
+                   input{
+                       width: 90%;
+                   }
+    
+                   .phrase-item{                                
+                    span{
+                        display: inline-block;
+                        text-overflow:ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        width: 95%;                        
+                        background-color: rgb(247, 251, 253);
+                        border-radius: 10px;
+
+                        &:hover {
+                            background-color: aliceblue;                            
+                        }
+                    }    
+                    
+                  
+                    
+                    input{
+                        border-bottom: $input-bottom;
+                    }
+                    .icon{                        
+                        margin-top: 3px;
+                        position: absolute;
+                        font-size: 10px;
+                    }                   
+
+                    span:hover .icon{
+                        display: none;
+                    }
+                    
+                }
+               }
+               
+            }
         }
 
-        .down-part{
-            
+        .down-part{            
             display: flex;
             flex-direction: column;
             justify-content: start;
@@ -90,33 +152,7 @@
             }        
         }
 
-        .phrase{
-            background-color: rgb(190, 190, 255);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-           .phrase-wrapper{
-               height: 80%;
-               background-color: aliceblue;
-           }
-            .phrase-item{                                
-                span{
-                    display: inline-block;
-                    text-overflow:ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    width: 50%;
-                    background-color: yellow;
-                }        
-                
-                .icon{
-                    position: absolute;
-                }
-
-                
-            
-            }
-        }
+        
     }
 
     

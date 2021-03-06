@@ -2,7 +2,8 @@ import { useCallback } from "react";
 import { FaTimesCircle} from "react-icons/fa"; 
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from "../hooks/useInput";
-import { setIsPostFormOpen, writeBookDiraryRequest } from "../modules/book";
+import { clearPhraseList, setIsPostFormOpen, writeBookDiraryRequest } from "../modules/book";
+import { removeImage } from "../modules/utill";
 import ImageForm from "./ImageForm";
 import PhraseInput from "./PhraseInput";
 
@@ -12,7 +13,7 @@ const PostForm = ()=>{
     const dispatch = useDispatch();
     const {phraseInputList,detailBook} = useSelector(state=>state.book)
     const {imagePath} = useSelector(state=>state.utill)
-    const [value, onChangeValue] =  useInput('');
+    const [value, onChangeValue, setValue] =  useInput('');
 
     const onSubmit = useCallback(()=>{
 
@@ -37,10 +38,18 @@ const PostForm = ()=>{
       }
     },[value])
 
+    const onClose = useCallback(()=>{
+      dispatch(removeImage())
+      dispatch(clearPhraseList())
+      setValue('')
+      dispatch(setIsPostFormOpen(false))
+      
+    },[])
+
     return (
       <div className="post-form">
           <section className="head">
-                <FaTimesCircle className="icon" onClick={()=>dispatch(setIsPostFormOpen(false))}/>
+                <FaTimesCircle className="icon" onClick={onClose}/>
           </section>
           
           <section className="body">            

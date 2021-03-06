@@ -70,6 +70,7 @@ export const setSelectedCard = createAction("SET_SELECTED_CARD");
 export const addPhrase = createAction("ADD_PHARSE");
 export const removePhrase = createAction("REMOVE_PHRASE");
 export const setIsPostFormOpen = createAction("SET_IS_POST_FORM_OPEN");
+export const clearPhraseList = createAction("CLEAR_PHRASE_LIST");
 const book = createReducer(initialState,{    
     [bookSearchRequest]:(state,{payload})=>{     
                    
@@ -198,6 +199,9 @@ const book = createReducer(initialState,{
     [setIsPostFormOpen]:(state,{payload})=>{           
         state.isPostFormOpen = payload
     },
+    [clearPhraseList] :(state,{payload})=>{
+        state.phraseInputList = []
+    }
    
 })
 
