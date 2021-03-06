@@ -77,9 +77,10 @@ exports.writeBookDiary = async(req,res,next)=>{
             comment:payload.comment, // 서평
             isbn:payload.isbn,
             src:payload.src
-        })   
-        //is write 상태 바꿈
-        //result = await bookBasket.findByIdAndUpdate(req.body.id,{isWrite:true},{new:true}); 
+        })  
+
+        await bookBasket.findOneAndUpdate({'isbn':payload.isbn},{isWrite:true},{returnOriginal: false})
+        
         res.status(201).json({createDiary,result});
     } catch (error) {
         next(error)

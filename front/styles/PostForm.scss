@@ -2,11 +2,11 @@
 
 .post-form{
     position: absolute;
-    top: 12%;
+    top: 6%;
     left: 30%;
-    width: 60%;
-    height: 70%;
-    background-color: white;
+    width: 45%;
+    height: 85%;
+    overflow: hidden;   
     @include rounded;
     box-shadow: $shadow rgba(119, 119, 119, 0.329);   
 
@@ -23,34 +23,101 @@
     }
 
     .body{
-        .image{                      
-            .icon{
-                position: absolute;
-                left: 180px; 
-                cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+        background-color: white;
+        .up-part{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: yellowgreen;
+            height: 60%;
+        }
+
+        .down-part{
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            
+            height: 40%;
+
+            textArea{
+                width: 90%;
+                height: 60%;
+                margin-bottom: 15px;
+                border: 2px solid pink;
+            }
+
+            button{
+                width: 100px;
+                height: 25px;
+                font-size: 1rem;
             }
         }
-        
-        img {
+
+        .image-form{
+            
+            @include rounded;
+            overflow: hidden;
             width: 200px;
             height: 200px;
+    
+            .image{                      
+                .icon{
+                    position: absolute;
+                    left: 180px; 
+                    cursor: pointer;
+                }
+    
+                img {
+                    width: 200px;
+                    height: 200px;
+                }
+            }        
+            
+            .camera-img{
+                background-color: rgb(253, 247, 247);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }        
+        }
+
+        .phrase{
+            background-color: rgb(190, 190, 255);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+           .phrase-wrapper{
+               height: 80%;
+               background-color: aliceblue;
+           }
+            .phrase-item{                                
+                span{
+                    display: inline-block;
+                    text-overflow:ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 50%;
+                    background-color: yellow;
+                }        
+                
+                .icon{
+                    position: absolute;
+                }
+
+                
+            
+            }
         }
     }
 
-    .image-form{
-        @include rounded;
-        overflow: hidden;
-        width: 200px;
-        height: 200px;
-        .camera-img{
-            background-color: rgb(255, 247, 247);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-    }
+    
 }

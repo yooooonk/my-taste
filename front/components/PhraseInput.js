@@ -39,12 +39,12 @@ const PhraseInput = ()=>{
     })
 
     return (
-      <div className="phrase">
-         <div className="phare-wrapper">
+      <div className="phrase">  
+         <input type="text" onChange={onChangeValue} onKeyPress={onEnter} placeholder="기록하고 싶은 문장이 있었나요?" value={value}></input>         
+         {isOverTen? <span className="error-msg">10개까지만 등록가능합니다</span> : ''}
+         <div className="phrase-wrapper">          
             {mapToPhraseItem}
          </div>
-         <input type="text" onChange={onChangeValue} onKeyPress={onEnter} placeholder="기록하고 싶은 문장이 있었나요?" value={value}></input>
-         {isOverTen? <span className="error-msg">10개까지만 등록가능합니다</span> : ''}
       </div>
     );
 };

@@ -1,6 +1,7 @@
 import {createReducer, createAction} from '@reduxjs/toolkit'
 import {bookAPI} from '../api'
 import {all, call, fork, put, take, takeLatest} from 'redux-saga/effects'
+import { FaLevelDownAlt } from 'react-icons/fa';
 
 
 export const initialState = {    
@@ -14,6 +15,7 @@ export const initialState = {
     bookSearchError:null,    
     is_end:false,
     keyword:null,
+    isisPostFormOpen:false,
     getBookBasketRequest:false,
     getBookBasketSuccess:false,
     getBookBasketError:null,    
@@ -67,7 +69,7 @@ export const setDetailBook = createAction("SET_DETAIL_BOOK");
 export const setSelectedCard = createAction("SET_SELECTED_CARD");
 export const addPhrase = createAction("ADD_PHARSE");
 export const removePhrase = createAction("REMOVE_PHRASE");
-
+export const setIsPostFormOpen = createAction("SET_IS_POST_FORM_OPEN");
 const book = createReducer(initialState,{    
     [bookSearchRequest]:(state,{payload})=>{     
                    
@@ -169,10 +171,11 @@ const book = createReducer(initialState,{
         state.writeBookDiraryError=null;
     },
     [writeBookDirarySuccess]:(state,{payload})=>{  
-        
-        
         state.writeBookDiraryRequest=false;
         state.writeBookDirarySuccess=true;        
+        state.imagePath = '';
+        state.phraseInputList = [];
+        state.isPostFormOpen = false;
     },
     [writeBookDiraryFailure]:(state,action)=>{
         state.writeBookDiraryRequest=false;        
@@ -184,16 +187,16 @@ const book = createReducer(initialState,{
     [setSelectedCard]:(state,{payload})=>{
         state.selectedCard = payload
     },
-    [addPhrase]:(state,{payload})=>{        
-        
+    [addPhrase]:(state,{payload})=>{               
         state.phraseInputList.push(payload);
     },
-    [removePhrase]:(state,{payload})=>{
-        
+    [removePhrase]:(state,{payload})=>{        
         state.phraseInputList = state.phraseInputList.filter(p=>
             p.id != payload
-        )
-        
+        )        
+    },
+    [setIsPostFormOpen]:(state,{payload})=>{           
+        state.isPostFormOpen = payload
     },
    
 })

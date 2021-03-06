@@ -18,6 +18,11 @@ const PhraseItem = ({phraseData})=>{
       setValue('')
     },[phraseData])
 
+    const onClickPhrase = useCallback((e)=>{
+        setIsEdit(true);
+        debugger
+
+    },[isEdit])
    
     return (
       <div className="phrase-item">
@@ -25,7 +30,7 @@ const PhraseItem = ({phraseData})=>{
           {isEdit?
                 <input type="text" onChange={onChangeValue} onBlur={()=>setIsEdit(false)} value={value}></input>
               : (<div>
-              <span onClick={()=>setIsEdit(true)}>{phraseData.phrase}</span>
+              <span onClick={onClickPhrase}>{phraseData.phrase}</span>
               <FaTimes className="icon" onClick={onRemovePhrase} /></div>
               )
             } 
