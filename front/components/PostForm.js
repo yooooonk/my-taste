@@ -58,7 +58,7 @@ const PostForm = ()=>{
                   <PhraseInput />          
               </div>
               <div className="down-part">
-                  <textarea onChange={onChangeValue}></textarea>                
+                  <textarea onChange={onChangeValue} placeholder="감상을 남겨주세요"></textarea>                
                   <button onClick={onSubmit}>저장</button>
               </div>
             
