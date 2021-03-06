@@ -1,14 +1,13 @@
 import {createReducer, createAction} from '@reduxjs/toolkit'
 import {bookAPI} from '../api'
 import {all, call, fork, put, take, takeLatest} from 'redux-saga/effects'
-import { FaLevelDownAlt } from 'react-icons/fa';
-
 
 export const initialState = {    
     bookSearchList:[],
-    bookBasket:[],
-    phraseInputList:[],
     detailBook:null,
+    bookBasket:[],
+    bookDiary:[],
+    phraseInputList:[],
     selectedCard:null,
     bookSearchRequest:false,
     bookSearchSuccess:false,
@@ -18,7 +17,10 @@ export const initialState = {
     isisPostFormOpen:false,
     getBookBasketRequest:false,
     getBookBasketSuccess:false,
-    getBookBasketError:null,    
+    getBookBasketError:null,   
+    getBookDiaryRequest:false,
+    getBookDiarySuccess:false,
+    getBookDiaryError:null,    
     bookLikeRequest:false,
     bookLikeSuccess:false,
     bookLikeError:null,
@@ -38,6 +40,7 @@ const BOOK_SEARCH_REQUEST = 'BOOK_SEARCH_REQUEST';
 const BOOK_LIKE_REQUEST = 'BOOK_LIKE_REQUEST';
 const BOOK_UNLIKE_REQUEST = 'BOOK_UNLIKE_REQUEST';
 const GET_BOOK_BASKET_REQUEST = 'GET_BOOK_BASKET_REQUEST';
+const GET_BOOK_DIARY_REQUEST = 'GET_BOOK_DIARY_REQUEST';
 const UPDATE_BOOK_STATE_REQUEST = 'UPDATE_BOOK_STATE_REQUEST';
 const WRITE_BOOK_DIARY_REQUEST = 'WRITE_BOOK_DIARY_REQUEST';
 
@@ -61,6 +64,10 @@ export const updateBookStateRequest = createAction(UPDATE_BOOK_STATE_REQUEST);
 export const updateBookStateSuccess = createAction("UPDATE_BOOK_STATE_SUCCESS");
 export const updateBookStateFailure = createAction("UPDATE_BOOK_STATE_FAILURE");
 
+export const getBookDiaryRequest = createAction(GET_BOOK_DIARY_REQUEST);
+export const getBookDiarySuccess = createAction("GET_BOOK_DIARY_SUCCESS");
+export const getBookDiaryFailure = createAction("GET_BOOK_DIARY_FAILURE");
+
 export const writeBookDiraryRequest = createAction(WRITE_BOOK_DIARY_REQUEST);
 export const writeBookDirarySuccess = createAction("WRITE_BOOK_DIARY_SUCCESS");
 export const writeBookDiraryFailure = createAction("WRITE_BOOK_DIARY_FAILURE");
@@ -70,7 +77,9 @@ export const setSelectedCard = createAction("SET_SELECTED_CARD");
 export const addPhrase = createAction("ADD_PHARSE");
 export const removePhrase = createAction("REMOVE_PHRASE");
 export const setIsPostFormOpen = createAction("SET_IS_POST_FORM_OPEN");
-export const clearPhraseList = createAction("CLEAR_PHRASE_LIST");
+export const clearAllCompnent = createAction("CLEAR_ALL_COMPONENT");
+
+
 const book = createReducer(initialState,{    
     [bookSearchRequest]:(state,{payload})=>{     
                    
@@ -104,8 +113,7 @@ const book = createReducer(initialState,{
         state.bookLikeSuccess=false;
         state.bookLikeError=null;
     },
-    [bookLikeSuccess]:(state,{payload})=>{
-        
+    [bookLikeSuccess]:(state,{payload})=>{        
         state.bookBasket.push(payload.result);        
         state.bookLikeRequest=false;
         state.bookLikeSuccess=true;        
@@ -137,8 +145,7 @@ const book = createReducer(initialState,{
         state.getBookBasketSuccess=false;
         state.getBookBasketError=null;
     },
-    [getBookBasketSuccess]:(state,{payload})=>{        
-        
+    [getBookBasketSuccess]:(state,{payload})=>{   
         state.bookBasket = payload;        
         state.getBookBasketRequest=false;
         state.getBookBasketSuccess=true;        
@@ -166,6 +173,21 @@ const book = createReducer(initialState,{
         state.updateBookStateRequest=false;        
         state.updateBookStateError=action.error;
     },    
+    [getBookDiaryRequest]:(state,action)=>{        
+        state.getBookDiaryRequest=true;
+        state.getBookDiarySuccess=false;
+        state.getBookDiaryError=null;
+    },
+    [getBookDiarySuccess]:(state,{payload})=>{        
+        
+        state.bookDiary = payload;        
+        state.getBookDiaryRequest=false;
+        state.getBookDiarySuccess=true;        
+    },
+    [getBookDiaryFailure]:(state,action)=>{
+        state.getBookDiaryRequest=false;        
+        state.getBookDiaryError=action.error;
+    },
     [writeBookDiraryRequest]:(state,action)=>{        
         state.writeBookDiraryRequest=true;
         state.writeBookDirarySuccess=false;
@@ -199,8 +221,13 @@ const book = createReducer(initialState,{
     [setIsPostFormOpen]:(state,{payload})=>{           
         state.isPostFormOpen = payload
     },
-    [clearPhraseList] :(state,{payload})=>{
-        state.phraseInputList = []
+    [clearAllCompnent] :(state,{payload})=>{
+        state.phraseInputList = [];
+        state.isPostFormOpen = false;
+        state.imagePath = null;
+        state.phraseInputList = [];
+        state.bookSearchList = [];
+        state.detailBook = null;
     }
    
 })
@@ -221,8 +248,7 @@ function* searchBook({payload}){
         
     }catch(err){
         console.error(err)
-        yield put(bookSearchFailure(err.response))
-        
+        yield put(bookSearchFailure(err.response))        
     }
 }
 
@@ -264,8 +290,7 @@ function* watchGetBookBasket(){
     yield takeLatest(GET_BOOK_BASKET_REQUEST, getBookBasket)
 }
 
-function* getBookBasket(){
-    
+function* getBookBasket(){    
     try{        
         const result = yield call(bookAPI.getBookBasket); //동기
         
@@ -291,6 +316,23 @@ function* updateBookState({payload}){
     }catch(err){
         console.error(err)
         yield put(updateBookStateFailure(err.response.data))        
+    }
+}
+
+function* watchGetBookDiary(){        
+    yield takeLatest(GET_BOOK_DIARY_REQUEST, getBookDiary)
+}
+
+function* getBookDiary(){
+    
+    try{        
+        const result = yield call(bookAPI.getBookDiary); //동기
+        
+        yield put(getBookBasketSuccess(result.data));
+        
+    }catch(err){
+        console.error(err)
+        yield put(getBookBasketFailure(err.response.data))        
     }
 }
 
@@ -320,7 +362,9 @@ export function* bookSaga(){
         fork(watchUnlikeBook),       
         fork(watchGetBookBasket),       
         fork(watchUpdateBookState),       
-        fork(watchWriteBookDiary),       
+        fork(watchWriteBookDiary),     
+        fork(watchGetBookDiary),     
+          
     ])
 }
 

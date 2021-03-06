@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
 import { addPhrase } from "../modules/book";
@@ -10,6 +10,9 @@ const PhraseInput = ()=>{
     const [value, onChangeValue, setValue] = useInput('');
     const [isOverTen, setIsOverTen] = useState(false)
     
+    useEffect(()=>{
+        setValue('')
+    },[])
     const getId = useCallback(e=>{
       let max = -1      
       phraseInputList?.forEach(element => {

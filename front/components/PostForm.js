@@ -1,8 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { FaTimesCircle} from "react-icons/fa"; 
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from "../hooks/useInput";
-import { clearPhraseList, setIsPostFormOpen, writeBookDiraryRequest } from "../modules/book";
+import { clearAllCompnent, clearPhraseList, setIsPostFormOpen, writeBookDiraryRequest } from "../modules/book";
 import { removeImage } from "../modules/utill";
 import ImageForm from "./ImageForm";
 import PhraseInput from "./PhraseInput";
@@ -14,7 +14,10 @@ const PostForm = ()=>{
     const {phraseInputList,detailBook} = useSelector(state=>state.book)
     const {imagePath} = useSelector(state=>state.utill)
     const [value, onChangeValue, setValue] =  useInput('');
-
+    
+    useEffect(()=>{
+      setValue('')
+    },[])
     const onSubmit = useCallback(()=>{
 
       if(imagePath || phraseInputList ||value){
@@ -39,10 +42,8 @@ const PostForm = ()=>{
     },[value])
 
     const onClose = useCallback(()=>{
-      dispatch(removeImage())
-      dispatch(clearPhraseList())
+      dispatch(clearAllCompnent())
       setValue('')
-      dispatch(setIsPostFormOpen(false))
       
     },[])
 

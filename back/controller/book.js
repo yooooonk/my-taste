@@ -34,8 +34,7 @@ exports.unlikeBook = async(req,res,next)=>{
 }
 
 exports.getBookBasket = async(req,res,next)=>{
-    try {
-        
+    try {        
         const result = await bookBasket.find({'email':{$eq:req.user.email}})
         res.status(201).json(result)
     } catch (error) {
@@ -84,5 +83,15 @@ exports.writeBookDiary = async(req,res,next)=>{
         res.status(201).json({createDiary,result});
     } catch (error) {
         next(error)
+    }
+}
+
+exports.getBookDiary = async(req,res,next)=>{
+    try {
+        const result = await bookDiary.find({'email':{$eq:req.user.email}})
+        res.status(201).json(result)
+    } catch (error) {
+        next(error);
+        
     }
 }

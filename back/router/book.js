@@ -8,6 +8,7 @@ router.delete('/unlike/:isbn',bookController.unlikeBook);
 router.get('/basket',isLoggedIn, bookController.getBookBasket);
 router.post('/update',isLoggedIn, bookController.updateBookState);
 router.post('/diary',isLoggedIn, bookController.writeBookDiary);
+router.get('/diary',isLoggedIn, bookController.getBookDiary);
 
 
 
