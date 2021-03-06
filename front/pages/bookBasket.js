@@ -8,10 +8,6 @@ const BookList = ()=>{
     
     const {bookBasket} = useSelector(state=>state.book)
     
-    const onScroll = useCallback(e=>{
-        console.log(e)
-    })
-
     const basketCardList = bookBasket.map((book)=>{
         return <BasketCard book={book} key={book._id} />
     })

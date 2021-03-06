@@ -179,7 +179,7 @@ const book = createReducer(initialState,{
         state.getBookDiaryError=null;
     },
     [getBookDiarySuccess]:(state,{payload})=>{        
-        
+        console.log('reducer',payload)
         state.bookDiary = payload;        
         state.getBookDiaryRequest=false;
         state.getBookDiarySuccess=true;        
@@ -328,11 +328,11 @@ function* getBookDiary(){
     try{        
         const result = yield call(bookAPI.getBookDiary); //동기
         
-        yield put(getBookBasketSuccess(result.data));
+        yield put(getBookDiarySuccess(result.data));
         
     }catch(err){
         console.error(err)
-        yield put(getBookBasketFailure(err.response.data))        
+        yield put(getBookDiaryFailure(err.response.data))        
     }
 }
 

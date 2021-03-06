@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Diary from "../components/Diary";
 import { getBookDiaryRequest } from "../modules/book";
 
 
@@ -9,9 +10,17 @@ const BookPost = ()=>{
     useEffect(()=>{
         dispatch(getBookDiaryRequest());
     },[])
+
+    useEffect(()=>{
+        console.log(bookDiary)
+    },[bookDiary])
+
+    const mapToDiary = bookDiary.map(d=>{
+        return <Diary diary={d} key={d._id}/>
+    })
     return(
         <div>
-            책크크크
+            {mapToDiary}
         </div>
     )
 }

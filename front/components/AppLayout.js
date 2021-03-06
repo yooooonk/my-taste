@@ -39,7 +39,7 @@ const AppLayout = ({children})=>{
                   </li>
                   <li>
                       <Link href="/bookDiary">
-                          <a>Write</a>
+                          <a>Diary</a>
                       </Link>
                   </li>
               </ul>
