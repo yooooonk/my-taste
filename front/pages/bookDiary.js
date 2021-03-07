@@ -2,27 +2,23 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Diary from "../components/Diary";
 import { getBookDiaryRequest } from "../modules/book";
+import '../styles/bookDiary.scss'
 
-
-const BookPost = ()=>{
+const BookDiary = ()=>{
     const dispatch = useDispatch();
     const {bookDiary} = useSelector(state=>state.book)
     useEffect(()=>{
         dispatch(getBookDiaryRequest());
     },[])
-
-    useEffect(()=>{
-        console.log(bookDiary)
-    },[bookDiary])
-
+    
     const mapToDiary = bookDiary.map(d=>{
         return <Diary diary={d} key={d._id}/>
     })
     return(
-        <div>
+        <div className="book-diary-container">
             {mapToDiary}
         </div>
     )
 }
 
-export default BookPost;
+export default BookDiary;

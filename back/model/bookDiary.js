@@ -6,7 +6,7 @@ const bookDiarySchema = new mongoose.Schema({
         required:true
     },
     authors:String,    
-    phrases : [{id:Number},{phrase:String}],
+    phrases : [{id:Number,phrase:String}],
     src:String,    
     isbn:String,   
     comment:String, 
