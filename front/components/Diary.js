@@ -14,16 +14,16 @@ const Diary = ({diary})=>{
     }
     commentDiv.current.innerHTML = comment
   },[diary,isMore])
-
+  
+  console.log(typeof diary.date)
     return (
       <div className="diary">
           <header>
-              <span>{diary.title}</span>
-              <span>{diary.authors}</span>
-              <span>{diary.date}</span>
+              <span className="title">{diary.title}</span>              
+              <span className="date">{diary['date'].split('T')[0]}</span>
           </header>          
           <ImageCarousel image={diary.src} phraseList={diary.phrases}/>
-          <section >      
+          <section>      
             <div ref={commentDiv}>
               코멘트
             </div>
