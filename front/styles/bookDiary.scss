@@ -5,6 +5,7 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar{ display:none; };
@@ -15,19 +16,25 @@
         margin: 10px;
         display: flex;
         flex-direction: column;
+        justify-content: start;
         flex-wrap: nowrap;   
-        @include rounded;  
-        border: 1px pink solid;
+        border-bottom-left-radius: 2em;
+        border-bottom-right-radius: 2em;
+        border: 1px  $diaryColor solid;
        
         header{
+            font-family: $nanum;
             display: flex;
             flex-direction: column;
-            background-color: pink;
+            background-color: $diaryColor;
             justify-content: center;
             align-items: center;
+            margin-bottom: 20px;
+            height: 8vh;
 
             .title{
-                font-size: 5vh;
+                font-size: 2.5vh;
+                color: rgb(66, 66, 66);
             }
             .date{
                 width: 95%;
@@ -38,7 +45,7 @@
         }
         
       .image-carousel{
-          margin: 20px 0;
+        
         display: flex;
         justify-content: space-around;
 
@@ -79,15 +86,25 @@
                  }
 
                  .carousel-div{
-                     background-color: antiquewhite;
+                     background-color: rgb(238, 247, 255);
                      display: flex;
                      justify-content: center;
                      align-items: center;
 
                  }
              }
-        }
-          
+        }          
+      }
+
+      section{
+          padding: 2vh;
+          background-color: $diaryColor;
+
+          span{
+              cursor: pointer;
+              color:  rgba(128, 128, 128, 0.795);;
+          }
+
       }
     }
 }

@@ -1,27 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { bookUnlikeRequest, setDetailBook, setSelectedCard, updateBookStateRequest } from '../modules/book';
+import { bookUnlikeRequest, setSelectedCard, updateBookStateRequest } from '../modules/book';
 import { FaPencilAlt,FaTrashAlt, FaBookOpen } from "react-icons/fa"; 
 
 const BasketCard = ({book})=>{
     const dispatch = useDispatch();
-    const {selectedCard} = useSelector((state)=>state.book)
-    let card = null;    
-    
-    
-    
-    const changeCardStyle = useCallback(()=>{
-      
-      if(selectedCard){
-        selectedCard.classList.toggle('selected')}
-      card.classList.toggle('selected')
-      
-      dispatch(setSelectedCard(card))
-    })
-
-    const onClickCard = useCallback(e=>{
-        console.log(book.url)
-    })
+ 
     const onWrite = useCallback(e=>{
         console.log('쓰기')
     })
