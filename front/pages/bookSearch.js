@@ -1,18 +1,24 @@
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BookDetail from '../components/BookDetail';
 import BookSearchList from '../components/BookSearchList';
 import NoResult from '../components/NoResult';
 import PostForm from '../components/PostForm';
 import SearchBar from '../components/SearchBar';
-import { setIsPostFormOpen } from '../modules/book';
+import { clearSearchCompnent, setIsPostFormOpen } from '../modules/book';
 import '../styles/bookSearch.scss'
 import '../styles/PostForm.scss'
 
 const BookSearch = ()=>{
     const {detailBook, isPostFormOpen} = useSelector((state)=>state.book)
     const dispatch = useDispatch()
+    
+    useEffect(()=>{
+        return () => { //unMount
+            dispatch(clearSearchCompnent())
+        }
+    },[])
 
     const openForm = useCallback(()=>{
         dispatch(setIsPostFormOpen(true))

@@ -4,15 +4,12 @@ import '../styles/pageLayout.scss'
 import Link from 'next/Link';
 import { useCallback } from 'react';
 import { useDispatch } from "react-redux";
-import { clearAllCompnent } from '../modules/book';
+
 
 
 const AppLayout = ({children})=>{
     const dispatch = useDispatch();
-    const onClickMenu = useCallback(()=>{
-      console.log('g')
-          dispatch(clearAllCompnent());
-    },[])
+   
     return (
       <div className="container">
         <nav>
@@ -26,7 +23,7 @@ const AppLayout = ({children})=>{
           </div>
             {/* <Menu /> */}
           <div className="Menu">
-              <ul onClick={onClickMenu}>
+              <ul>
                   <li>
                       <Link href="/bookSearch">
                           <a>Search</a>

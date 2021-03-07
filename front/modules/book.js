@@ -77,7 +77,8 @@ export const setSelectedCard = createAction("SET_SELECTED_CARD");
 export const addPhrase = createAction("ADD_PHARSE");
 export const removePhrase = createAction("REMOVE_PHRASE");
 export const setIsPostFormOpen = createAction("SET_IS_POST_FORM_OPEN");
-export const clearAllCompnent = createAction("CLEAR_ALL_COMPONENT");
+export const clearSearchCompnent = createAction("CLEAR_SEARCH_COMPONENT");
+export const closeWritePopup = createAction("CLOSE_WRITE_POPUP");
 
 
 const book = createReducer(initialState,{    
@@ -221,13 +222,18 @@ const book = createReducer(initialState,{
     [setIsPostFormOpen]:(state,{payload})=>{           
         state.isPostFormOpen = payload
     },
-    [clearAllCompnent] :(state,{payload})=>{
+    [clearSearchCompnent] :(state,{payload})=>{
         state.phraseInputList = [];
         state.isPostFormOpen = false;
         state.imagePath = null;
-        state.phraseInputList = [];
+    
         state.bookSearchList = [];
         state.detailBook = null;
+    },
+    [closeWritePopup]:(state,{payload})=>{
+        state.imagePath = null;
+        state.phraseInputList = [];
+        state.isPostFormOpen = false;
     }
    
 })
