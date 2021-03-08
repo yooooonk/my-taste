@@ -23,6 +23,9 @@ export const loginAPI = {
     },
     checkIdMultiple : function(data){        
         return axios.post('/user/checkIdMultiple',data)
+    },
+    getDashboardData : function(){
+        return axios.get('/user/dashboard')
     }
 }
 

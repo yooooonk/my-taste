@@ -6,7 +6,11 @@ import {all, call, fork, put, take, takeLatest} from 'redux-saga/effects'
 export const initialState = {    
     loadMyInfoRequest:false,
     loadMyInfoSuccess:false,
-    loadMyInfoError:null,  
+    loadMyInfoError:null, 
+    getDashboardDataRequest:false,
+    getDashboardDataSuccess:false,
+    getDashboardDataError:null,   
+    dashboardData:[],
     loginRequest:false,
     loginSuccess:false,
     loginError:null,
@@ -29,6 +33,7 @@ const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 const CHECK_ID_MULTIPLE_REQUEST = 'CHECK_ID_MULTIPLE_REQUEST';
 const RESET_SIGN_UP_STATE = "RESET_SIGN_UP_STATE"
+const GET_DASHBOARD_DATA_REQUEST = "GET_DASHBOARD_DATA_REQUEST"
 
 export const loadMyInfoRequest = createAction(LOAD_MY_INFO_REQUEST);
 export const loadMyInfoSuccess = createAction("LOAD_MY_INFO_SUCCESS");
@@ -49,6 +54,10 @@ export const signUpFailure = createAction("SIGN_UP_FAILURE")
 export const checkIdMultipleRequest = createAction(CHECK_ID_MULTIPLE_REQUEST)
 export const checkIdMultipleSuccess = createAction("CHECK_ID_MULTIPLE_SUCCESS")
 export const checkIdMultipleFailure = createAction("CHECK_ID_MULTIPLE_FAILURE")
+
+export const getDashboardDataRequest = createAction(GET_DASHBOARD_DATA_REQUEST)
+export const getDashboardDataSuccess = createAction("GET_DASHBOARD_DATA_SUCCESS")
+export const getDashboardDataFailure = createAction("GET_DASHBOARD_DATA_FAILURE")
 
 export const resetSignupState = createAction(RESET_SIGN_UP_STATE)
 
@@ -139,7 +148,23 @@ const user = createReducer(initialState,{
         state.checkIdMultipleRequest=false
         state.checkIdMultipleSuccess=false
         state.checkIdMultipleError=null
-    }
+    },
+    [getDashboardDataRequest]:(state,action)=>{   
+        console.log('get Dashboad request')             
+        state.getDashboardDataRequest=true;
+        state.getDashboardDataSuccess=false;
+        state.getDashboardDataError=null;
+    },
+    [getDashboardDataSuccess]:(state,{payload})=>{               
+        state.dashboardData = payload;        
+        state.getDashboardDataRequest=false;
+        state.getDashboardDataSuccess=true;
+    },
+    [getDashboardDataFailure]:(state,action)=>{        
+        state.getDashboardDataRequest=false;        
+        state.getDashboardDataError=action.payload.errorMsg;
+    },
+
 })
 
 
@@ -218,6 +243,22 @@ function* checkIdMultiple({payload}){
     }
 }
 
+function* watchGetDashboardData(){    
+    yield takeLatest(GET_DASHBOARD_DATA_REQUEST, getDashboardData)
+}
+
+function* getDashboardData(){
+    
+    try{        
+        const result = yield call(loginAPI.getDashboardData);
+        yield put(getDashboardDataSuccess(result.data))
+    }catch(err){
+        console.error(err)
+        yield put(getDashboardDataFailure(err.response.data))
+    }
+}
+
+
 export function* loginSaga(){
     yield all([
         fork(watchLoadMyInfo),
@@ -225,6 +266,7 @@ export function* loginSaga(){
         fork(watchLogout),
         fork(watchSignUp),
         fork(watchCheckIdMultiple),
+        fork(watchGetDashboardData),
       
     ])
 }

@@ -1,6 +1,9 @@
 const userModel = require('../model/user')
+const bookBasketModel = require('../model/bookBasket')
+const bookDiaryModel = require('../model/bookDiary')
 const bcrypt = require('bcrypt')
 const passport = require('passport');
+
 
 exports.getUser = async(req,res,next)=>{
     try {
@@ -81,5 +84,20 @@ exports.logout = async(req,res,next)=>{
         res.status(200).send('ok')
     } catch (error) {
         next(error)
+    }
+}
+
+exports.getDashBoardData = async(req,res,next)=>{
+    try {
+        const email = req.user.email
+        const basketCount = await bookBasketModel.find({'email':{$eq:email}}).count()
+        const isReadCount = await bookBasketModel.find({'email':{$eq:email},'isRead':{$eq:true}}).count()
+        const diaryCount = await bookDiaryModel.find({'email':{$eq:email}}).count()
+        const randomPhrase = await bookDiaryModel.aggregate([{$sample:{size:1}},{$project: {'phrases': true}}])
+        console.log(basketCount,isReadCount,diaryCount)
+        res.status(200).json({basketCount, isReadCount, diaryCount,randomPhrase})
+    } catch (error) {
+        next(error)
+        
     }
 }
