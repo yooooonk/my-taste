@@ -131,7 +131,7 @@ const book = createReducer(initialState,{
     [bookUnlikeSuccess]:(state,{payload})=>{
         const isbn = payload;
         const basket = state.bookBasket
-        console.log('unlike',basket)
+        
         state.bookBasket = basket.filter((b)=>b.isbn !== isbn)
         
         state.bookUnlikeRequest=false;
@@ -161,16 +161,11 @@ const book = createReducer(initialState,{
         state.updateBookStateError=null;
     },
     [updateBookStateSuccess]:(state,{payload})=>{  
-        console.log(state.bookBasket)
-        console.log(payload.book.isRead)
-
-        const basket = state.bookBasket;
-        basket.
-     /*    state.bookBasket = basket.filter((b)=>b.isbn !== isbn)
-        temp.slice(temp.findIndex(v=>v._id===payload.id),1,payload.book);
-        console.log(payload)
-        state.bookBasket = temp; */
         
+        const temp = state.bookBasket;
+        const idx = temp.findIndex(v=>v._id===payload.id)
+        temp.splice(idx,1,payload.book);
+        state.basket = temp;
         state.updateBookStateRequest=false;
         state.updateBookStateSuccess=true;        
     },
