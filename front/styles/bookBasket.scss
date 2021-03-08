@@ -88,7 +88,6 @@
                 &:hover .content{
                     opacity: 1;
                     transform: translateY(-10px);
-                    
                 }
             }
             
@@ -97,12 +96,13 @@
                 position: relative;
                 top: -50px;
                 justify-content: space-around;
-                transition: .3s ease-in-out;
+                
                 .icon{
                     color: white;
-
+                    transition: .2s ease-in-out;
                     &:hover{
                         color:rgb(255, 117, 117);
+                        
                     }
                 }
 

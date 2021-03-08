@@ -10,12 +10,10 @@ const BookDetail = ({onWrite})=>{
     const authors = `${detailBook.authors[0]} ${detailBook.authors.length>2? '외': ''}`
     const status = `${detailBook.status? '': '절판'}`
     
-    const liked = bookBasket.find((v)=> v.isbn === detailBook.isbn);
+    const inBasketBook = bookBasket.find((v)=> v.isbn === detailBook.isbn);
     
-    const onLike = useCallback(()=>{
-      
+    const onLike = useCallback(()=>{      
        dispatch(bookLikeRequest(detailBook))
-
     })
 
     const onUnlike = useCallback(()=>{      
@@ -31,10 +29,11 @@ const BookDetail = ({onWrite})=>{
           <div className="bookInfo-thumbnail">
               <img src={detailBook.thumbnail}/>
               <div className="button-box">
-                {liked
+                {inBasketBook
                      ? <FaHeart className="icon like" onClick={onUnlike}/>
                     : <FaHeart className="icon unlike" onClick={onLike}/>}            
-                  <FaPencilAlt className="icon penceil" onClick={onWrite} />
+                  
+                 {inBasketBook?.isWrite? <FaPencilAlt className="icon like" onClick={onWrite(book)} />:<FaPencilAlt className="icon unlike" onClick={onWrite(detailBook)} />} 
                   
               </div>  
           </div>          

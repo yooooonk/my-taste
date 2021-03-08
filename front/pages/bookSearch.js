@@ -6,7 +6,7 @@ import BookSearchList from '../components/BookSearchList';
 import NoResult from '../components/NoResult';
 import PostForm from '../components/PostForm';
 import SearchBar from '../components/SearchBar';
-import { clearSearchCompnent, setIsPostFormOpen } from '../modules/book';
+import { bookLikeRequest, clearSearchCompnent, setIsPostFormOpen } from '../modules/book';
 import '../styles/bookSearch.scss'
 import '../styles/PostForm.scss'
 
@@ -20,15 +20,19 @@ const BookSearch = ()=>{
         }
     },[])
 
-    const openForm = useCallback(()=>{
-        dispatch(setIsPostFormOpen(true))
+    const onWrite = useCallback((isWrite)=>()=>{
+        console.log('디테일에서 쓰기', isWrite)
+        if(!isWrite){            
+            dispatch(setIsPostFormOpen(true))
+        }
+        
     },[])
     
       
     return(
         <div className="book-search">
             <SearchBar />
-            {detailBook? <BookDetail onWrite={openForm}/> : <NoResult msg='좋아하는 책을 검색해주세요 &#128151;' />}
+            {detailBook? <BookDetail onWrite={onWrite}/> : <NoResult msg='좋아하는 책을 검색해주세요 &#128151;' />}
             <BookSearchList />
             {isPostFormOpen? <PostForm /> : ''}
         </div>

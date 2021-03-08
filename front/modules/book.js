@@ -33,6 +33,10 @@ export const initialState = {
     writeBookDiraryRequest:false,
     writeBookDirarySuccess:false,
     writeBookDiraryError:null,
+    getBookDiaryByIdRequest:false,
+    getBookDiaryByIdSuccess:false,
+    getBookDiaryByIdError:null,  
+    bookDiaryone:[]
     
 };
 
@@ -41,6 +45,7 @@ const BOOK_LIKE_REQUEST = 'BOOK_LIKE_REQUEST';
 const BOOK_UNLIKE_REQUEST = 'BOOK_UNLIKE_REQUEST';
 const GET_BOOK_BASKET_REQUEST = 'GET_BOOK_BASKET_REQUEST';
 const GET_BOOK_DIARY_REQUEST = 'GET_BOOK_DIARY_REQUEST';
+const GET_BOOK_DIARY_BY_ID_REQUEST = 'GET_BOOK_DIARY_BY_ID_REQUEST';
 const UPDATE_BOOK_STATE_REQUEST = 'UPDATE_BOOK_STATE_REQUEST';
 const WRITE_BOOK_DIARY_REQUEST = 'WRITE_BOOK_DIARY_REQUEST';
 
@@ -67,6 +72,10 @@ export const updateBookStateFailure = createAction("UPDATE_BOOK_STATE_FAILURE");
 export const getBookDiaryRequest = createAction(GET_BOOK_DIARY_REQUEST);
 export const getBookDiarySuccess = createAction("GET_BOOK_DIARY_SUCCESS");
 export const getBookDiaryFailure = createAction("GET_BOOK_DIARY_FAILURE");
+
+export const getBookDiaryByIdRequest = createAction(GET_BOOK_DIARY_BY_ID_REQUEST);
+export const getBookDiaryByIdSuccess = createAction("GET_BOOK_DIARY_BY_ID_SUCCESS");
+export const getBookDiaryByIdFailure = createAction("GET_BOOK_DIARY_BY_ID_FAILURE");
 
 export const writeBookDiraryRequest = createAction(WRITE_BOOK_DIARY_REQUEST);
 export const writeBookDirarySuccess = createAction("WRITE_BOOK_DIARY_SUCCESS");
@@ -187,6 +196,20 @@ const book = createReducer(initialState,{
         state.getBookDiaryRequest=false;        
         state.getBookDiaryError=action.error;
     },
+    [getBookDiaryByIdRequest]:(state,action)=>{        
+        state.getBookDiaryByIdRequest=true;
+        state.getBookDiaryByIdSuccess=false;
+        state.getBookDiaryByIdError=null;
+    },
+    [getBookDiaryByIdSuccess]:(state,{payload})=>{        
+        state.bookDiaryone = payload;        
+        state.getBookDiaryByIdRequest=false;
+        state.getBookDiaryByIdSuccess=true;        
+    },
+    [getBookDiaryByIdFailure]:(state,action)=>{
+        state.getBookDiaryByIdRequest=false;        
+        state.getBookDiaryByIdError=action.error;
+    },
     [writeBookDiraryRequest]:(state,action)=>{        
         state.writeBookDiraryRequest=true;
         state.writeBookDirarySuccess=false;
@@ -306,6 +329,8 @@ function* getBookBasket(){
     }
 }
 
+
+
 function* watchUpdateBookState(){        
     yield takeLatest(UPDATE_BOOK_STATE_REQUEST, updateBookState)
 }
@@ -340,6 +365,23 @@ function* getBookDiary(){
     }
 }
 
+
+function* watchGetBookDiaryById(){        
+    yield takeLatest(GET_BOOK_DIARY_BY_ID_REQUEST, getBookDiaryById)
+}
+
+function* getBookDiaryById(){
+    
+    try{        
+        const result = yield call(bookAPI.getBookDiary); //동기
+        
+        yield put(getBookDiarySuccess(result.data));
+        
+    }catch(err){
+        console.error(err)
+        yield put(getBookDiaryFailure(err.response.data))        
+    }
+}
 function* writeBookDiary({payload}){
     
     try{        
@@ -368,6 +410,7 @@ export function* bookSaga(){
         fork(watchUpdateBookState),       
         fork(watchWriteBookDiary),     
         fork(watchGetBookDiary),     
+        fork(watchGetBookDiaryById),     
           
     ])
 }

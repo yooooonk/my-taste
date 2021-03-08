@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bookUnlikeRequest, setSelectedCard, updateBookStateRequest } from '../modules/book';
 import { FaPencilAlt,FaTrashAlt, FaBookOpen } from "react-icons/fa"; 
 
-const BasketCard = ({book})=>{
+const BasketCard = ({book, onWrite})=>{
     const dispatch = useDispatch();
- 
-    const onWrite = useCallback(e=>{
-        console.log('쓰기')
-    })
-
+    
+/*     const onWrite = useCallback(e=>{
+      console.log('쓰기')
+  })  
+ */
     const onRemove = useCallback(e=>{
       dispatch(bookUnlikeRequest(book.isbn))        
     })
