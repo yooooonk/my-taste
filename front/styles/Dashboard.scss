@@ -16,14 +16,15 @@
         .section-title{
             padding-left: $padding-normal;
             font-size: 1.5rem;
+            margin-bottom:2vh;
         }        
     }
     .top{
         .cards-wrapper{
-            margin-top:2vh;
+            
             display: inherit;
             flex-direction: row;            
-            height: 35vh;
+            height: 30vh;
     
             .dashboard-card{
                 display: inherit;
@@ -80,16 +81,18 @@
     }
     
     .bottom{
+        height: 50%;
         
         .random-phrase-box{
             padding-left: $padding-normal;
             width: 90%;
+            
             .phrase-wrapper{                                
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 flex-wrap: nowrap;
-                height: 40vh;
+                height: 30vh;
                 background-color: rgb(255, 255, 255);
                 box-shadow: 3px 3px 20px 0.5px rgb(235, 235, 235) ;
                 /* .phrase{
