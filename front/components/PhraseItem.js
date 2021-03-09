@@ -23,7 +23,7 @@ const PhraseItem = ({phraseData})=>{
         
         process.nextTick(()=>{
           textInput.current.focus()
-          debugger
+          
         })
         
 

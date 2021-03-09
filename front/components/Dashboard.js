@@ -17,7 +17,7 @@ const Dashboard = ()=>{
 
     return (
       <div className="dashboard-part">                
-        <section class="top">          
+        <section className="top">          
           <span className="section-title">Over View</span>
             <div className="cards-wrapper">
                 <DashboardCard data={dashboardData.basketCount} type={'basketCount'} />

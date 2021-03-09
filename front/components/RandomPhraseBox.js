@@ -8,9 +8,14 @@ const RandomPhraseBox = ({phrases})=>{
     }) */
 
     useEffect(()=>{
-        const value = phrases?.[0].phrases[0].phrase
-        console.log(value)
-        setPhrase(value)
+      console.log(phrases[0])
+      if(phrases){
+          const value = phrases?.[0].phrases[0].phrase
+          setPhrase(value)
+      }else{
+          setPhrase('친절과 빛과 삶과 공감의 확대')
+      }
+        
     },[])
     
     return (

@@ -22,7 +22,7 @@ const BookSearch = ()=>{
 
     const onWrite = useCallback((isWrite)=>()=>{
         console.log('디테일에서 쓰기', isWrite)
-        if(!isWrite){            
+        if(!isWrite._id){            
             dispatch(setIsPostFormOpen(true))
         }
         
