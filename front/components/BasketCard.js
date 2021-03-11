@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { bookUnlikeRequest, setSelectedCard, updateBookStateRequest } from '../modules/book';
+import { bookUnlikeRequest, updateBookStateRequest } from '../modules/book';
 import { FaPencilAlt,FaTrashAlt, FaBookOpen } from "react-icons/fa"; 
-
+import { ReadOutlined,ReadFilled   } from '@ant-design/icons';
 const BasketCard = ({book, onWrite})=>{
     const dispatch = useDispatch();
     
@@ -19,17 +19,17 @@ const BasketCard = ({book, onWrite})=>{
     })
     return (
       <div className="basket-card" >
-         <a href={book.url} target='_blank'>
-                
+         <a href={book.url} target='_blank'>                
                 <img src={book.thumbnail} />                            
                 <div className="content">
-                    <span className="title">{book.title}</span> 
+                    <span className="title"><b>{book.title}</b></span> 
                     <span className="author">{book.authors}</span> 
                     <span className="publisher">{book.publisher}</span>       
                 </div>
           </a>        
-        <div className="button-box">
-          {book.isRead? <FaBookOpen className="icon can done" onClick={onRead}/>:<FaBookOpen className="icon can" onClick={onRead}/>}
+        <div className="button-box"> 
+          {book.isRead? <ReadFilled  className="icon can done" onClick={onRead}/>:<ReadOutlined  className="icon can" onClick={onRead}/>}
+          {/* {book.isRead? <FaBookOpen className="icon can done" onClick={onRead}/>:<FaBookOpen className="icon can" onClick={onRead}/>} */}
           {book.isWrite? <FaPencilAlt className="icon penceil done" onClick={onWrite} /> :<FaPencilAlt className="icon penceil" onClick={onWrite} />}  
             
             <FaTrashAlt className="icon can" onClick={onRemove} />
