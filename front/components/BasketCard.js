@@ -5,11 +5,8 @@ import { FaPencilAlt,FaTrashAlt, FaBookOpen } from "react-icons/fa";
 import { ReadOutlined,ReadFilled   } from '@ant-design/icons';
 const BasketCard = ({book, onWrite})=>{
     const dispatch = useDispatch();
-    
-/*     const onWrite = useCallback(e=>{
-      console.log('쓰기')
-  })  
- */
+   
+
     const onRemove = useCallback(e=>{
       dispatch(bookUnlikeRequest(book.isbn))        
     })
@@ -28,9 +25,8 @@ const BasketCard = ({book, onWrite})=>{
                 </div>
           </a>        
         <div className="button-box"> 
-          {book.isRead? <ReadFilled  className="icon can done" onClick={onRead}/>:<ReadOutlined  className="icon can" onClick={onRead}/>}
-          {/* {book.isRead? <FaBookOpen className="icon can done" onClick={onRead}/>:<FaBookOpen className="icon can" onClick={onRead}/>} */}
-          {book.isWrite? <FaPencilAlt className="icon penceil done" onClick={onWrite} /> :<FaPencilAlt className="icon penceil" onClick={onWrite} />}  
+          {book.isRead? <ReadFilled  className="icon can done" onClick={onRead}/>:<ReadOutlined  className="icon can" onClick={onRead}/>}          
+          {book.isWrite? <FaPencilAlt className="icon penceil done" onClick={onWrite(book)} /> :<FaPencilAlt className="icon penceil" onClick={onWrite(book)} />}  
             
             <FaTrashAlt className="icon can" onClick={onRemove} />
         </div> 

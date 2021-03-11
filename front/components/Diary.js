@@ -14,8 +14,7 @@ const Diary = ({diary})=>{
     }
     commentDiv.current.innerHTML = comment
   },[diary,isMore])
-  
-  console.log(typeof diary.date)
+    
     return (
       <div className="diary">
           <header>
