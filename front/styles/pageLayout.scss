@@ -19,21 +19,15 @@
                 width:10%;        
                 height: 90%;
                 justify-content:space-between;
-                
-                .title{
-                        font-family: $ballo;
+                font-family: $ballo;
+                color: white;
+                .title{                        
                         font-size: 3vw;
                         line-height: 3vw;
                         text-align: center;
                         a{
                                 color: white;
                         }
-                        
-                        
-                }
-
-                .Menu{
-                        color: white;
                 }
         }
         

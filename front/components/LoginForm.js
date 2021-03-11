@@ -17,8 +17,8 @@ const LoginForm = ()=>{
   const [errorMsg,setErrorMsg] = useState('');
     
   const login = () => {  
-    setId('qwe@gmail.com');
-    setPw('qwe');
+    /* setId('qwe@gmail.com');
+    setPw('qwe'); */
         if(id && pw){
       dispatch(loginRequest({id, pw}))
     }

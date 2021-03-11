@@ -38,7 +38,7 @@ $shadow: 2px 2px 10px 1px ;
         border-radius: 20px;
         background-color: white;
         font-size: 1.1vw;
-        font-family: $jua;
+        /* font-family: $jua; */
         text-align: center;
         color: $mainColor;
         cursor: pointer;
@@ -51,7 +51,7 @@ $shadow: 2px 2px 10px 1px ;
 input:focus, button:focus { outline: none; }
 input {border:none}
 body {    
-    font-family: $noto;
+    /* font-family: $noto; */
     color: $gray
 }
 
@@ -60,7 +60,7 @@ button{
         border-radius: 20px;
         background-color: white;
         font-size: 1.1vw;
-        font-family: $jua;
+        /* font-family: $jua; */
         text-align: center;
         color: $mainColor;
         cursor: pointer;

@@ -8,7 +8,7 @@ const RandomPhraseBox = ({phrases})=>{
     }) */
 
     useEffect(()=>{
-      console.log(phrases[0])
+      
       if(phrases){
           const value = phrases?.[0].phrases[0].phrase
           setPhrase(value)

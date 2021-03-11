@@ -1,5 +1,4 @@
 import 'antd/dist/antd.css'
-import '../styles/Menu.scss'
 import Link from 'next/Link';
 
 const Menu = ()=>{
