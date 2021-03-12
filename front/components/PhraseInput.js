@@ -38,10 +38,12 @@ const PhraseInput = ()=>{
         setIsOverTen(false);
       }
     },[value,phraseInputList]) 
-
+    
     const mapToPhraseItem = phraseInputList.map((p)=>{
         return <PhraseItem phraseData={p} key={p.id} />
     })
+
+    console.log(typeof mapToPhraseItem)
 
     return (
       <div className="phrase-section">  

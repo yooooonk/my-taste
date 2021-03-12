@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import {FaQuoteLeft,FaQuoteRight} from "react-icons/fa";
 const RandomPhraseBox = ({phrases})=>{
-    console
+    
     const [phrase,setPhrase] = useState('')
    /*  const mapToDiv = phrases[0].phrases.map((p)=>{
         return <div key={p.id} className="phrase">{p.phrase}</div>
     }) */
 
-    useEffect(()=>{
-      
+    useEffect(()=>{      
+    /*   const n = phrases.length
+      const x = Math.floor(Math.random()*n)
+      console.log('useEffect',phrases,phrases.length,x) */
       if(phrases){
+
           const value = phrases?.[0].phrases[0].phrase
           setPhrase(value)
       }else{

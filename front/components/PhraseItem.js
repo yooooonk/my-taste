@@ -24,16 +24,23 @@ const PhraseItem = ({phraseData})=>{
         process.nextTick(()=>{
           textInput.current.focus()
           
-        })
-        
+        })        
 
     },[isEdit])
+    const onBlur =  useCallback(e=>{
+      setIsEdit(false)
+    })
+    const onEnter = useCallback(e=>{
+      if(e.key === 'Enter'){
+        setIsEdit(false)
+      }
+    })
    
     return (
       <div className="phrase-item">
         
           {isEdit?
-                <input type="text" onChange={onChangeValue} onBlur={()=>setIsEdit(false)} value={value} ref={textInput}></input>
+                <input type="text" onChange={onChangeValue} onBlur={onBlur} onKeyPress={onEnter} value={value} ref={textInput}></input>
               : (<div>
               <span onClick={onClickPhrase}>{phraseData.phrase}</span>
               <FaTimes className="icon" onClick={onRemovePhrase} /></div>
