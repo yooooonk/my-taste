@@ -40,16 +40,15 @@ const PhraseInput = ()=>{
     },[value,phraseInputList]) 
     
     const mapToPhraseItem = phraseInputList.map((p)=>{
-        return <PhraseItem phraseData={p} key={p.id} />
-    })
+      return <PhraseItem phraseData={p} key={p.id} />
+  })
 
-    console.log(typeof mapToPhraseItem)
-
+    
     return (
       <div className="phrase-section">  
           <div className="input-wrapper">
-                <input type="text" onChange={onChangeValue} onKeyPress={onEnter} placeholder="기록하고 싶은 문장이 있나요?" value={value}></input>         
-               {isOverTen? <span className="error-msg">10개까지만 등록가능합니다</span> : ''}
+                
+               
           </div>
          
          <div className="phrase-wrapper">          

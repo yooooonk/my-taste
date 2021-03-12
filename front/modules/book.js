@@ -14,7 +14,7 @@ export const initialState = {
     bookSearchError:null,    
     is_end:false,
     keyword:null,
-    isisPostFormOpen:false,
+    isPostFormOpen:true,
     getBookBasketRequest:false,
     getBookBasketSuccess:false,
     getBookBasketError:null,   
@@ -245,7 +245,7 @@ const book = createReducer(initialState,{
     },
     [clearSearchCompnent] :(state,{payload})=>{
         state.phraseInputList = [];
-        state.isPostFormOpen = false;
+        //state.isPostFormOpen = false;
         state.imagePath = null;
     
         state.bookSearchList = [];
