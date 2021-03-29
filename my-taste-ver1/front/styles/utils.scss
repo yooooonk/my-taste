@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Nanum+Gothic+Coding&family=Baloo+Paaji&family=Gothic+A1:wght@500&family=Do+Hyeon&family=Jua&family=Noto+Serif+KR:wght@500&family=Fredoka+One&display=swap');
+
+$mainColor:rgb(255, 82, 82);
+$pageRightSideColor : rgb(255, 242, 242);
+$lightGray : rgb(241, 241, 241);
+$middleGray:rgb(150, 150, 150);
+$gray:rgb(88, 88, 88);
+$backgroundWhite : rgb(250, 249, 255); 
+$diaryColor: rgb(255, 223, 223);
+
+$padding-normal : 3vh;
+
+
+$input-bottom:2px dashed pink;
+
+$roboto : 'Roboto', sans-serif;
+$dohyeon : 'Do Hyeon', sans-serif;
+$jua : 'Jua', sans-serif;
+$noto : 'Noto Serif KR', serif; 
+$ballo : 'Baloo Paaji', cursive;
+$nanum : 'Nanum Gothic Coding', monospace;
+
+$radius : 2em;
+
+$shadow: 2px 2px 10px 1px ;  
+
+@mixin rounded{
+    border-radius: 2em;
+}
+
+@mixin flex-box{
+    display:flex;
+     
+}
+
+@mixin button-style{            
+        border: $mainColor 1px solid;
+        border-radius: 20px;
+        background-color: white;
+        font-size: 1.1vw;
+        /* font-family: $jua; */
+        text-align: center;
+        color: $mainColor;
+        cursor: pointer;
+        &:hover{
+            background-color: $mainColor;
+            color: white;
+        }    
+}
+
+input:focus, button:focus { outline: none; }
+input {border:none}
+body {    
+    /* font-family: $noto; */
+    color: $gray
+}
+
+button{
+    border: $mainColor 1px solid;
+        border-radius: 20px;
+        background-color: white;
+        font-size: 1.1vw;
+        /* font-family: $jua; */
+        text-align: center;
+        color: $mainColor;
+        cursor: pointer;
+        &:hover{
+            background-color: $mainColor;
+            color: white;
+        }    
+}
+
+.icon{
+    cursor: pointer;
+}
