@@ -6,8 +6,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Upload from '../shared/Upload';
 import { MdClose } from 'react-icons/md';
+import ErrorMsg from './ErrorMsg';
 const PostWrite = () => {
   const [isPhrase, setIsPhrase] = useState(false);
+  const [isOverTen, setIsOverTen] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
   const handleChange = (e) => {
@@ -19,6 +21,10 @@ const PostWrite = () => {
   };
 
   const addPhrase = (e) => {
+    if (!value) return;
+    if (phraseList.length >= 10) {
+      return setIsOverTen(true);
+    }
     setPhraseList([...phraseList, value]);
     setValue('');
   };
@@ -46,6 +52,9 @@ const PostWrite = () => {
               </Grid>
             );
           })}
+          <ErrorMsg valid={phraseList.length >= 10}>
+            10개까지만 추가할 수 있어요
+          </ErrorMsg>
         </Grid>
         <Grid is_flex is_column padding="0 16px">
           <FormControlLabel
