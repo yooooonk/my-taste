@@ -17,9 +17,7 @@ const Signup = (props) => {
   const [pwdError, setPwdError] = useState(false);
   const [pwdChkError, setPwdChkError] = useState(false);
 
-  const { isIdMultiple } = useSelector((state) => state.user);
-
-  console.log(isIdMultiple);
+  const { fbAuthError } = useSelector((state) => state.user);
 
   const isFailValid = () => {
     let fail = false;
@@ -69,7 +67,9 @@ const Signup = (props) => {
             }}
           />
           <ErrorMsg valid={idError}>이메일 형식으로 입력해주세요</ErrorMsg>
-          <ErrorMsg valid={isIdMultiple}>이미 가입된 이메일입니다</ErrorMsg>
+          <ErrorMsg valid={fbAuthError.isError}>
+            이미 가입된 이메일입니다
+          </ErrorMsg>
         </Grid>
       </Grid>
       <Grid>
