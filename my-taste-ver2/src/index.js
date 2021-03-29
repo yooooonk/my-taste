@@ -5,13 +5,15 @@ import reportWebVitals from './reportWebVitals';
 import App from './shared/App';
 import { ThemeProvider } from 'styled-components';
 import theme from './shared/theme';
+import { Provider } from 'react-redux';
+import store from './redux/configStore';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

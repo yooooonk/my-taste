@@ -12,7 +12,8 @@ Text.defaultProps = {
   children: null,
   bold: false,
   color: '#222831',
-  size: '1em'
+  size: '1em',
+  font_family: false
 };
 
 const P = styled.p`

@@ -1,19 +1,19 @@
-import { Grid, Image, Text } from '../elements';
+import Navbar from '../components/Navbar';
+import { Button, Grid, Image, Text } from '../elements';
 import './App.css';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import PostList from '../components/PostList';
+import { history } from '../redux/configStore';
 
 function App() {
   return (
     <div className="App">
       <Grid is_flex>
-        <Grid bg="yellow" width="30%">
-          <Image is_circle></Image>
-        </Grid>
-        <Grid bg="yellow" width="30%">
-          <Image is_circle></Image>
-        </Grid>
-        <Grid bg="yellow" width="30%">
-          <Text bold>zzz</Text>
-        </Grid>
+        <Navbar />
+        <ConnectedRouter history={history}>
+          <Route path="/" exact component={PostList} />
+        </ConnectedRouter>
       </Grid>
     </div>
   );
