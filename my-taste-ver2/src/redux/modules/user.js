@@ -15,13 +15,11 @@ const initialState = {
 
 // actions
 const LOG_OUT = 'LOG_OUT';
-const GET_USER = 'GET_USER';
 const SET_USER = 'SET_USER';
 const SET_FB_AUTH_ERROR = 'SET_FB_AUTH_ERROR';
 
 // action creators
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const getUser = createAction(GET_USER, (user) => ({ user }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setFbAuthError = createAction(SET_FB_AUTH_ERROR, (authError) => ({
   authError
@@ -129,6 +127,15 @@ const loginCheckFB = () => {
   };
 };
 
+const logoutFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.signOut().then(() => {
+      dispatch(logOut());
+      history.replace('/');
+    });
+  };
+};
+
 // reducer
 export default handleActions(
   {
@@ -143,7 +150,6 @@ export default handleActions(
         draft.user = null;
         draft.isLogin = false;
       }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
     [SET_FB_AUTH_ERROR]: (state, action) =>
       produce(state, (draft) => {
         draft.fbAuthError = action.payload.authError;
@@ -155,7 +161,8 @@ export default handleActions(
 const actionCreators = {
   signupFB,
   loginFB,
-  loginCheckFB
+  loginCheckFB,
+  logoutFB
 };
 
 export { actionCreators };

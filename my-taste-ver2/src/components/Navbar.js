@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Grid } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 const Navbar = (props) => {
+  const dispatch = useDispatch();
   const onClick = (e) => {
     history.push('/');
   };
@@ -20,7 +23,7 @@ const Navbar = (props) => {
   };
 
   const logout = (e) => {
-    console.log('로그아웃');
+    dispatch(userActions.logoutFB());
   };
   return (
     <React.Fragment>
