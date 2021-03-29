@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { apiKey } from './firebase';
 import { useEffect } from 'react';
+import PostWrite from '../components/PostWrite';
 function App() {
   const dispatch = useDispatch();
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" exact component={PostList} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/write" exact component={PostWrite} />
         </ConnectedRouter>
       </Grid>
     </div>

@@ -3,6 +3,7 @@ import React from 'react';
 
 const Image = (props) => {
   //const { is_circle, src, size, radius } = props;
+  const { _onClick } = props;
 
   /* const styles = {
     src: src,
@@ -10,14 +11,15 @@ const Image = (props) => {
     is_circle: is_circle
   }; */
 
-  return <ImageShape {...props}></ImageShape>;
+  return <ImageShape {...props} onClick={_onClick}></ImageShape>;
 };
 
 Image.defaultProps = {
   is_circle: false,
   src: 'https://s3.ap-northeast-2.amazonaws.com/yoooook.xyz/camera.png',
   size: 36,
-  radius: 0
+  radius: 0,
+  _onClick: () => {}
 };
 
 const ImageShape = styled.div`
