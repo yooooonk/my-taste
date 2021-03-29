@@ -1,12 +1,29 @@
 import React from 'react';
-import { Grid } from '../elements';
+import { Button, Grid } from '../elements';
+import { history } from '../redux/configStore';
 
 const Navbar = (props) => {
+  const onClick = (e) => {
+    history.push('/');
+  };
+  const login = (e) => {
+    history.push('/login');
+  };
+
+  const signup = (e) => {
+    history.push('/signup');
+  };
   return (
     <Grid>
-      <Grid>My Taste</Grid>
-      <Grid>로그인</Grid>
-      <Grid>로그아웃</Grid>
+      <Grid _onClick={onClick}>My Taste</Grid>
+      <Grid>
+        <Grid>
+          <Button _onClick={login}>로그인</Button>
+        </Grid>
+        <Grid>
+          <Button _onClick={signup}>회원가입</Button>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
