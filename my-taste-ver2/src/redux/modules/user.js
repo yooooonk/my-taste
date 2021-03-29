@@ -110,6 +110,24 @@ const loginFB = (id, pw) => {
     });
   };
 };
+const loginCheckFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(
+          setUser({
+            user_name: user.displayName,
+            user_profile: '',
+            id: user.email,
+            uid: user.uid
+          })
+        );
+      } else {
+        dispatch(logOut());
+      }
+    });
+  };
+};
 
 // reducer
 export default handleActions(
@@ -136,7 +154,8 @@ export default handleActions(
 // action creator export
 const actionCreators = {
   signupFB,
-  loginFB
+  loginFB,
+  loginCheckFB
 };
 
 export { actionCreators };

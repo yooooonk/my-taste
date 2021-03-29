@@ -13,9 +13,11 @@
   [v] Image.js
 
 2. 로그인 설정
-   [] router, redux, firebase 설치
-   [] navbar 만들기
-   [] 로그인 컴포넌트
-   [] 회원가입 컴포넌트
-   [] 회원가입 구현 + validation 체크
-   [] 로그인 구현
+   [v] router, redux, firebase 설치
+   [v] navbar 만들기
+   [v] 로그인 컴포넌트
+   [v] 회원가입 컴포넌트
+   [v] 회원가입 구현 + validation 체크
+   [v] 로그인 구현
+   [] 로그인 상태 가져오기
+   [] Permit으로 로그인 상태에 따라 버튼
