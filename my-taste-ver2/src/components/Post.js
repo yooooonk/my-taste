@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Grid, I, Image, Text } from '../elements';
-import { MdEdit } from 'react-icons/md';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import ImageCarousel from './ImageCarousel';
-import styled from 'styled-components';
-import { Icon } from '@material-ui/core';
 import Permit from '../shared/Permit';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
-
+import { MdKeyboardArrowLeft, MdCreate, MdDelete } from 'react-icons/md';
+import { history } from '../redux/configStore';
+import Header from './Header';
 const Post = (props) => {
-  //const { _onClck } = props;
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.user.uid);
-
+  const is_me = props.user_info.user_id === id;
+  const [isMore, setIsMore] = useState(true);
   let like = props.likers.includes(id);
-
   const onUnlike = (e) => {
     e.stopPropagation();
     dispatch(postActions.unlikePostFB(props.id));
@@ -26,17 +23,45 @@ const Post = (props) => {
     e.stopPropagation();
     dispatch(postActions.likePostFB(props.id));
   };
+
+  const editPost = (e) => {
+    e.stopPropagation();
+    history.push(`/write/${props.id}`);
+  };
+
+  const deletePost = (e) => {
+    e.stopPropagation();
+    dispatch(postActions.deletePostFB(props.id));
+  };
   return (
     <Grid is_flex is_column bg="skyblue" margin="10px 0">
-      <Grid is_flex>
-        <Grid width="25%">
+      <Header goBack={props.is_detail}>
+        <Grid width="30%">
           <Image is_circle src={props.user_profile}></Image>
           <Text>{props.user_info.user_name}</Text>
         </Grid>
-        <Grid width="10%" bg="skyblue">
-          <Text>{props.is_me && <MdEdit />}</Text>
+        <Grid margin="0 20px" width="10%" bg="skyblue">
+          {is_me && (
+            <Grid>
+              <I
+                _onClick={(e) => {
+                  editPost(e);
+                }}
+              >
+                <MdCreate />
+              </I>
+              <I
+                _onClick={(e) => {
+                  deletePost(e);
+                }}
+              >
+                <MdDelete />
+              </I>
+            </Grid>
+          )}
         </Grid>
-      </Grid>
+      </Header>
+
       <Grid bg="yellow">
         <ImageCarousel
           size="100%"
@@ -58,7 +83,6 @@ const Post = (props) => {
           ) : (
             <I color="pink">
               <MdFavoriteBorder
-                className="icon unlike"
                 onClick={(e) => {
                   onLike(e);
                 }}
@@ -67,12 +91,20 @@ const Post = (props) => {
           )}
         </Permit>
       </Grid>
+      <Grid is_flex is_column>
+        {props.contents.length > 20 && isMore
+          ? props.contents.substring(0, 20) + '...'
+          : props.contents}
+        <span style={{ display: 'inline' }} onClick={() => setIsMore(!isMore)}>
+          {props.contents.length > 20 ? (isMore ? '더보기' : '접기') : ''}
+        </span>
+      </Grid>
     </Grid>
   );
 };
 
 Post.defaultProps = {
-  is_me: false
+  is_detail: false
 };
 
 export default Post;

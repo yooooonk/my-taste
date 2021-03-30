@@ -13,12 +13,14 @@ const initialState = {
 };
 // actions
 const ADD_POST = 'ADD_POST';
+const DELETE_POST = 'DELETE_POST';
 const SET_POST = 'SET_POST';
 const EDIT_POST = 'EDIT_POST';
 const LOADING = 'LOADING';
 
 // action creators
 const addPost = createAction(ADD_POST, (post) => ({ post }));
+const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
   paging
@@ -90,6 +92,22 @@ const addPostFB = (contents, phraseList) => {
           console.log('앗! 이미지 업로드에 문제가 있어요!', err);
         });
     });
+  };
+};
+const deletePostFB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection('post');
+
+    postDB
+      .doc(postId)
+      .delete()
+      .then(() => {
+        dispatch(deletePost(postId));
+        history.replace('/');
+      })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
   };
 };
 
@@ -176,45 +194,6 @@ const getOnePostFB = (id) => {
   };
 };
 
-// reducer
-export default handleActions(
-  {
-    [SET_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.push(...action.payload.post_list);
-        // 중복처리
-        draft.list = draft.list.reduce((acc, cur) => {
-          let idx = acc.findIndex((acc) => acc.id === cur.id);
-          if (idx === -1) {
-            return [...acc, cur];
-          } else {
-            acc[idx] = cur;
-            return acc;
-          }
-        }, []);
-
-        if (action.payload.paging) {
-          draft.paging = action.payload.paging;
-        }
-        draft.is_loading = false;
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.unshift(action.payload.post);
-      }),
-    [EDIT_POST]: (state, action) =>
-      produce(state, (draft) => {
-        let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
-
-        draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
-      }),
-    [LOADING]: (state, action) =>
-      produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
-      })
-  },
-  initialState
-);
 const editPostFB = (post_id = null, post = {}) => {
   return function (dispatch, getState, { history }) {
     if (!post_id) {
@@ -223,12 +202,11 @@ const editPostFB = (post_id = null, post = {}) => {
     }
 
     const _image = getState().image.preview;
-
+    console.log(_image, '이미지');
     const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     const _post = getState().post.list[_post_idx];
 
     const postDB = firestore.collection('post');
-
     if (_image === _post.image_url) {
       postDB
         .doc(post_id)
@@ -309,7 +287,49 @@ const unlikePostFB = (post_id = null) => {
       });
   };
 };
+// reducer
+export default handleActions(
+  {
+    [SET_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(...action.payload.post_list);
+        // 중복처리
+        draft.list = draft.list.reduce((acc, cur) => {
+          let idx = acc.findIndex((acc) => acc.id === cur.id);
+          if (idx === -1) {
+            return [...acc, cur];
+          } else {
+            acc[idx] = cur;
+            return acc;
+          }
+        }, []);
 
+        if (action.payload.paging) {
+          draft.paging = action.payload.paging;
+        }
+        draft.is_loading = false;
+      }),
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.post);
+      }),
+    [EDIT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+
+        draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
+      }),
+    [DELETE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = draft.list.filter((p) => p.id !== action.payload.postId);
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      })
+  },
+  initialState
+);
 // action creator export
 const actionCreators = {
   addPost,
@@ -318,6 +338,7 @@ const actionCreators = {
   getPostFB,
   getOnePostFB,
   editPostFB,
+  deletePostFB,
   likePostFB,
   unlikePostFB
 };

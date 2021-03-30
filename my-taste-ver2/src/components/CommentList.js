@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Grid, Image, Text } from '../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as commentActions } from '../redux/modules/comment';
+
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
   const { post_id } = props;
-  console.log(comment_list);
   useEffect(() => {
     if (!comment_list[post_id]) {
       dispatch(commentActions.getCommentFB(post_id));

@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Image } from '../elements';
 import { actionCreators as imageActions } from '../redux/modules/image';
+import { MdClose } from 'react-icons/md';
+import styled from 'styled-components';
+
 const Upload = () => {
   const dispatch = useDispatch();
   const { uploading, preview } = useSelector((state) => state.image);
@@ -29,7 +32,7 @@ const Upload = () => {
   return (
     <Grid>
       <Image
-        size="250"
+        size="250px"
         src={
           preview
             ? preview
@@ -37,7 +40,13 @@ const Upload = () => {
         }
         _onClick={onClickImageUpload}
         _onDelete={deletePreview}
-      />
+      >
+        {preview && (
+          <Btn>
+            <MdClose onClick={(e) => deletePreview(e)} />
+          </Btn>
+        )}
+      </Image>
       <input
         type="file"
         name="image"
@@ -51,4 +60,8 @@ const Upload = () => {
   );
 };
 
+const Btn = styled.div`
+  position: relative;
+  left: 0;
+`;
 export default Upload;

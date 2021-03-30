@@ -12,6 +12,7 @@ const PostList = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const { is_loading, paging } = useSelector((state) => state.post);
   React.useEffect(() => {
+    console.log(post_list, '리스트');
     if (post_list.length < 2) {
       dispatch(postActions.getPostFB());
     }
@@ -22,10 +23,7 @@ const PostList = (props) => {
         {post_list.map((p, idx) => {
           return (
             <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
-              <Post
-                {...p}
-                is_me={user_info && p.user_info.user_id === user_info.uid}
-              />
+              <Post {...p} />
             </Grid>
           );
         })}

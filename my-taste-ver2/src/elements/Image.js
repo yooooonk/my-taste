@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import React from 'react';
-import { MdClose } from 'react-icons/md';
-import { actionCreators as imageActions } from '../redux/modules/image';
 import { useSelector } from 'react-redux';
 const Image = (props) => {
   //const { is_circle, src, size, radius } = props;
@@ -14,11 +12,7 @@ const Image = (props) => {
     is_circle: is_circle
   }; */
 
-  return (
-    <ImageShape {...props} onClick={_onClick}>
-      {preview && <MdClose className="icon" onClick={_onDelete} />}
-    </ImageShape>
-  );
+  return <ImageShape {...props} onClick={_onClick}></ImageShape>;
 };
 
 Image.defaultProps = {
