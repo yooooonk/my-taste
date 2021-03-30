@@ -34,7 +34,7 @@ const Upload = () => {
         src={
           preview
             ? preview
-            : 'https://s3.ap-northeast-2.amazonaws.com/yoooook.xyz/camera.png'
+            : 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/camera.png?alt=media&token=212104aa-9013-45dd-9478-4914cf9f54cf'
         }
         _onClick={onClickImageUpload}
         _onDelete={deletePreview}

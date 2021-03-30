@@ -25,7 +25,8 @@
    [v] 로그아웃구현
 
 3. 포스트작성
-   [] Post 컴포넌트, Post Write 컴포넌트 만들기
+   [v] Post Write 컴포넌트 만들기
+   [v] Preview만들기
    [] 포스트 작성
-   [] Preview만들기
    [] 게시글 작성할 때 이미지 업로드
+   [] Post 컴포넌트

@@ -7,7 +7,12 @@ import Switch from '@material-ui/core/Switch';
 import Upload from '../shared/Upload';
 import { MdClose } from 'react-icons/md';
 import ErrorMsg from './ErrorMsg';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
+
 const PostWrite = () => {
+  const dispatch = useDispatch();
+  const preview = useSelector((state) => state.image.preview);
   const [isPhrase, setIsPhrase] = useState(false);
   const [isOverTen, setIsOverTen] = useState(false);
   const [value, setValue] = useState('');
@@ -17,7 +22,11 @@ const PostWrite = () => {
   };
 
   const write = (e) => {
-    console.log('꺅');
+    const post = {
+      phraseList,
+      contents: value
+    };
+    dispatch(postActions.addPostFB(value, phraseList));
   };
 
   const addPhrase = (e) => {
