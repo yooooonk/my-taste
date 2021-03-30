@@ -12,9 +12,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 
 const PostWrite = () => {
   const dispatch = useDispatch();
-  const preview = useSelector((state) => state.image.preview);
   const [isPhrase, setIsPhrase] = useState(false);
-  const [isOverTen, setIsOverTen] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
   const handleChange = (e) => {
@@ -22,18 +20,12 @@ const PostWrite = () => {
   };
 
   const write = (e) => {
-    const post = {
-      phraseList,
-      contents: value
-    };
     dispatch(postActions.addPostFB(value, phraseList));
   };
 
   const addPhrase = (e) => {
     if (!value) return;
-    if (phraseList.length >= 10) {
-      return setIsOverTen(true);
-    }
+    if (phraseList.length >= 10) return;
     setPhraseList([...phraseList, value]);
     setValue('');
   };
@@ -55,6 +47,7 @@ const PostWrite = () => {
                 <Phrase>{p}</Phrase>
                 <MdClose
                   onClick={(e) => {
+                    console.log(idx);
                     deletePhrase(idx);
                   }}
                 />

@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { Grid, Image } from '../elements';
 import { actionCreators as imageActions } from '../redux/modules/image';
 const Upload = () => {

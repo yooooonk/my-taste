@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Input, Button } from '../elements';
 import { emailCheck } from '../shared/common';

@@ -24,14 +24,14 @@ const Image = (props) => {
 Image.defaultProps = {
   is_circle: false,
   src: 'https://s3.ap-northeast-2.amazonaws.com/yoooook.xyz/camera.png',
-  size: 36,
+  size: '36px',
   radius: 0,
   _onClick: () => {},
   _onDelete: () => {}
 };
 
 const ImageShape = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${(props) => props.size};
   width: var(--size);
   height: var(--size);
   border-radius: ${(props) => (props.is_circle ? '50%' : props.radius)};

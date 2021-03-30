@@ -13,6 +13,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { apiKey } from './firebase';
 import { useEffect } from 'react';
 import PostWrite from '../components/PostWrite';
+import PostDetail from '../components/PostDetail';
 function App() {
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/write" exact component={PostWrite} />
+          <Route path="/post/:id" exact component={PostDetail} />
         </ConnectedRouter>
       </Grid>
     </div>
