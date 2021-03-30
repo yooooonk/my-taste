@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, I, Image, Text } from '../elements';
 import { MdEdit } from 'react-icons/md';
@@ -7,21 +7,24 @@ import ImageCarousel from './ImageCarousel';
 import styled from 'styled-components';
 import { Icon } from '@material-ui/core';
 import Permit from '../shared/Permit';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
   //const { _onClck } = props;
-  const [like, setLike] = useState(false);
-  console.log(props.id);
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.user.user.uid);
+
+  let like = props.likers.includes(id);
+
   const onUnlike = (e) => {
     e.stopPropagation();
-    console.log('좋아요끄기');
-    setLike(false);
+    dispatch(postActions.unlikePostFB(props.id));
   };
 
   const onLike = (e) => {
     e.stopPropagation();
-    console.log('좋아요');
-    setLike(true);
+    dispatch(postActions.likePostFB(props.id));
   };
   return (
     <Grid is_flex is_column bg="skyblue" margin="10px 0">

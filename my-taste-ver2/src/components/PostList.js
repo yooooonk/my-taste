@@ -20,7 +20,6 @@ const PostList = (props) => {
     <React.Fragment>
       <Grid is_flex is_column>
         {post_list.map((p, idx) => {
-          console.log(p);
           return (
             <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
               <Post

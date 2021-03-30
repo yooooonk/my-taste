@@ -43,3 +43,4 @@
 - list가져올 때 중복없이 하는 법!
 
 - 좋아요 데이터를 post collection에 넣을지? 따로 like로 뺄지? -- like로 뺐음
+  - Post 컴포넌트에서 like를 가지고오면 할때마다 like를 힛함..post에 넣는게 나을듯..?
