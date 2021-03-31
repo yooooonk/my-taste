@@ -33,7 +33,7 @@ const Notification = (props) => {
   return (
     <React.Fragment>
       <Header>
-        알림확인
+        <Text bold>알림확인</Text>
         <i />
       </Header>
       <Grid padding="16px" bg="#EFF6FF" is_flex is_column>

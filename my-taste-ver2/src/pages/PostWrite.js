@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, Input, Text } from '../elements';
 import Header from '../components/Header';
 import styled from 'styled-components';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import {
+  FormControlLabel,
+  RadioGroup,
+  FormControl,
+  FormLabel,
+  Radio,
+  Switch
+} from '@material-ui/core';
 import Upload from '../shared/Upload';
 import { MdClose } from 'react-icons/md';
 import ErrorMsg from '../components/ErrorMsg';
@@ -23,11 +29,22 @@ const PostWrite = (props) => {
   const [isPhrase, setIsPhrase] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
-
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1025);
+  const [layout, setLayout] = React.useState('top-bottom');
   const handleChange = (e) => {
     setIsPhrase(e.target.checked);
   };
 
+  useEffect(() => {
+    window.addEventListener('resize', (e) => {
+      setIsDesktop(window.innerWidth >= 1025);
+    });
+    return () => {
+      window.removeEventListener('resize', (e) => {
+        setIsDesktop(window.innerWidth >= 1025);
+      });
+    };
+  }, []);
   useEffect(() => {
     if (!postId) return;
 
@@ -42,6 +59,10 @@ const PostWrite = (props) => {
     setPhraseList(post.phraseList);
     setValue(post.contents);
   }, [post]);
+
+  const handleRadioChange = (event) => {
+    setLayout(event.target.value);
+  };
 
   const write = (e) => {
     if (!value || !preview) {
@@ -75,13 +96,14 @@ const PostWrite = (props) => {
     setPhraseList([...temp]);
   };
   return (
-    <Grid is_flex is_column>
+    <PostWriteContainer>
       <Header>
-        <Text>{postId ? '수정하기' : '기록하기'}</Text>
+        <Text bold>{postId ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
-      <Grid is_flex is_column>
-        <Upload />
+      <Middle>
+        <Upload size={isDesktop ? '50vh' : '100vw'} />
+
         <Grid is_flex is_column padding="0 16px">
           {phraseList.map((p, idx) => {
             return (
@@ -100,46 +122,124 @@ const PostWrite = (props) => {
             10개까지만 추가할 수 있어요
           </ErrorMsg>
         </Grid>
-        <Grid is_flex is_column padding="0 16px">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isPhrase}
-                onChange={handleChange}
-                name="checkedA"
-              />
-            }
-            label={isPhrase ? '문장' : '감상'}
-          />
-          <Input
-            multiLine
-            value={value}
-            _onChange={(e) => setValue(e.target.value)}
-          />
-        </Grid>
-        <Grid is_flex is_column padding="0 16px" margin="10px">
-          <ErrorMsg valid={requireError}>
-            사진과 감상은 꼭 입력해주세요
-          </ErrorMsg>
-          <Button _onClick={isPhrase ? addPhrase : write}>
-            {isPhrase ? '문장 추가하기' : '저장하기'}
-          </Button>
-        </Grid>
+      </Middle>
+      <Grid is_flex is_column padding="0 16px">
+        <Wrapper>
+          <Wrapper>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+          </Wrapper>
+          {isDesktop && (
+            <Wrapper>
+              <RadioGroup
+                row
+                aria-label="gender"
+                name="gender1"
+                value={layout}
+                onChange={handleRadioChange}
+              >
+                <FormControlLabel
+                  value="top-bottom"
+                  control={<Radio />}
+                  label="위아래"
+                />
+                <FormControlLabel
+                  value="row"
+                  control={<Radio />}
+                  label="나란히"
+                />
+                <FormControlLabel
+                  value="reverse-row"
+                  control={<Radio />}
+                  label="거꾸로 나란히"
+                />
+              </RadioGroup>
+            </Wrapper>
+          )}
+        </Wrapper>
+
+        <Input
+          multiLine
+          value={value}
+          _onChange={(e) => setValue(e.target.value)}
+        />
       </Grid>
-    </Grid>
+      <Grid is_flex is_column padding="0 16px" margin="10px">
+        <ErrorMsg valid={requireError}>사진과 감상은 꼭 입력해주세요</ErrorMsg>
+        <Button
+          width={isDesktop ? '50%' : '100%'}
+          disabled={!isPhrase && (!value || !preview)}
+          _onClick={isPhrase ? addPhrase : write}
+        >
+          {isPhrase ? '문장 추가하기' : '저장하기'}
+        </Button>
+      </Grid>
+    </PostWriteContainer>
   );
 };
 
 const Phrase = styled.div`
   border-radius: 10px;
-  background-color: yellow;
+  background-color: #ffe9ed;
   padding: 0 10px;
   width: 100%;
-  margin: 1px;
+  margin: 1px 0;
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 `;
 
+const Middle = styled.div`
+  background-color: skyblue;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    padding: 0;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    padding: 0;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    flex-direction: row;
+    width: 96%;
+  }
+`;
+
+const Wrapper = styled.div`
+  background-color: skyblue;
+  width: 100%;
+  ${(props) => props.theme.flex_row}
+  justify-content:center;
+`;
+
+const PostWriteContainer = styled.div`
+  ${(props) => props.theme.flex_column}
+  background-color: yellow;
+  width: 90%;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+`;
 export default PostWrite;

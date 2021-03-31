@@ -6,6 +6,7 @@ const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading } = props;
 
   const _handleScroll = _.throttle(() => {
+    console.log('g');
     if (loading) return;
 
     const { innerHeight } = window;

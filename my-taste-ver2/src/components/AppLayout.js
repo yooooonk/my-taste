@@ -3,21 +3,18 @@ import styled from 'styled-components';
 import Navbar from './Navbar';
 
 const AppLayout = ({ children }) => {
-  const handleScroll = (e) => {
-    console.log('g');
-  };
   return (
     <Container>
       <Navbar />
-      <Main onScroll={handleScroll}>{children}</Main>
+      <Main>{children}</Main>
     </Container>
   );
 };
 
 const Container = styled.div`
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
-  } */
+  }
 
   background-color: ${(props) => props.theme.main_color};
 
@@ -40,9 +37,9 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  /*   &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
-  } */
+  }
 
   background-color: ${(props) => props.theme.main_white};
   overflow: scroll;

@@ -5,7 +5,7 @@ import { actionCreators as imageActions } from '../redux/modules/image';
 import { MdClose } from 'react-icons/md';
 import styled from 'styled-components';
 
-const Upload = () => {
+const Upload = ({ size }) => {
   const dispatch = useDispatch();
   const { uploading, preview } = useSelector((state) => state.image);
   const imageInput = useRef();
@@ -30,9 +30,9 @@ const Upload = () => {
     dispatch(imageActions.setPreview(null));
   };
   return (
-    <Grid>
+    <Wrapper>
       <Image
-        size="250px"
+        size={size}
         src={
           preview
             ? preview
@@ -56,12 +56,16 @@ const Upload = () => {
         ref={imageInput}
         onChange={onChangeImages}
       />
-    </Grid>
+    </Wrapper>
   );
 };
 
 const Btn = styled.div`
   position: relative;
-  left: 0;
+  left: 23vh;
+`;
+
+const Wrapper = styled.div`
+  cursor: pointer;
 `;
 export default Upload;

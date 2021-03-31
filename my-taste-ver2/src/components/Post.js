@@ -8,6 +8,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import { MdKeyboardArrowLeft, MdCreate, MdDelete } from 'react-icons/md';
 import { history } from '../redux/configStore';
 import Header from './Header';
+import styled from 'styled-components';
 const Post = (props) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.user?.uid);
@@ -34,7 +35,7 @@ const Post = (props) => {
     dispatch(postActions.deletePostFB(props.id));
   };
   return (
-    <Grid is_flex is_column>
+    <Grid is_flex is_column bg="white">
       <Header goBack={props.is_detail}>
         <Grid>
           <Image is_circle src={props.user_profile}></Image>
@@ -71,7 +72,7 @@ const Post = (props) => {
       <ImageCarousel image={props.image_url} phraseList={props.phraseList} />
 
       <Grid>
-        <Grid margin="0 3px">
+        <Grid margin="0 2vw">
           <Text>댓글 {props.comment_cnt}개</Text>
           <Permit>
             {like ? (
@@ -94,7 +95,7 @@ const Post = (props) => {
           </Permit>
         </Grid>
       </Grid>
-      <Grid margin="0 3px" padding="0 3px">
+      <Grid margin="0 3px" padding="0 2vw">
         {props.contents.length > 20 && isMore
           ? props.contents.substring(0, 20) + '...'
           : props.contents}
@@ -121,5 +122,7 @@ const Post = (props) => {
 Post.defaultProps = {
   is_detail: false
 };
+
+const PostWrapper = styled.div``;
 
 export default Post;

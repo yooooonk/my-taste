@@ -5,6 +5,7 @@ import ErrorMsg from './ErrorMsg';
 import Header from './Header';
 import { actionCreators as userActions } from '../redux/modules/user';
 import styled from 'styled-components';
+import ResponsiveWrapper from '../shared/ResponsiveWrapper';
 const Login = (props) => {
   const dispatch = useDispatch();
   const fbAuthError = useSelector((state) => state.user.fbAuthError);
@@ -17,37 +18,57 @@ const Login = (props) => {
   return (
     <LoginContainer>
       <Header>
-        로그인
+        <Text bold>로그인</Text>
         <i />
       </Header>
-      <Grid>
-        <Text>아이디</Text>
-        <Input
-          value={id}
-          _onChange={(e) => {
-            setId(e.target.value);
-          }}
-        />
-      </Grid>
-      <Grid>
-        <Text>비밀번호</Text>
-        <Input
-          is_submit
-          onSubmit={onLogin}
-          value={pw}
-          type="password"
-          _onChange={(e) => {
-            setPw(e.target.value);
-          }}
-        />
-      </Grid>
-      <ErrorMsg valid={fbAuthError.isError}>{fbAuthError.msg}</ErrorMsg>
-      <Button _onClick={onLogin}>로그인</Button>
+      <Middle>
+        <Grid>
+          <Text>아이디</Text>
+          <Input
+            value={id}
+            _onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid>
+          <Text>비밀번호</Text>
+          <Input
+            is_submit
+            onSubmit={onLogin}
+            value={pw}
+            type="password"
+            _onChange={(e) => {
+              setPw(e.target.value);
+            }}
+          />
+        </Grid>
+        <ErrorMsg valid={fbAuthError.isError}>{fbAuthError.msg}</ErrorMsg>
+      </Middle>
+      <Button disabled={!id || !pw} _onClick={onLogin}>
+        로그인
+      </Button>
     </LoginContainer>
   );
 };
 
 const LoginContainer = styled.div`
-  ${(props) => props.theme.flex_column}
+  height: 100%;
+  width: 30vw;
+
+  ${(props) => props.theme.flex_column};
+  justify-content: center;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+`;
+
+const Middle = styled.div`
+  margin: 10vh 0;
 `;
 export default Login;
