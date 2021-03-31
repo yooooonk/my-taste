@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
-import { firestore, storage } from '../../shared/firebase';
+import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
 import 'moment';
 import moment from 'moment';
@@ -254,7 +254,9 @@ const likePostFB = (post_id = null) => {
     if (!post_id) return;
     const _post = getState().post.list.find((p) => p.id === post_id);
     const myId = getState().user.user.uid;
-
+    const myName = getState().user.user.user_name;
+    console.log('userInfo', getState().user.user);
+    console.log(_post);
     const likers = [..._post.likers, myId];
     const postDB = firestore.collection('post');
     postDB
@@ -264,6 +266,28 @@ const likePostFB = (post_id = null) => {
       })
       .then((doc) => {
         dispatch(editPost(post_id, { ..._post, likers: likers }));
+
+        const _noti_item = realtime
+          .ref(`noti/${_post.user_info.user_id}/list`) // 알림을 저장할 데이터베이스
+          .push(); // 공간을 일단 할당
+
+        _noti_item.set(
+          {
+            post_id: _post.id,
+            user_name: myName,
+            image_url: _post.image_url,
+            insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+            type: 'like'
+          },
+          (err) => {
+            if (err) {
+              console.log('알림저장 실패', err);
+            } else {
+              const notiDB = realtime.ref(`noti/${_post.user_info.user_id}`);
+              notiDB.update({ read: false });
+            }
+          }
+        );
       });
   };
 };

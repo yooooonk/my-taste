@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import { realtime } from '../shared/firebase';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
+import { history } from '../redux/configStore';
 
 const Notification = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -35,7 +36,7 @@ const Notification = (props) => {
         알림확인
         <i />
       </Header>
-      <Grid padding="16px" bg="#EFF6FF">
+      <Grid padding="16px" bg="#EFF6FF" is_flex is_column>
         {noti.map((n, idx) => {
           return <Card {...n} key={`noti_${idx}`} />;
         })}

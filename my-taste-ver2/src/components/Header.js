@@ -17,7 +17,7 @@ Header.defaultProps = {
   children: null,
   goBack: true,
   _onClick: () => {
-    history.replace('/');
+    history.goBack();
   }
 };
 

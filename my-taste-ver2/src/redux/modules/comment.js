@@ -95,7 +95,8 @@ const addCommentFB = (post_id, contents) => {
                 post_id: post.id,
                 user_name: comment.user_name,
                 image_url: post.image_url,
-                insert_dt: comment.insert_dt
+                insert_dt: comment.insert_dt,
+                type: 'comment'
               },
               (err) => {
                 if (err) {

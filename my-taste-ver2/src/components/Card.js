@@ -2,12 +2,13 @@ import React from 'react';
 import { Grid, Text, Image } from '../elements';
 import { history } from '../redux/configStore';
 const Card = (props) => {
-  const { image_url, user_name, post_id } = props;
+  const { image_url, user_name, post_id, type, id } = props;
 
   return (
     <Grid
       _onClick={() => {
         history.push(`/post/${post_id}`);
+        //list에서 삭제
       }}
       padding="16px"
       is_flex
@@ -19,7 +20,16 @@ const Card = (props) => {
       </Grid>
       <Grid>
         <Text>
-          <b>{user_name}</b>님이 게시글에 댓글을 남겼습니다 :)!{' '}
+          {type === 'like' && (
+            <span>
+              <b>{user_name}</b>님이 게시글을 좋아합니다 :)
+            </span>
+          )}
+          {type === 'comment' && (
+            <span>
+              <b>{user_name}</b>님이 게시글에 댓글을 남겼습니다 :)
+            </span>
+          )}
         </Text>
       </Grid>
     </Grid>
