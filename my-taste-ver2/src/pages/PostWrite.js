@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Input, Text } from '../elements';
-import Header from './Header';
+import Header from '../components/Header';
 import styled from 'styled-components';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Upload from '../shared/Upload';
 import { MdClose } from 'react-icons/md';
-import ErrorMsg from './ErrorMsg';
+import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';

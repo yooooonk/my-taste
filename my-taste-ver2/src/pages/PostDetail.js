@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { I } from '../elements';
 import { actionCreators as postActions } from '../redux/modules/post';
 import Permit from '../shared/Permit';
-import CommentList from './CommentList';
-import CommentWrite from './CommentWrite';
-import Post from './Post';
+import CommentList from '../components/CommentList';
+import CommentWrite from '../components/CommentWrite';
+import Post from '../components/Post';
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();

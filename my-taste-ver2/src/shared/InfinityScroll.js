@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { Spinner } from '../elements';
+import Spinner from '../elements/Spinner';
 
 const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading } = props;

@@ -5,15 +5,16 @@ import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configStore';
 
 import Navbar from '../components/Navbar';
-import PostList from '../components/PostList';
+import PostList from '../pages/PostList';
 import Login from '../components/Login';
-import Signup from '../components/Signup';
+import Signup from '../pages/Signup';
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { apiKey } from './firebase';
 import { useEffect } from 'react';
-import PostWrite from '../components/PostWrite';
-import PostDetail from '../components/PostDetail';
+import PostWrite from '../pages/PostWrite';
+import PostDetail from '../pages/PostDetail';
+import Notification from '../pages/Notification';
 function App() {
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/write" exact component={PostWrite} />
           <Route path="/write/:id" exact component={PostWrite} />
           <Route path="/post/:id" exact component={PostDetail} />
+          <Route path="/noti" exact component={Notification} />
         </ConnectedRouter>
       </Grid>
     </div>

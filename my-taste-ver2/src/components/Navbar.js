@@ -4,6 +4,7 @@ import { Button, Grid } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
 import { actionCreators as userActions } from '../redux/modules/user';
+import NotiBadge from './NotiBadge';
 
 const Navbar = (props) => {
   const dispatch = useDispatch();
@@ -41,6 +42,13 @@ const Navbar = (props) => {
         </Permit>
         <Permit>
           <Grid width="50vw">
+            <Grid>
+              <NotiBadge
+                _onClick={() => {
+                  history.push('/noti');
+                }}
+              />
+            </Grid>
             <Grid>
               <Button _onClick={myInfo}>내 정보</Button>
             </Grid>

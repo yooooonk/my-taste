@@ -86,11 +86,11 @@ const addCommentFB = (post_id, contents) => {
               })
             );
             //게시글을 작성한 사람한테 알람이 감, comment 쓴 사람이랑 내 id랑 비교해서 처리해야함
-            /*  const _noti_titem = realtime
-              .ref(`noti/${post.user_info.user_id}/list`)
+            const _noti_item = realtime
+              .ref(`noti/${post.user_info.user_id}/list`) // 알림을 저장할 데이터베이스
               .push(); // 공간을 일단 할당
 
-            _noti_titem.set(
+            _noti_item.set(
               {
                 post_id: post.id,
                 user_name: comment.user_name,
@@ -105,7 +105,7 @@ const addCommentFB = (post_id, contents) => {
                   notiDB.update({ read: false });
                 }
               }
-            ); */
+            );
           }
         });
     });

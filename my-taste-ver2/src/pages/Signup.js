@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Input, Button } from '../elements';
 import { emailCheck } from '../shared/common';
-import ErrorMsg from './ErrorMsg';
-import Header from './Header';
+import ErrorMsg from '../components/ErrorMsg';
+import Header from '../components/Header';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 const Signup = (props) => {

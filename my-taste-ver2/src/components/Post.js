@@ -10,7 +10,7 @@ import { history } from '../redux/configStore';
 import Header from './Header';
 const Post = (props) => {
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.user.user.uid);
+  const id = useSelector((state) => state.user.user?.uid);
   const is_me = props.user_info.user_id === id;
   const [isMore, setIsMore] = useState(true);
   let like = props.likers.includes(id);
