@@ -5,6 +5,7 @@ import Permit from '../shared/Permit';
 import Post from '../components/Post';
 import { actionCreators as postActions } from '../redux/modules/post';
 import InfinityScroll from '../shared/InfinityScroll';
+import InfinityScrollFolDiv from '../shared/InfinityScrollFolDiv';
 
 const PostList = (props) => {
   const { history } = props;
@@ -19,32 +20,24 @@ const PostList = (props) => {
   }, []);
   return (
     <React.Fragment>
-      <Grid is_flex is_column>
-        <InfinityScroll
-          callNext={() => {
-            dispatch(postActions.getPostFB(paging.next));
-          }}
-          is_next={paging.next ? true : false}
-          loading={is_loading}
-        >
-          {post_list.map((p, idx) => {
-            return (
-              <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
-                <Post {...p} />
-              </Grid>
-            );
-          })}
-        </InfinityScroll>
-      </Grid>
-      <Permit>
-        <Button
-          _onClick={() => {
-            history.push('/write');
-          }}
-        >
-          +
-        </Button>
-      </Permit>
+      <InfinityScroll
+        _onScroll={() => {
+          console.log('gg');
+        }}
+        callNext={() => {
+          dispatch(postActions.getPostFB(paging.next));
+        }}
+        is_next={paging.next ? true : false}
+        loading={is_loading}
+      >
+        {post_list.map((p, idx) => {
+          return (
+            <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
+              <Post {...p} />
+            </Grid>
+          );
+        })}
+      </InfinityScroll>
     </React.Fragment>
   );
 };

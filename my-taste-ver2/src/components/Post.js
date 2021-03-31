@@ -34,16 +34,20 @@ const Post = (props) => {
     dispatch(postActions.deletePostFB(props.id));
   };
   return (
-    <Grid is_flex is_column bg="skyblue" margin="10px 0">
+    <Grid is_flex is_column>
       <Header goBack={props.is_detail}>
-        <Grid width="30%">
+        <Grid>
           <Image is_circle src={props.user_profile}></Image>
-          <Text>{props.user_info.user_name}</Text>
+          <Text bold>{props.user_info.user_name}</Text>
         </Grid>
-        <Grid margin="0 20px" width="10%" bg="skyblue">
+        <Grid></Grid>
+        <Grid></Grid>
+        <Grid width="70px" margin="0 20px">
           {is_me && (
             <Grid>
               <I
+                size="1em"
+                color="#7d7d7d"
                 _onClick={(e) => {
                   editPost(e);
                 }}
@@ -51,6 +55,8 @@ const Post = (props) => {
                 <MdCreate />
               </I>
               <I
+                size="1em"
+                color="#7d7d7d"
                 _onClick={(e) => {
                   deletePost(e);
                 }}
@@ -62,43 +68,52 @@ const Post = (props) => {
         </Grid>
       </Header>
 
-      <Grid bg="yellow">
-        <ImageCarousel
-          size="100%"
-          image={props.image_url}
-          phraseList={props.phraseList}
-        />
-      </Grid>
+      <ImageCarousel image={props.image_url} phraseList={props.phraseList} />
+
       <Grid>
-        <Text>댓글 {props.comment_cnt}개</Text>
-        <Permit>
-          {like ? (
-            <I color="red">
-              <MdFavorite
-                onClick={(e) => {
-                  onUnlike(e);
-                }}
-              />
-            </I>
-          ) : (
-            <I color="pink">
-              <MdFavoriteBorder
-                onClick={(e) => {
-                  onLike(e);
-                }}
-              />
-            </I>
-          )}
-        </Permit>
+        <Grid margin="0 3px">
+          <Text>댓글 {props.comment_cnt}개</Text>
+          <Permit>
+            {like ? (
+              <I color="red">
+                <MdFavorite
+                  onClick={(e) => {
+                    onUnlike(e);
+                  }}
+                />
+              </I>
+            ) : (
+              <I color="pink">
+                <MdFavoriteBorder
+                  onClick={(e) => {
+                    onLike(e);
+                  }}
+                />
+              </I>
+            )}
+          </Permit>
+        </Grid>
       </Grid>
-      <Grid is_flex is_column>
+      <Grid margin="0 3px" padding="0 3px">
         {props.contents.length > 20 && isMore
           ? props.contents.substring(0, 20) + '...'
           : props.contents}
-        <span style={{ display: 'inline' }} onClick={() => setIsMore(!isMore)}>
-          {props.contents.length > 20 ? (isMore ? '더보기' : '접기') : ''}
-        </span>
       </Grid>
+      <i onClick={() => setIsMore(!isMore)}>
+        {props.contents.length > 20 ? (
+          isMore ? (
+            <Text size="13px" color="gray">
+              더보기
+            </Text>
+          ) : (
+            <Text size="13px" color="gray">
+              접기
+            </Text>
+          )
+        ) : (
+          ''
+        )}
+      </i>
     </Grid>
   );
 };

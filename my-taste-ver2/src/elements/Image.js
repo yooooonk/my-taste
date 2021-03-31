@@ -1,16 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useSelector } from 'react-redux';
 const Image = (props) => {
-  //const { is_circle, src, size, radius } = props;
-  const { _onClick, _onDelete } = props;
-  const { preview } = useSelector((state) => state.image);
-
-  /* const styles = {
-    src: src,
-    size: size,
-    is_circle: is_circle
-  }; */
+  const { _onClick } = props;
 
   return <ImageShape {...props} onClick={_onClick}></ImageShape>;
 };
@@ -21,7 +12,8 @@ Image.defaultProps = {
   size: '36px',
   radius: 0,
   _onClick: () => {},
-  _onDelete: () => {}
+  _onDelete: () => {},
+  margin: '4px'
 };
 
 const ImageShape = styled.div`
@@ -31,7 +23,7 @@ const ImageShape = styled.div`
   border-radius: ${(props) => (props.is_circle ? '50%' : props.radius)};
   background-image: url('${(props) => props.src}');
   background-size: cover;
-  margin: 4px;
+  margin: ${(props) => props.margin};
 
   & > .icon {
     position: relative;

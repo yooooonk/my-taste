@@ -3,21 +3,24 @@ import styled from 'styled-components';
 import Navbar from './Navbar';
 
 const AppLayout = ({ children }) => {
+  const handleScroll = (e) => {
+    console.log('g');
+  };
   return (
     <Container>
       <Navbar />
-      <Main>{children}</Main>
+      <Main onScroll={handleScroll}>{children}</Main>
     </Container>
   );
 };
 
 const Container = styled.div`
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   background-color: ${(props) => props.theme.main_color};
-  height: 99vh;
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     margin: 0 auto;
@@ -32,30 +35,34 @@ const Container = styled.div`
     ${(props) => props.theme.flex_row}
     border-radius: 30px;
     margin: 3px;
+    height: 99vh;
   }
 `;
 
 const Main = styled.div`
-  &::-webkit-scrollbar {
+  /*   &::-webkit-scrollbar {
     display: none;
-  }
+  } */
+
   background-color: ${(props) => props.theme.main_white};
-  overflow-y: scroll;
-  height: 90vh;
+  overflow: scroll;
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
-    margin: 0 auto;
+    padding: 0;
   }
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    margin: 0 auto;
+    padding: 0;
   }
 
   @media ${(props) => props.theme.desktop} {
     width: 75%;
     margin-right: 30px;
     border-radius: 30px;
+    height: 90vh;
+    ${(props) => props.theme.flex_column}
   }
 `;
 

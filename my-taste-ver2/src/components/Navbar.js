@@ -24,9 +24,9 @@ const Navbar = (props) => {
         </Title>
         <Menu>
           <span onClick={() => history.push('/')}>feed</span>
-          <Permit>
-            <span onClick={() => history.push('/write')}>write</span>
-          </Permit>
+          <span onClick={() => history.push('/write')}>
+            <Permit>write</Permit>
+          </span>
 
           {/* <div>basket</div>
           <div>search</div> */}
@@ -59,7 +59,7 @@ const Navbar = (props) => {
           <Btns>
             <Tooltip title="알림">
               <IconButton onClick={() => history.push('/noti')}>
-                <NotiBadge className="icon" />
+                <NotiBadge />
               </IconButton>
             </Tooltip>
             <Tooltip title="로그아웃">
@@ -122,22 +122,28 @@ const Title = styled.div`
 
 const Menu = styled.div`
   transition: 0.3s;
-  font-size: 3vw;
+
   cursor: pointer;
-  &:hover {
-    transform: skew(-15deg);
+  & span {
+    margin: 5px;
+    &:hover {
+      transform: skew(-15deg);
+    }
   }
   @media ${(props) => props.theme.mobile} {
-    ${(props) => props.theme.flex_row}
+    ${(props) => props.theme.flex_row};
+    font-size: 1em;
   }
 
   @media ${(props) => props.theme.tablet} {
-    ${(props) => props.theme.flex_row}
+    ${(props) => props.theme.flex_row};
+    font-size: 1.5em;
   }
 
   @media ${(props) => props.theme.desktop} {
     ${(props) => props.theme.flex_column};
     justify-content: center;
+    font-size: 1.5em;
   }
 `;
 

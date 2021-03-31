@@ -4,6 +4,7 @@ import { Grid, Text, Input, Button } from '../elements';
 import ErrorMsg from './ErrorMsg';
 import Header from './Header';
 import { actionCreators as userActions } from '../redux/modules/user';
+import styled from 'styled-components';
 const Login = (props) => {
   const dispatch = useDispatch();
   const fbAuthError = useSelector((state) => state.user.fbAuthError);
@@ -14,8 +15,11 @@ const Login = (props) => {
     dispatch(userActions.loginFB(id, pw));
   };
   return (
-    <Grid is_flex is_column>
-      <Header>로그인</Header>
+    <LoginContainer>
+      <Header>
+        로그인
+        <i />
+      </Header>
       <Grid>
         <Text>아이디</Text>
         <Input
@@ -39,8 +43,11 @@ const Login = (props) => {
       </Grid>
       <ErrorMsg valid={fbAuthError.isError}>{fbAuthError.msg}</ErrorMsg>
       <Button _onClick={onLogin}>로그인</Button>
-    </Grid>
+    </LoginContainer>
   );
 };
 
+const LoginContainer = styled.div`
+  ${(props) => props.theme.flex_column}
+`;
 export default Login;
