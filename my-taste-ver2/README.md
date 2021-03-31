@@ -39,6 +39,9 @@
 
 ## ?
 
+- styled component 글로벌
+  https://howdy-mj.me/css/styled-components-with-global-style/
+
 - firebase realtime -- 복합쿼리 설정
 - list가져올 때 중복없이 하는 법!
 

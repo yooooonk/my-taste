@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
 import Notification from '../pages/Notification';
+import AppLayout from '../components/AppLayout';
 function App() {
   const dispatch = useDispatch();
 
@@ -29,8 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      <Grid is_flex is_column>
-        <Navbar />
+      <AppLayout>
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList} />
           <Route path="/login" exact component={Login} />
@@ -40,7 +40,7 @@ function App() {
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/noti" exact component={Notification} />
         </ConnectedRouter>
-      </Grid>
+      </AppLayout>
     </div>
   );
 }
