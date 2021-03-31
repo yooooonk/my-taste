@@ -3,7 +3,7 @@ import { Grid } from '../elements';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configStore';
-
+import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import PostList from '../pages/PostList';
 import Login from '../components/Login';
@@ -44,5 +44,7 @@ function App() {
     </div>
   );
 }
+
+const AppLayout = styled.div``;
 
 export default App;
