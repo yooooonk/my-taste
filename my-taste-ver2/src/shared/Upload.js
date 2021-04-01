@@ -36,7 +36,7 @@ const Upload = ({ size }) => {
         src={
           preview
             ? preview
-            : 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/camera.png?alt=media&token=212104aa-9013-45dd-9478-4914cf9f54cf'
+            : 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0'
         }
         _onClick={onClickImageUpload}
         _onDelete={deletePreview}

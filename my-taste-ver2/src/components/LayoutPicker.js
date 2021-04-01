@@ -25,6 +25,11 @@ const LayoutPicker = () => {
           control={<Radio />}
           label="위아래"
         />
+        <FormControlLabel
+          value="bottom-top"
+          control={<Radio />}
+          label="아래위"
+        />
         <FormControlLabel value="row" control={<Radio />} label="나란히" />
         <FormControlLabel
           value="reverse-row"

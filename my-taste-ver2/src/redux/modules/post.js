@@ -255,8 +255,6 @@ const likePostFB = (post_id = null) => {
     const _post = getState().post.list.find((p) => p.id === post_id);
     const myId = getState().user.user.uid;
     const myName = getState().user.user.user_name;
-    console.log('userInfo', getState().user.user);
-    console.log(_post);
     const likers = [..._post.likers, myId];
     const postDB = firestore.collection('post');
     postDB

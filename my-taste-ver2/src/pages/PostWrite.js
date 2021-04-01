@@ -15,7 +15,6 @@ import PhraseList from '../components/PhraseList';
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
   const { preview } = useSelector((state) => state.image);
   const { isMobile, layout } = useSelector((state) => state.view);
   const [requireError, setRequireError] = useState(false);
@@ -27,7 +26,6 @@ const PostWrite = (props) => {
   const [isPhrase, setIsPhrase] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
-
   const handleChange = (e) => {
     setIsPhrase(e.target.checked);
   };
@@ -79,20 +77,26 @@ const PostWrite = (props) => {
     setPhraseList([...temp]);
   };
   return (
-    <PostWriteContainer>
+    <Wrapper is_column width={isMobile ? '100%' : '90%'}>
       <Header>
         <Text bold>{postId ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
       {!isMobile && <LayoutPicker />}
-      <ContentsBox>
-        <Upload size={isMobile ? '100vw' : '50vh'} />
-        <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
-      </ContentsBox>
 
-      <Grid is_flex is_column padding="0 16px">
-        <Wrapper>
-          <Wrapper>
+      {(layout === 'top-bottom' || layout === 'row') && (
+        <Wrapper
+          is_column={layout === 'top-bottom' || isMobile}
+          ai="flex-start"
+        >
+          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
             <FormControlLabel
               control={
                 <Switch
@@ -103,71 +107,122 @@ const PostWrite = (props) => {
               }
               label={isPhrase ? '문장' : '감상'}
             />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
           </Wrapper>
         </Wrapper>
+      )}
 
-        <Input
-          multiLine
-          value={value}
-          _onChange={(e) => setValue(e.target.value)}
-        />
-      </Grid>
-      <Grid is_flex is_column padding="0 16px" margin="10px">
-        <ErrorMsg valid={requireError}>사진과 감상은 꼭 입력해주세요</ErrorMsg>
-        <Button
-          width={isMobile ? '100%' : '50%'}
-          disabled={!isPhrase && (!value || !preview)}
-          _onClick={isPhrase ? addPhrase : write}
+      {layout === 'reverse-row' && (
+        <Wrapper
+          is_column={layout === 'top-bottom' || isMobile}
+          ai="flex-start"
         >
-          {isPhrase ? '문장 추가하기' : '저장하기'}
-        </Button>
-      </Grid>
-    </PostWriteContainer>
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+        </Wrapper>
+      )}
+      {layout === 'bottom-top' && (
+        <Wrapper is_column ai="flex-start">
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+        </Wrapper>
+      )}
+      <Grid is_flex is_column padding="0 16px" margin="10px"></Grid>
+    </Wrapper>
   );
 };
 
-const ContentsBox = styled.div`
-  background-color: skyblue;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    padding: 0;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    padding: 0;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    flex-direction: row;
-    width: 96%;
-  }
-`;
-
 const Wrapper = styled.div`
-  background-color: skyblue;
-  width: 100%;
-  ${(props) => props.theme.flex_row}
-  justify-content:center;
+  width: ${(props) => (props.width ? props.width : '100%')};
+
+  display: flex;
+  flex-direction: ${(props) => (props.is_column ? 'column' : 'row')};
+  justify-content: ${(props) => (props.jc ? props.jc : 'center')};
+  align-items: ${(props) => (props.ai ? props.ai : 'center')};
 `;
 
-const PostWriteContainer = styled.div`
-  ${(props) => props.theme.flex_column}
-  background-color: yellow;
-  width: 90%;
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  }
-`;
 export default PostWrite;

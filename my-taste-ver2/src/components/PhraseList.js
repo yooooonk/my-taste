@@ -35,6 +35,7 @@ const Phrase = styled.div`
   background-color: #ffe9ed;
   padding: 0 10px;
   width: 100%;
+  height: 100%;
   margin: 1px 0;
   text-align: left;
   text-overflow: ellipsis;

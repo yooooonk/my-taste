@@ -8,7 +8,8 @@ const Image = (props) => {
 
 Image.defaultProps = {
   is_circle: false,
-  src: 'https://s3.ap-northeast-2.amazonaws.com/yoooook.xyz/camera.png',
+  src:
+    'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0',
   size: '36px',
   radius: 0,
   _onClick: () => {},
