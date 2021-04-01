@@ -1,12 +1,13 @@
 import React from 'react';
-import { Grid, I, Text } from '../elements';
+import { I } from '../elements';
 import { history } from '../redux/configStore';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
+import Wrapper from '../elements/Wrapper';
 
 const Header = (props) => {
   const { children, _onClick, goBack, bg } = props;
   return (
-    <Grid bg={bg}>
+    <Wrapper bg={bg}>
       {goBack ? (
         <I color="gray">
           <MdKeyboardArrowLeft onClick={_onClick} />
@@ -15,7 +16,7 @@ const Header = (props) => {
         <i />
       )}
       {children}
-    </Grid>
+    </Wrapper>
   );
 };
 

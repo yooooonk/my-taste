@@ -9,9 +9,12 @@ import { MdKeyboardArrowLeft, MdCreate, MdDelete } from 'react-icons/md';
 import { history } from '../redux/configStore';
 import Header from './Header';
 import styled from 'styled-components';
+import Wrapper from '../elements/Wrapper';
 const Post = (props) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.user?.uid);
+  const { isMobile, layout } = useSelector((state) => state.view);
+
   const is_me = props.user_info.user_id === id;
   const [isMore, setIsMore] = useState(true);
   let like = props.likers.includes(id);
@@ -35,14 +38,12 @@ const Post = (props) => {
     dispatch(postActions.deletePostFB(props.id));
   };
   return (
-    <Grid is_flex is_column bg="white">
+    <Wrapper is_column>
       <Header goBack={props.is_detail}>
-        <Grid>
+        <Wrapper>
           <Image is_circle src={props.user_profile}></Image>
           <Text bold>{props.user_info.user_name}</Text>
-        </Grid>
-        <Grid></Grid>
-        <Grid></Grid>
+        </Wrapper>
         <Grid width="70px" margin="0 20px">
           {is_me && (
             <Grid>
@@ -115,7 +116,7 @@ const Post = (props) => {
           ''
         )}
       </i>
-    </Grid>
+    </Wrapper>
   );
 };
 
