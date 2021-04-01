@@ -64,7 +64,7 @@ const TextInput = styled.input`
   //border: 1px solid #212121;
   border: none;
   border-bottom: 2px dashed pink;
-  width: 70%;
+  width: 100%;
   padding: 12px 4px;
   height: 40px;
   box-sizing: border-box;

@@ -7,11 +7,13 @@ import CommentWrite from '../components/CommentWrite';
 import Post from '../components/Post';
 import styled from 'styled-components';
 import { Grid } from '../elements';
+import Wrapper from '../elements/Wrapper';
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
+  const { isMobile } = useSelector((state) => state.view);
   const id = props.match.params.id;
   const idx = list.findIndex((p) => p.id === id);
   const post = list[idx];
@@ -29,12 +31,14 @@ const PostDetail = (props) => {
           is_me={post.user_info.user_id === user?.uid}
         />
       )}
-      <Permit>
-        <Grid margin="0 3vw">
-          <CommentWrite post_id={id} />
-        </Grid>
-      </Permit>
-      <CommentList post_id={id} />
+      <Wrapper is_column>
+        <Permit>
+          <Wrapper width={isMobile ? '97vw' : '40vw'}>
+            <CommentWrite post_id={id} />
+          </Wrapper>
+        </Permit>
+        <CommentList post_id={id} />
+      </Wrapper>
     </DetailWrapper>
   );
 };

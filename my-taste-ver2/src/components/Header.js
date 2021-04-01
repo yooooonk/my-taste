@@ -7,7 +7,7 @@ import Wrapper from '../elements/Wrapper';
 const Header = (props) => {
   const { children, _onClick, goBack, bg } = props;
   return (
-    <Wrapper bg={bg}>
+    <Wrapper jc="space-between" bg={bg}>
       {goBack ? (
         <I color="gray">
           <MdKeyboardArrowLeft onClick={_onClick} />

@@ -136,7 +136,12 @@ const Post = (props) => {
               ? props.contents.substring(0, 20) + '...'
               : props.contents}
           </Grid>
-          <i onClick={() => setIsMore(!isMore)}>
+          <i
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMore(!isMore);
+            }}
+          >
             {props.contents.length > 20 ? (
               isMore ? (
                 <Text size="13px" color="gray">
@@ -216,52 +221,64 @@ const Post = (props) => {
             </Grid>
           </Wrapper>
           <Wrapper ai="flex-start">
-            <Wrapper>
+            <Wrapper is_column>
               {props.contents.length > 20 && isMore
                 ? props.contents.substring(0, 20) + '...'
                 : props.contents}
-            </Wrapper>
-            <i onClick={() => setIsMore(!isMore)}>
-              {props.contents.length > 20 ? (
-                isMore ? (
-                  <Text size="13px" color="gray">
-                    더보기
-                  </Text>
+
+              <i
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMore(!isMore);
+                }}
+              >
+                {props.contents.length > 20 ? (
+                  isMore ? (
+                    <Text size="13px" color="gray">
+                      더보기
+                    </Text>
+                  ) : (
+                    <Text size="13px" color="gray">
+                      접기
+                    </Text>
+                  )
                 ) : (
-                  <Text size="13px" color="gray">
-                    접기
-                  </Text>
-                )
-              ) : (
-                ''
-              )}
-            </i>
+                  ''
+                )}
+              </i>
+            </Wrapper>
           </Wrapper>
         </Wrapper>
       )}
       {layout === 'reverse-row' && (
         <Wrapper is_column={isMobile}>
           <Wrapper ai="flex-start">
-            <Wrapper>
+            <Wrapper is_column>
               {props.contents.length > 20 && isMore
                 ? props.contents.substring(0, 20) + '...'
                 : props.contents}
-            </Wrapper>
-            <i onClick={() => setIsMore(!isMore)}>
-              {props.contents.length > 20 ? (
-                isMore ? (
-                  <Text size="13px" color="gray">
-                    더보기
-                  </Text>
+
+              <i
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMore(!isMore);
+                }}
+              >
+                {props.contents.length > 20 ? (
+                  isMore ? (
+                    <Text size="13px" color="gray">
+                      더보기
+                    </Text>
+                  ) : (
+                    <Text size="13px" color="gray">
+                      접기
+                    </Text>
+                  )
                 ) : (
-                  <Text size="13px" color="gray">
-                    접기
-                  </Text>
-                )
-              ) : (
-                ''
-              )}
-            </i>
+                  ''
+                )}
+              </i>
+            </Wrapper>
           </Wrapper>
           <Wrapper is_column>
             <ImageCarousel

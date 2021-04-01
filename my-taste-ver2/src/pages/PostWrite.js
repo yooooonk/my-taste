@@ -83,44 +83,44 @@ const PostWrite = (props) => {
         <Text bold>{postId ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
-      {!isMobile && <LayoutPicker />}
-
-      {layout === 'top-bottom' && (
-        <Wrapper is_column>
-          <Wrapper is_column={isMobile} width={isMobile ? '100%' : '50%'}>
-            <Upload size={isMobile ? '100vw' : '50vh'} />
-            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
-          </Wrapper>
-          <Wrapper is_column>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={isPhrase}
-                  onChange={handleChange}
-                  name="checkedA"
-                />
-              }
-              label={isPhrase ? '문장' : '감상'}
-            />
-
-            <Input
-              multiLine
-              value={value}
-              _onChange={(e) => setValue(e.target.value)}
-            />
-            <ErrorMsg valid={requireError}>
-              사진과 감상은 꼭 입력해주세요
-            </ErrorMsg>
-            <Button
-              width={isMobile ? '100%' : '50%'}
-              disabled={!isPhrase && (!value || !preview)}
-              _onClick={isPhrase ? addPhrase : write}
-              margin="10px"
-            >
-              {isPhrase ? '문장 추가하기' : '저장하기'}
-            </Button>
-          </Wrapper>
+      <Wrapper is_column>
+        <Wrapper is_column={isMobile} width={isMobile ? '100%' : '35vw'}>
+          <Upload size={isMobile ? '100vw' : '50vh'} />
+          <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
         </Wrapper>
+        <Wrapper is_column>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isPhrase}
+                onChange={handleChange}
+                name="checkedA"
+              />
+            }
+            label={isPhrase ? '문장' : '감상'}
+          />
+
+          <Input
+            multiLine
+            value={value}
+            _onChange={(e) => setValue(e.target.value)}
+          />
+          <ErrorMsg valid={requireError}>
+            사진과 감상은 꼭 입력해주세요
+          </ErrorMsg>
+          <Button
+            width={isMobile ? '100%' : '50%'}
+            disabled={!isPhrase && (!value || !preview)}
+            _onClick={isPhrase ? addPhrase : write}
+            margin="10px"
+          >
+            {isPhrase ? '문장 추가하기' : '저장하기'}
+          </Button>
+        </Wrapper>
+      </Wrapper>
+
+      {/*  {layout === 'top-bottom' && (
+        
       )}
       {layout === 'bottom-top' && (
         <Wrapper is_column>
@@ -232,7 +232,7 @@ const PostWrite = (props) => {
             <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
           </Wrapper>
         </Wrapper>
-      )}
+      )} */}
 
       <Grid is_flex is_column padding="0 16px" margin="10px"></Grid>
     </Wrapper>

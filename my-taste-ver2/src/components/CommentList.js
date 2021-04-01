@@ -38,7 +38,6 @@ const CommentItem = (props) => {
     insert_dt
   } = props;
 
-  console.log(props);
   return (
     <Grid>
       <Grid width="40%">

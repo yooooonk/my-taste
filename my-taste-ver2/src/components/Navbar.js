@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { I } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
@@ -11,9 +11,10 @@ import { FaAppleAlt, FaPowerOff, FaKissWinkHeart } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import _ from 'lodash';
+import LayoutPicker from './LayoutPicker';
 const Navbar = (props) => {
   const dispatch = useDispatch();
-
+  const { isMobile, layout } = useSelector((state) => state.view);
   const handleResize = _.throttle(() => {
     dispatch(viewActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
@@ -44,7 +45,7 @@ const Navbar = (props) => {
           {/* <div>basket</div>
           <div>search</div> */}
         </Menu>
-
+        {!isMobile && <LayoutPicker />}
         <Permit not>
           <Btns>
             <Tooltip title="로그인">
