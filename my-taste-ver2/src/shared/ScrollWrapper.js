@@ -61,7 +61,7 @@ ScrollWrapper.defaultProps = {
 
 const OutterWrapper = styled.div`
   overflow-y: scroll;
-  background-color: #f6f6f6;
+  background-color: ${(props) => props.theme.main_white};
   width: 100%;
   ${(props) => props.theme.flex_row}
   justify-content:center;

@@ -32,57 +32,60 @@ const Navbar = (props) => {
   return (
     <React.Fragment>
       <Nav>
-        <Title onClick={() => history.push('/')}>
+        <Logo onClick={() => history.push('/')}>
           <FaAppleAlt />
           My Taste
-        </Title>
+        </Logo>
         <Menu>
-          <span onClick={() => history.push('/')}>feed</span>
-          <span onClick={() => history.push('/write')}>
+          <li onClick={() => history.push('/search')}>search</li>
+          <li onClick={() => history.push('/feed')}>feed</li>
+          <li onClick={() => history.push('/write')}>
             <Permit>write</Permit>
-          </span>
+          </li>
 
           {/* <div>basket</div>
           <div>search</div> */}
         </Menu>
         {!isMobile && <LayoutPicker />}
-        <Permit not>
-          <Btns>
-            <Tooltip title="로그인">
-              <IconButton
-                className="icon"
-                aria-label="delete"
-                onClick={() => history.push('/login')}
-              >
-                <FaPowerOff />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="회원가입">
-              <IconButton
-                className="icon"
-                aria-label="delete"
-                onClick={() => history.push('/signup')}
-              >
-                <FaKissWinkHeart />
-              </IconButton>
-            </Tooltip>
-          </Btns>
-        </Permit>
+        <Icons>
+          <Permit not>
+            <Btns>
+              <Tooltip title="로그인">
+                <IconButton
+                  className="icon"
+                  aria-label="delete"
+                  onClick={() => history.push('/login')}
+                >
+                  <FaPowerOff />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="회원가입">
+                <IconButton
+                  className="icon"
+                  aria-label="delete"
+                  onClick={() => history.push('/signup')}
+                >
+                  <FaKissWinkHeart />
+                </IconButton>
+              </Tooltip>
+            </Btns>
+          </Permit>
 
-        <Permit>
-          <Btns>
-            <Tooltip title="알림">
-              <IconButton onClick={() => history.push('/noti')}>
-                <NotiBadge />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="로그아웃">
-              <IconButton aria-label="delete" onClick={logout}>
-                <FaPowerOff className="icon" />
-              </IconButton>
-            </Tooltip>
-          </Btns>
-        </Permit>
+          <Permit>
+            <Btns>
+              <Tooltip title="알림">
+                <IconButton onClick={() => history.push('/noti')}>
+                  <NotiBadge />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="로그아웃">
+                <IconButton aria-label="delete" onClick={logout}>
+                  <FaPowerOff className="icon" />
+                </IconButton>
+              </Tooltip>
+            </Btns>
+          </Permit>
+        </Icons>
       </Nav>
     </React.Fragment>
   );
@@ -121,7 +124,7 @@ const Nav = styled.div`
   } */
 `;
 
-const Title = styled.div`
+const Logo = styled.div`
   cursor: pointer;
   text-align: center;
   font-size: 3.5vw;
@@ -137,7 +140,7 @@ const Title = styled.div`
   }
 `;
 
-const Menu = styled.div`
+const Menu = styled.ul`
   transition: 0.3s;
 
   cursor: pointer;
@@ -168,4 +171,5 @@ const Btns = styled.div`
   ${(props) => props.theme.flex_row}
 `;
 
+const Icons = styled.div``;
 export default Navbar;
