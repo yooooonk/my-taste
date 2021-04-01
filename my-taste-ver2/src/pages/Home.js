@@ -4,10 +4,8 @@ import styled, { keyframes } from 'styled-components';
 import Wrapper from '../elements/Wrapper';
 
 const Home = (props) => {
-  const { isMobile } = useSelector((state) => state.view);
-
   return (
-    <Wrapper is_column={isMobile} height="100vh">
+    <Container>
       <Title>
         <span>Hello,</span>
         <span>My</span>
@@ -18,7 +16,7 @@ const Home = (props) => {
         <span>모으고,</span>
         <span>기록하세요</span>
       </Description>
-    </Wrapper>
+    </Container>
   );
 };
 
@@ -73,6 +71,18 @@ const titleAnimation = keyframes`
       clip-path: polygon(100% 0, 100% -0%, 0 100%, 0 100%);    
   }
 
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  @media ${(props) => props.theme.desktop} {
+    flex-direction: row;
+  }
 `;
 
 const Title = styled.div`
