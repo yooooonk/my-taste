@@ -10,7 +10,6 @@ const ScrollWrapper = (props) => {
 
   const handleScrollForMobile = _.throttle((e) => {
     if (loading) return;
-    console.log('ㅋㅋ');
 
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
@@ -61,7 +60,7 @@ ScrollWrapper.defaultProps = {
 
 const OutterWrapper = styled.div`
   overflow-y: scroll;
-  background-color: ${(props) => props.theme.main_white};
+  //background-color: ${(props) => props.theme.main_white};
   width: 100%;
   ${(props) => props.theme.flex_row}
   justify-content:center;
@@ -71,7 +70,7 @@ const OutterWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  width: ${(props) => props.width};
+  //width: ${(props) => props.width};
   height: 100%;
 
   @media ${(props) => props.theme.mobile} {
@@ -80,6 +79,10 @@ const InnerWrapper = styled.div`
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 60%;
   }
 `;
 

@@ -14,7 +14,7 @@ const I = (props) => {
 I.defaultProps = {
   children: null,
   color: 'white',
-  size: '1.5em',
+  size: '1em',
   _onClick: () => {},
   border: '1px solid white'
 };

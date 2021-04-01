@@ -7,8 +7,8 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import InfinityScroll from '../shared/InfinityScroll';
 import styled from 'styled-components';
 import ScrollWrapper from '../shared/ScrollWrapper';
-
 const PostList = (props) => {
+  const { isMobile } = useSelector((state) => state.view);
   const { history } = props;
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
@@ -22,7 +22,6 @@ const PostList = (props) => {
   }, []);
   return (
     <ScrollWrapper
-      width="60%"
       callNext={() => {
         dispatch(postActions.getPostFB(paging.next));
       }}

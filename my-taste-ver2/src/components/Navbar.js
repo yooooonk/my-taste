@@ -42,11 +42,10 @@ const Navbar = (props) => {
           <li onClick={() => history.push('/write')}>
             <Permit>write</Permit>
           </li>
-
-          {/* <div>basket</div>
-          <div>search</div> */}
+          <li>basket</li>
+          <li>search</li>
         </Menu>
-        {!isMobile && <LayoutPicker />}
+        {/* {!isMobile && <LayoutPicker />} */}
         <Icons>
           <Permit not>
             <Btns>
@@ -80,7 +79,9 @@ const Navbar = (props) => {
               </Tooltip>
               <Tooltip title="로그아웃">
                 <IconButton aria-label="delete" onClick={logout}>
-                  <FaPowerOff className="icon" />
+                  <I>
+                    <FaPowerOff className="icon" />
+                  </I>
                 </IconButton>
               </Tooltip>
             </Btns>
@@ -99,29 +100,6 @@ const Nav = styled.div`
   display: flex;
   align-items: center;
   padding: 8px 12px;
-
-  /*   & .icon {
-    margin: 10px;
-    transition: 0.3s all;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  @media ${(props) => props.theme.mobile} {
-    ${(props) => props.theme.flex_row}
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    ${(props) => props.theme.flex_row}
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    ${(props) => props.theme.flex_column}
-    align-items:center;
-    padding: 20px;
-    width: 20%;
-    height: 90%;
-  } */
 `;
 
 const Logo = styled.div`
