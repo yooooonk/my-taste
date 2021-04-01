@@ -85,19 +85,13 @@ const PostWrite = (props) => {
       </Header>
       {!isMobile && <LayoutPicker />}
 
-      {(layout === 'top-bottom' || layout === 'row') && (
-        <Wrapper
-          is_column={layout === 'top-bottom' || isMobile}
-          ai="flex-start"
-        >
-          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+      {layout === 'top-bottom' && (
+        <Wrapper is_column>
+          <Wrapper is_column={isMobile} width={isMobile ? '100%' : '50%'}>
             <Upload size={isMobile ? '100vw' : '50vh'} />
             <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
           </Wrapper>
-          <Wrapper
-            is_column
-            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
-          >
+          <Wrapper is_column>
             <FormControlLabel
               control={
                 <Switch
@@ -125,59 +119,12 @@ const PostWrite = (props) => {
             >
               {isPhrase ? '문장 추가하기' : '저장하기'}
             </Button>
-          </Wrapper>
-        </Wrapper>
-      )}
-
-      {layout === 'reverse-row' && (
-        <Wrapper
-          is_column={layout === 'top-bottom' || isMobile}
-          ai="flex-start"
-        >
-          <Wrapper
-            is_column
-            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
-          >
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={isPhrase}
-                  onChange={handleChange}
-                  name="checkedA"
-                />
-              }
-              label={isPhrase ? '문장' : '감상'}
-            />
-
-            <Input
-              multiLine
-              value={value}
-              _onChange={(e) => setValue(e.target.value)}
-            />
-            <ErrorMsg valid={requireError}>
-              사진과 감상은 꼭 입력해주세요
-            </ErrorMsg>
-            <Button
-              width={isMobile ? '100%' : '50%'}
-              disabled={!isPhrase && (!value || !preview)}
-              _onClick={isPhrase ? addPhrase : write}
-              margin="10px"
-            >
-              {isPhrase ? '문장 추가하기' : '저장하기'}
-            </Button>
-          </Wrapper>
-          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
-            <Upload size={isMobile ? '100vw' : '50vh'} />
-            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
           </Wrapper>
         </Wrapper>
       )}
       {layout === 'bottom-top' && (
-        <Wrapper is_column ai="flex-start">
-          <Wrapper
-            is_column
-            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
-          >
+        <Wrapper is_column>
+          <Wrapper is_column>
             <FormControlLabel
               control={
                 <Switch
@@ -206,12 +153,87 @@ const PostWrite = (props) => {
               {isPhrase ? '문장 추가하기' : '저장하기'}
             </Button>
           </Wrapper>
-          <Wrapper is_column={isMobile}>
+          <Wrapper is_column={isMobile} width={isMobile ? '100%' : '50%'}>
             <Upload size={isMobile ? '100vw' : '50vh'} />
             <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
           </Wrapper>
         </Wrapper>
       )}
+      {layout === 'row' && (
+        <Wrapper ai="flex-start" is_column={isMobile}>
+          <Wrapper is_column width={isMobile ? '100%' : '50%'}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+          <Wrapper is_column>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+        </Wrapper>
+      )}
+      {layout === 'reverse-row' && (
+        <Wrapper ai="flex-start" is_column={isMobile}>
+          <Wrapper is_column>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+          <Wrapper is_column width={isMobile ? '100%' : '50%'}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+        </Wrapper>
+      )}
+
       <Grid is_flex is_column padding="0 16px" margin="10px"></Grid>
     </Wrapper>
   );
