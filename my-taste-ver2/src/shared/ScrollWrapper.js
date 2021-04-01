@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Spinner from '../elements/Spinner';
 
 const ScrollWrapper = (props) => {
-  const { children, callNext, is_next, loading } = props;
+  const { children, callNext, is_next, loading, width } = props;
   const { isMobile } = useSelector((state) => state.view);
 
   const handleScrollForMobile = _.throttle((e) => {
@@ -55,6 +55,10 @@ const ScrollWrapper = (props) => {
   );
 };
 
+ScrollWrapper.defaultProps = {
+  width: '100%'
+};
+
 const OutterWrapper = styled.div`
   overflow-y: scroll;
   background-color: #f6f6f6;
@@ -67,7 +71,7 @@ const OutterWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  width: 50%;
+  width: ${(props) => props.width};
   height: 100%;
 
   @media ${(props) => props.theme.mobile} {

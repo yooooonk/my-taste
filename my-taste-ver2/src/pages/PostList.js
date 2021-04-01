@@ -22,6 +22,7 @@ const PostList = (props) => {
   }, []);
   return (
     <ScrollWrapper
+      width="60%"
       callNext={() => {
         dispatch(postActions.getPostFB(paging.next));
       }}
