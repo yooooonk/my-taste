@@ -93,8 +93,11 @@ Navbar.defaultProps = {};
 const Nav = styled.div`
   color: ${(props) => props.theme.main_white};
   font-family: var(--ballo);
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
 
-  & .icon {
+  /*   & .icon {
     margin: 10px;
     transition: 0.3s all;
     color: white;
@@ -115,7 +118,7 @@ const Nav = styled.div`
     padding: 20px;
     width: 20%;
     height: 90%;
-  }
+  } */
 `;
 
 const Title = styled.div`
