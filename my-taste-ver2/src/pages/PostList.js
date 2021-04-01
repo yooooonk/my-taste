@@ -5,8 +5,8 @@ import Permit from '../shared/Permit';
 import Post from '../components/Post';
 import { actionCreators as postActions } from '../redux/modules/post';
 import InfinityScroll from '../shared/InfinityScroll';
-import InfinityScrollFolDiv from '../shared/InfinityScrollFolDiv';
 import styled from 'styled-components';
+import ScrollWrapper from '../shared/ScrollWrapper';
 
 const PostList = (props) => {
   const { history } = props;
@@ -20,32 +20,26 @@ const PostList = (props) => {
     }
   }, []);
   return (
-    <ScrollWrapper>
-      <InnerWrapper>
-        <InfinityScroll
-          _onScroll={() => {
-            console.log('gg');
-          }}
-          callNext={() => {
-            dispatch(postActions.getPostFB(paging.next));
-          }}
-          is_next={paging.next ? true : false}
-          loading={is_loading}
-        >
-          {post_list.map((p, idx) => {
-            return (
-              <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
-                <Post {...p} />
-              </Grid>
-            );
-          })}
-        </InfinityScroll>
-      </InnerWrapper>
+    <ScrollWrapper
+      callNext={() => {
+        dispatch(postActions.getPostFB(paging.next));
+      }}
+      is_next={paging.next ? true : false}
+      loading={is_loading}
+    >
+      {post_list.map((p, idx) => {
+        return (
+          <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
+            <Post {...p} />
+          </Grid>
+        );
+      })}
+      {/* </InfinityScroll> */}
     </ScrollWrapper>
   );
 };
 
-const ScrollWrapper = styled.div`
+/* const ScrollWrapper = styled.div`
   overflow-y: scroll;
   background-color: #f6f6f6;
   width: 100%;
@@ -64,5 +58,5 @@ const InnerWrapper = styled.div`
   @media ${(props) => props.theme.tablet} {
     width: 100%;
   }
-`;
+`; */
 export default PostList;

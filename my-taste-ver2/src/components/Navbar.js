@@ -4,13 +4,26 @@ import { I } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
 import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as viewActions } from '../redux/modules/view';
 import NotiBadge from './NotiBadge';
 import styled from 'styled-components';
 import { FaAppleAlt, FaPowerOff, FaKissWinkHeart } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import _ from 'lodash';
 const Navbar = (props) => {
   const dispatch = useDispatch();
+
+  const handleResize = _.throttle(() => {
+    dispatch(viewActions.setIsMobile(window.innerWidth < 1025));
+  }, 300);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const logout = (e) => {
     dispatch(userActions.logoutFB());

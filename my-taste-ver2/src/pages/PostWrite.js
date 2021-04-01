@@ -16,35 +16,28 @@ import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
+import { actionCreators as viewActions } from '../redux/modules/view';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
   const { preview } = useSelector((state) => state.image);
+  const { isMobile, layout } = useSelector((state) => state.view);
   const [requireError, setRequireError] = useState(false);
+
   const postId = props.match.params.id;
   let idx = list.findIndex((p) => p.id === postId);
   let post = list[idx];
+
   const [isPhrase, setIsPhrase] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1025);
-  const [layout, setLayout] = React.useState('top-bottom');
+
   const handleChange = (e) => {
     setIsPhrase(e.target.checked);
   };
 
-  useEffect(() => {
-    window.addEventListener('resize', (e) => {
-      setIsDesktop(window.innerWidth >= 1025);
-    });
-    return () => {
-      window.removeEventListener('resize', (e) => {
-        setIsDesktop(window.innerWidth >= 1025);
-      });
-    };
-  }, []);
   useEffect(() => {
     if (!postId) return;
 
@@ -61,7 +54,7 @@ const PostWrite = (props) => {
   }, [post]);
 
   const handleRadioChange = (event) => {
-    setLayout(event.target.value);
+    dispatch(viewActions.setLayout(event.target.value));
   };
 
   const write = (e) => {
@@ -102,7 +95,7 @@ const PostWrite = (props) => {
         <i />
       </Header>
       <Middle>
-        <Upload size={isDesktop ? '50vh' : '100vw'} />
+        <Upload size={isMobile ? '100vw' : '50vh'} />
 
         <Grid is_flex is_column padding="0 16px">
           {phraseList.map((p, idx) => {
@@ -137,7 +130,7 @@ const PostWrite = (props) => {
               label={isPhrase ? '문장' : '감상'}
             />
           </Wrapper>
-          {isDesktop && (
+          {!isMobile && (
             <Wrapper>
               <RadioGroup
                 row
@@ -175,7 +168,7 @@ const PostWrite = (props) => {
       <Grid is_flex is_column padding="0 16px" margin="10px">
         <ErrorMsg valid={requireError}>사진과 감상은 꼭 입력해주세요</ErrorMsg>
         <Button
-          width={isDesktop ? '50%' : '100%'}
+          width={isMobile ? '100%' : '50%'}
           disabled={!isPhrase && (!value || !preview)}
           _onClick={isPhrase ? addPhrase : write}
         >
