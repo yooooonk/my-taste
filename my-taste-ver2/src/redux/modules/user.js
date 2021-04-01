@@ -96,6 +96,15 @@ const loginFB = (id, pw) => {
               })
             );
           }
+          if (errorCode === 'auth/user-not-found') {
+            return dispatch(
+              setFbAuthError({
+                isError: true,
+                msg: '가입되어 있지 않은 이메일입니다'
+              })
+            );
+          }
+
           if (errorCode === 'auth/wrong-password') {
             return dispatch(
               setFbAuthError({

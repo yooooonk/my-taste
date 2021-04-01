@@ -5,10 +5,11 @@ import ErrorMsg from './ErrorMsg';
 import Header from './Header';
 import { actionCreators as userActions } from '../redux/modules/user';
 import styled from 'styled-components';
-import ResponsiveWrapper from '../shared/ResponsiveWrapper';
+import Wrapper from '../elements/Wrapper';
 const Login = (props) => {
   const dispatch = useDispatch();
   const fbAuthError = useSelector((state) => state.user.fbAuthError);
+  const { isMobile } = useSelector((state) => state.view);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const onLogin = (e) => {
@@ -16,23 +17,33 @@ const Login = (props) => {
     dispatch(userActions.loginFB(id, pw));
   };
   return (
-    <LoginContainer>
+    <Wrapper
+      is_column
+      width={isMobile ? '100%' : '50vh'}
+      jc="space-around"
+      height="100%"
+    >
       <Header>
         <Text bold>로그인</Text>
         <i />
       </Header>
-      <Middle>
-        <Grid>
-          <Text>아이디</Text>
+      <Wrapper is_column>
+        <Wrapper>
+          <Wrapper width="200px">
+            <Text>아이디</Text>
+          </Wrapper>
+
           <Input
             value={id}
             _onChange={(e) => {
               setId(e.target.value);
             }}
           />
-        </Grid>
-        <Grid>
-          <Text>비밀번호</Text>
+        </Wrapper>
+        <Wrapper>
+          <Wrapper width="200px">
+            <Text>비밀번호</Text>
+          </Wrapper>
           <Input
             is_submit
             onSubmit={onLogin}
@@ -42,17 +53,17 @@ const Login = (props) => {
               setPw(e.target.value);
             }}
           />
-        </Grid>
+        </Wrapper>
         <ErrorMsg valid={fbAuthError.isError}>{fbAuthError.msg}</ErrorMsg>
-      </Middle>
-      <Button disabled={!id || !pw} _onClick={onLogin}>
+      </Wrapper>
+      <Button disabled={!id || !pw} _onClick={onLogin} width="50%">
         로그인
       </Button>
-    </LoginContainer>
+    </Wrapper>
   );
 };
 
-const LoginContainer = styled.div`
+/* const LoginContainer = styled.div`
   height: 100%;
   width: 30vw;
 
@@ -67,8 +78,6 @@ const LoginContainer = styled.div`
     width: 100%;
   }
 `;
+ */
 
-const Middle = styled.div`
-  margin: 10vh 0;
-`;
 export default Login;

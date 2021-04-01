@@ -11,6 +11,7 @@ Wrapper.defaultProps = {
 const Box = styled.div`
   width: ${(props) => (props.width ? props.width : '100%')};
   display: flex;
+  height: ${(props) => (props.height ? props.height : '')};
   flex-direction: ${(props) => (props.is_column ? 'column' : 'row')};
   justify-content: ${(props) => (props.jc ? props.jc : 'center')};
   align-items: ${(props) => (props.ai ? props.ai : 'center')};
