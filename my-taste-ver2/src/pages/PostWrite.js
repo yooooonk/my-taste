@@ -2,21 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, Input, Text } from '../elements';
 import Header from '../components/Header';
 import styled from 'styled-components';
-import {
-  FormControlLabel,
-  RadioGroup,
-  FormControl,
-  FormLabel,
-  Radio,
-  Switch
-} from '@material-ui/core';
+import { FormControlLabel, RadioGroup, Radio, Switch } from '@material-ui/core';
 import Upload from '../shared/Upload';
 import { MdClose } from 'react-icons/md';
 import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
-import { actionCreators as viewActions } from '../redux/modules/view';
+import LayoutPicker from '../components/LayoutPicker';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
@@ -52,10 +45,6 @@ const PostWrite = (props) => {
     setPhraseList(post.phraseList);
     setValue(post.contents);
   }, [post]);
-
-  const handleRadioChange = (event) => {
-    dispatch(viewActions.setLayout(event.target.value));
-  };
 
   const write = (e) => {
     if (!value || !preview) {
@@ -94,9 +83,9 @@ const PostWrite = (props) => {
         <Text bold>{postId ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
-      <Middle>
+      {!isMobile && <LayoutPicker />}
+      <ContentsBox>
         <Upload size={isMobile ? '100vw' : '50vh'} />
-
         <Grid is_flex is_column padding="0 16px">
           {phraseList.map((p, idx) => {
             return (
@@ -104,7 +93,6 @@ const PostWrite = (props) => {
                 <Phrase>{p}</Phrase>
                 <MdClose
                   onClick={(e) => {
-                    console.log(idx);
                     deletePhrase(idx);
                   }}
                 />
@@ -115,7 +103,7 @@ const PostWrite = (props) => {
             10개까지만 추가할 수 있어요
           </ErrorMsg>
         </Grid>
-      </Middle>
+      </ContentsBox>
       <Grid is_flex is_column padding="0 16px">
         <Wrapper>
           <Wrapper>
@@ -130,33 +118,6 @@ const PostWrite = (props) => {
               label={isPhrase ? '문장' : '감상'}
             />
           </Wrapper>
-          {!isMobile && (
-            <Wrapper>
-              <RadioGroup
-                row
-                aria-label="gender"
-                name="gender1"
-                value={layout}
-                onChange={handleRadioChange}
-              >
-                <FormControlLabel
-                  value="top-bottom"
-                  control={<Radio />}
-                  label="위아래"
-                />
-                <FormControlLabel
-                  value="row"
-                  control={<Radio />}
-                  label="나란히"
-                />
-                <FormControlLabel
-                  value="reverse-row"
-                  control={<Radio />}
-                  label="거꾸로 나란히"
-                />
-              </RadioGroup>
-            </Wrapper>
-          )}
         </Wrapper>
 
         <Input
@@ -191,7 +152,7 @@ const Phrase = styled.div`
   white-space: nowrap;
 `;
 
-const Middle = styled.div`
+const ContentsBox = styled.div`
   background-color: skyblue;
   width: 100%;
   display: flex;
