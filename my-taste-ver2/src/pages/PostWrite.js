@@ -4,12 +4,13 @@ import Header from '../components/Header';
 import styled from 'styled-components';
 import { FormControlLabel, RadioGroup, Radio, Switch } from '@material-ui/core';
 import Upload from '../shared/Upload';
-import { MdClose } from 'react-icons/md';
+
 import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
 import LayoutPicker from '../components/LayoutPicker';
+import PhraseList from '../components/PhraseList';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
@@ -86,24 +87,9 @@ const PostWrite = (props) => {
       {!isMobile && <LayoutPicker />}
       <ContentsBox>
         <Upload size={isMobile ? '100vw' : '50vh'} />
-        <Grid is_flex is_column padding="0 16px">
-          {phraseList.map((p, idx) => {
-            return (
-              <Grid key={idx}>
-                <Phrase>{p}</Phrase>
-                <MdClose
-                  onClick={(e) => {
-                    deletePhrase(idx);
-                  }}
-                />
-              </Grid>
-            );
-          })}
-          <ErrorMsg valid={phraseList.length >= 10}>
-            10개까지만 추가할 수 있어요
-          </ErrorMsg>
-        </Grid>
+        <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
       </ContentsBox>
+
       <Grid is_flex is_column padding="0 16px">
         <Wrapper>
           <Wrapper>
@@ -139,18 +125,6 @@ const PostWrite = (props) => {
     </PostWriteContainer>
   );
 };
-
-const Phrase = styled.div`
-  border-radius: 10px;
-  background-color: #ffe9ed;
-  padding: 0 10px;
-  width: 100%;
-  margin: 1px 0;
-  text-align: left;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-`;
 
 const ContentsBox = styled.div`
   background-color: skyblue;
