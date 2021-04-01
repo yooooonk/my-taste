@@ -61,8 +61,10 @@ Input.defaultProps = {
 };
 
 const TextInput = styled.input`
-  border: 1px solid #212121;
-  width: 100%;
+  //border: 1px solid #212121;
+  border: none;
+  border-bottom: 2px dashed pink;
+  width: 70%;
   padding: 12px 4px;
   height: 40px;
   box-sizing: border-box;

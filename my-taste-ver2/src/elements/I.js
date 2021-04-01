@@ -25,6 +25,7 @@ const Ic = styled.span`
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  margin: 2px;
   cursor: pointer;
   &:hover {
     background-color: rgb(223, 223, 223, 0.5);

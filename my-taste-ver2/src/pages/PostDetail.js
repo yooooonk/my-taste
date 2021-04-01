@@ -5,6 +5,8 @@ import Permit from '../shared/Permit';
 import CommentList from '../components/CommentList';
 import CommentWrite from '../components/CommentWrite';
 import Post from '../components/Post';
+import styled from 'styled-components';
+import { Grid } from '../elements';
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const PostDetail = (props) => {
     dispatch(postActions.getOnePostFB(id));
   });
   return (
-    <React.Fragment>
+    <DetailWrapper>
       {post && (
         <Post
           is_detail
@@ -28,11 +30,16 @@ const PostDetail = (props) => {
         />
       )}
       <Permit>
-        <CommentWrite post_id={id} />
+        <Grid margin="0 3vw">
+          <CommentWrite post_id={id} />
+        </Grid>
       </Permit>
       <CommentList post_id={id} />
-    </React.Fragment>
+    </DetailWrapper>
   );
 };
 
+const DetailWrapper = styled.div`
+  background-color: pink;
+`;
 export default PostDetail;

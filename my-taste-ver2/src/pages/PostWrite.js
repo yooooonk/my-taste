@@ -2,28 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, Input, Text } from '../elements';
 import Header from '../components/Header';
 import styled from 'styled-components';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { FormControlLabel, RadioGroup, Radio, Switch } from '@material-ui/core';
 import Upload from '../shared/Upload';
-import { MdClose } from 'react-icons/md';
+
 import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
+import LayoutPicker from '../components/LayoutPicker';
+import PhraseList from '../components/PhraseList';
+import Wrapper from '../elements/Wrapper';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
   const { preview } = useSelector((state) => state.image);
+  const { isMobile, layout } = useSelector((state) => state.view);
   const [requireError, setRequireError] = useState(false);
+
   const postId = props.match.params.id;
   let idx = list.findIndex((p) => p.id === postId);
   let post = list[idx];
+
   const [isPhrase, setIsPhrase] = useState(false);
   const [value, setValue] = useState('');
   const [phraseList, setPhraseList] = useState([]);
-
   const handleChange = (e) => {
     setIsPhrase(e.target.checked);
   };
@@ -75,71 +78,143 @@ const PostWrite = (props) => {
     setPhraseList([...temp]);
   };
   return (
-    <Grid is_flex is_column>
+    <Wrapper is_column width={isMobile ? '100%' : '90%'}>
       <Header>
-        <Text>{postId ? '수정하기' : '기록하기'}</Text>
+        <Text bold>{postId ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
-      <Grid is_flex is_column>
-        <Upload />
-        <Grid is_flex is_column padding="0 16px">
-          {phraseList.map((p, idx) => {
-            return (
-              <Grid key={idx}>
-                <Phrase>{p}</Phrase>
-                <MdClose
-                  onClick={(e) => {
-                    console.log(idx);
-                    deletePhrase(idx);
-                  }}
+      {!isMobile && <LayoutPicker />}
+
+      {(layout === 'top-bottom' || layout === 'row') && (
+        <Wrapper
+          is_column={layout === 'top-bottom' || isMobile}
+          ai="flex-start"
+        >
+          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
                 />
-              </Grid>
-            );
-          })}
-          <ErrorMsg valid={phraseList.length >= 10}>
-            10개까지만 추가할 수 있어요
-          </ErrorMsg>
-        </Grid>
-        <Grid is_flex is_column padding="0 16px">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isPhrase}
-                onChange={handleChange}
-                name="checkedA"
-              />
-            }
-            label={isPhrase ? '문장' : '감상'}
-          />
-          <Input
-            multiLine
-            value={value}
-            _onChange={(e) => setValue(e.target.value)}
-          />
-        </Grid>
-        <Grid is_flex is_column padding="0 16px" margin="10px">
-          <ErrorMsg valid={requireError}>
-            사진과 감상은 꼭 입력해주세요
-          </ErrorMsg>
-          <Button _onClick={isPhrase ? addPhrase : write}>
-            {isPhrase ? '문장 추가하기' : '저장하기'}
-          </Button>
-        </Grid>
-      </Grid>
-    </Grid>
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+        </Wrapper>
+      )}
+
+      {layout === 'reverse-row' && (
+        <Wrapper
+          is_column={layout === 'top-bottom' || isMobile}
+          ai="flex-start"
+        >
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+          <Wrapper is_column={layout !== 'top-bottom' || isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+        </Wrapper>
+      )}
+      {layout === 'bottom-top' && (
+        <Wrapper is_column ai="flex-start">
+          <Wrapper
+            is_column
+            jc={layout !== 'top-bottom' ? 'flex-start' : 'flex-start'}
+          >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isPhrase}
+                  onChange={handleChange}
+                  name="checkedA"
+                />
+              }
+              label={isPhrase ? '문장' : '감상'}
+            />
+
+            <Input
+              multiLine
+              value={value}
+              _onChange={(e) => setValue(e.target.value)}
+            />
+            <ErrorMsg valid={requireError}>
+              사진과 감상은 꼭 입력해주세요
+            </ErrorMsg>
+            <Button
+              width={isMobile ? '100%' : '50%'}
+              disabled={!isPhrase && (!value || !preview)}
+              _onClick={isPhrase ? addPhrase : write}
+              margin="10px"
+            >
+              {isPhrase ? '문장 추가하기' : '저장하기'}
+            </Button>
+          </Wrapper>
+          <Wrapper is_column={isMobile}>
+            <Upload size={isMobile ? '100vw' : '50vh'} />
+            <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
+          </Wrapper>
+        </Wrapper>
+      )}
+      <Grid is_flex is_column padding="0 16px" margin="10px"></Grid>
+    </Wrapper>
   );
 };
-
-const Phrase = styled.div`
-  border-radius: 10px;
-  background-color: yellow;
-  padding: 0 10px;
-  width: 100%;
-  margin: 1px;
-  text-align: left;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-`;
 
 export default PostWrite;

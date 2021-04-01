@@ -23,19 +23,22 @@ Button.defaultProps = {
 
 const Btn = styled.button`
   border-radius: 10px;
-  //background-color: ${(props) => (props.disabled ? 'gray' : '#fffffc')};
-  background-color: #fffffc;
+  background-color: white;
   border: 1px solid var(--main-color);
+  border-color: ${(props) =>
+    props.disabled ? 'gray' : props.theme.main_color};
   text-align: center;
-  color: var(--main-color);
+  color: ${(props) => (props.disabled ? 'gray' : props.theme.main_color)};
   width: ${(props) => props.width};
   height: ${(props) => props.heigth};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   cursor: pointer;
 
   &:hover {
-    background-color: var(--main-color);
-    color: #fffffc;
+    ${(props) =>
+      props.disabled
+        ? ''
+        : `background-color:${props.theme.main_color}; color:white;`}
   }
 `;
 

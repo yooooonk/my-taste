@@ -3,6 +3,7 @@ import { Badge } from '@material-ui/core';
 import { MdNotifications } from 'react-icons/md';
 import { realtime } from '../shared/firebase';
 import { useSelector } from 'react-redux';
+import { I } from '../elements';
 const NotiBadge = (props) => {
   const { _onClick } = props;
 
@@ -17,7 +18,9 @@ const NotiBadge = (props) => {
   useEffect(() => {
     const notiDB = realtime.ref(`noti/${uid}`);
     notiDB.on('value', (snapshot) => {
-      setIsRead(snapshot.val().read);
+      if (snapshot.val()) {
+        setIsRead(snapshot.val().read);
+      }
     });
     return () => {
       notiDB.off(); // 구독해지
@@ -32,7 +35,7 @@ const NotiBadge = (props) => {
         invisible={isRead}
         onClick={notiCheck}
       >
-        <MdNotifications />
+        <MdNotifications style={{ color: 'white' }} />
       </Badge>
     </div>
   );

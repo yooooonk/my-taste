@@ -35,7 +35,7 @@ Grid.defaultProps = {
   is_flex: false,
   is_column: false,
   width: '100%',
-  height: '100%',
+  //height: '100%',
   margin: false,
   padding: false,
   bg: false,
@@ -46,7 +46,6 @@ const GridBox = styled.div`
   //font-family: var(--jua);
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}

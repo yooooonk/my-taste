@@ -37,13 +37,15 @@ const CommentItem = (props) => {
     contents,
     insert_dt
   } = props;
+
+  console.log(props);
   return (
-    <Grid is_flex>
-      <Grid is_flex width="auto">
+    <Grid>
+      <Grid width="40%">
         <Image shape="circle" src={user_profile} />
         <Text bold>{user_name}</Text>
       </Grid>
-      <Grid is_flex margin="0px 4px">
+      <Grid margin="0px 3vw">
         <Text margin="0px">{contents}</Text>
         <Text margin="0px" size="10px">
           {insert_dt.split(' ')[0]}

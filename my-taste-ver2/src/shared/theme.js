@@ -1,16 +1,17 @@
 const size = {
   mobile: '767px',
-  tablet: '991px',
-  desktop: '992px'
+  tablet: '1024px',
+  desktop: '1025px'
 };
 
 const theme = {
   main_color: 'rgb(255, 82, 82)',
+  main_white: '#fffcfc',
   mobile: `(max-width: ${size.mobile})`,
   tablet: `(max-width: ${size.tablet})`,
   desktop: `(min-width: ${size.desktop})`,
   flex_column:
-    'display: flex; align-items: center; justify-content: space-between; flex-direction:column',
+    'display: flex; flex-direction:column; align-items: center; justify-content: space-between; ',
   flex_row:
     'display: flex; align-items: center; justify-content: space-between;'
 };

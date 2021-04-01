@@ -5,6 +5,7 @@ import { emailCheck } from '../shared/common';
 import ErrorMsg from '../components/ErrorMsg';
 import Header from '../components/Header';
 import { actionCreators as userActions } from '../redux/modules/user';
+import styled from 'styled-components';
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -40,7 +41,6 @@ const Signup = (props) => {
       setPwdError(true);
       fail = true;
     }
-    console.log('pw', pw, 'chk', pwCheck);
     if (!pwCheck || pw !== pwCheck) {
       setPwdChkError(true);
       fail = true;
@@ -56,11 +56,14 @@ const Signup = (props) => {
   };
 
   return (
-    <Grid is_flex is_column>
-      <Header>회원가입</Header>
-      <Grid>
-        <Text>아이디</Text>
-        <Grid is_flex is_column>
+    <SignupContainer>
+      <Header>
+        <Text bold>회원가입</Text>
+        <i />
+      </Header>
+      <Middle>
+        <Grid padding="0 6px">
+          <Text>아이디</Text>
           <Input
             _onChange={(e) => {
               setId(e.target.value);
@@ -71,10 +74,9 @@ const Signup = (props) => {
             이미 가입된 이메일입니다
           </ErrorMsg>
         </Grid>
-      </Grid>
-      <Grid>
-        <Text>닉네임</Text>
-        <Grid is_flex is_column>
+        <Grid padding="0 6px">
+          <Text>닉네임</Text>
+
           <Input
             _onChange={(e) => {
               setNickName(e.target.value);
@@ -82,10 +84,8 @@ const Signup = (props) => {
           />
           <ErrorMsg valid={nicknameError}>닉네임을 입력해주세요</ErrorMsg>
         </Grid>
-      </Grid>
-      <Grid>
-        <Text>비밀번호</Text>
-        <Grid is_flex is_column>
+        <Grid padding="0 6px">
+          <Text>비밀번호</Text>
           <Input
             type="password"
             _onChange={(e) => {
@@ -96,24 +96,55 @@ const Signup = (props) => {
             비밀번호는 6글자 이상 입력해주세요
           </ErrorMsg>
         </Grid>
-      </Grid>
-      <Grid>
-        <Text>비밀번호 확인</Text>
-        <Grid>
-          <Grid is_flex is_column>
-            <Input
-              type="password"
-              _onChange={(e) => {
-                setPwCheck(e.target.value);
-              }}
-            />
-            <ErrorMsg valid={pwdChkError}>입력한 비밀번호와 다릅니다</ErrorMsg>
-          </Grid>
+        <Grid padding="0 6px">
+          <Text>비밀번호 확인</Text>
+
+          <Input
+            type="password"
+            _onChange={(e) => {
+              setPwCheck(e.target.value);
+            }}
+          />
+          <ErrorMsg valid={pwdChkError}>입력한 비밀번호와 다릅니다</ErrorMsg>
         </Grid>
-      </Grid>
-      <Button _onClick={onSignup}>회원가입</Button>
-    </Grid>
+      </Middle>
+      <Button
+        disabled={!pwCheck || !pw || !id || !nickname}
+        _onClick={onSignup}
+      >
+        회원가입
+      </Button>
+    </SignupContainer>
   );
 };
+
+const SignupContainer = styled.div`
+  height: 100%;
+
+  ${(props) => props.theme.flex_column};
+  justify-content: center;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+`;
+
+const Middle = styled.div`
+  width: 30vw;
+  margin: 10vh 0;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    padding: 10px;
+  }
+`;
 
 export default Signup;

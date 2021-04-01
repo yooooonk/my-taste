@@ -37,14 +37,27 @@
    [v] 댓글 작성 컴포넌트 만들기
    [v] 댓글 추가기능
 
+5. 알림기능
+   [v] 댓글 알림
+   [v] 좋아요 알림
+
 ## ?
+
+- styled component 글로벌
+  https://howdy-mj.me/css/styled-components-with-global-style/
 
 - firebase realtime -- 복합쿼리 설정
 - list가져올 때 중복없이 하는 법!
 
-- 좋아요 데이터를 post collection에 넣을지? 따로 like로 뺄지? -- like로 뺐음
+- 좋아요 데이터를 post collection에 넣을지? 따로 like로 뺄지? -- like로 뺐음 --> Post 컴포넌트에서 like를 가지고오면 할때마다 like를 힛함..post에 넣음
+- like할 때 알람울림
 
-  - Post 컴포넌트에서 like를 가지고오면 할때마다 like를 힛함..post에 넣는게 나을듯..?
+- saga와 locash, thunk
 
-- saga와 locash
-- thunk
+- 레이아웃을 바꿨더니 무한 스크롤안됨-- div에 scroll이 생기는건 widnow scroll이 아님. wrapper를 만들어서 scroll 이벤트를 주고, 모바일와 데스크탑모드의 스크롤이벤트를 분리해 가져오는 값을 ㅂ꿈
+
+- 반응형 웹을 위해 resize할때마다 이벤트를 불러오는데 너무 자주불러옴..괜찮은것? -- header에 resize할 때 viewMode를 설정하게끔 만듦, \_throttle 붙임
+
+- 반응형 wrapper 만들기!
+
+- 레이아웃 선택.... -> 모드에 따라 각각 레이아웃을 일단 만들자

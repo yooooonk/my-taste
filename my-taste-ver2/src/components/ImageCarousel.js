@@ -15,7 +15,7 @@ const ImageCarousel = ({ image, phraseList, size }) => {
     } else {
       setImageSrc(`${backUrl}/${image}`);
     } */
-    slideRef.current.style.width = `${40 * (phraseList.length + 1)}vh`;
+    slideRef.current.style.width = `${60 * (phraseList.length + 1)}vh`;
     setTotalSlides(phraseList.length);
   }, []);
 
@@ -45,11 +45,11 @@ const ImageCarousel = ({ image, phraseList, size }) => {
 
   useEffect(() => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide * 40}vh)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
+    slideRef.current.style.transform = `translateX(-${currentSlide * 60}vh)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
   }, [currentSlide]);
   return (
     <Wrapper>
-      <SlideBtn onClick={(e) => prevSlide(e)}>
+      <SlideBtn className="left" onClick={(e) => prevSlide(e)}>
         {currentSlide > 0 ? <FaChevronLeft /> : '  '}
       </SlideBtn>
 
@@ -58,11 +58,11 @@ const ImageCarousel = ({ image, phraseList, size }) => {
           {currentSlide + 1}/{totalSlides + 1}
         </Paging>
         <ImageWrap ref={slideRef}>
-          <Image size="40vh" src={image} />
+          <Image margin="0px" size="60vh" src={image} />
           {mapToCarouselDiv}
         </ImageWrap>
       </Slider>
-      <SlideBtn onClick={(e) => nextSlide(e)}>
+      <SlideBtn className="right" onClick={(e) => nextSlide(e)}>
         {currentSlide === totalSlides ? '' : <FaChevronRight />}
       </SlideBtn>
     </Wrapper>
@@ -76,13 +76,24 @@ const Wrapper = styled.div`
 
 const SlideBtn = styled.div`
   width: 20px;
-  display: flex;
-  align-items: center;
+  position: relative;
   cursor: pointer;
+  height: 20px;
+  &.left {
+    top: 30vh;
+    z-index: 1;
+    left: 30px;
+  }
+
+  &.right {
+    top: 30vh;
+    z-index: 1;
+    right: 30px;
+  }
 `;
 
 const Slider = styled.div`
-  width: 40vh;
+  width: 60vh;
   overflow: hidden;
 `;
 
@@ -90,7 +101,7 @@ const ImageWrap = styled.div`
   display: flex;
   overflow: hidden;
   flex-wrap: nowrap;
-  height: 40vh;
+  height: 60vh;
 `;
 
 const CarouselDiv = styled.div`
@@ -98,8 +109,8 @@ const CarouselDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40vh;
-  height: 40vh;
+  width: 60vh;
+  height: 60vh;
 `;
 
 const Paging = styled.div`
@@ -108,8 +119,8 @@ const Paging = styled.div`
   position: relative;
   border-radius: 10px;
   z-index: 1;
-  top: 30px;
-  left: 100px;
+  top: 4vh;
+  left: 24vh;
   width: 40px;
   color: white;
   font-size: 0.8em;
