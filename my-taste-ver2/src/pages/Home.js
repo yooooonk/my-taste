@@ -79,7 +79,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-
   @media ${(props) => props.theme.desktop} {
     flex-direction: row;
   }

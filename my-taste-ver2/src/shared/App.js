@@ -47,4 +47,10 @@ function App() {
   );
 }
 
+/* const AppWrapper = styled.div`
+  background:${props=>props.theme.xx}
+
+  df
+` */
+
 export default App;

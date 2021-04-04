@@ -38,7 +38,7 @@ const Post = (props) => {
     dispatch(postActions.deletePostFB(props.id));
   };
   return (
-    <Wrapper is_column>
+    <PostWrapper>
       <Header goBack={props.is_detail}>
         <Wrapper jc="flex-start">
           <Image is_circle src={props.user_profile}></Image>
@@ -69,15 +69,70 @@ const Post = (props) => {
           )}
         </Wrapper>
       </Header>
-      {layout === 'top-bottom' && (
+      <Wrapper is_column width="100%">
+        <ImageCarousel image={props.image_url} phraseList={props.phraseList} />
+
+        <Wrapper>
+          <Wrapper jc="space-between" padding="0 2vw">
+            <Text>댓글 {props.comment_cnt}개</Text>
+            <Permit>
+              {like ? (
+                <I color="red">
+                  <MdFavorite
+                    onClick={(e) => {
+                      onUnlike(e);
+                    }}
+                  />
+                </I>
+              ) : (
+                <I color="pink">
+                  <MdFavoriteBorder
+                    onClick={(e) => {
+                      onLike(e);
+                    }}
+                  />
+                </I>
+              )}
+            </Permit>
+          </Wrapper>
+        </Wrapper>
+        <Wrapper>
+          <Grid jc="space-between" padding="0 2vw">
+            {props.contents.length > 20 && isMore
+              ? props.contents.substring(0, 20) + '...'
+              : props.contents}
+          </Grid>
+          <i
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMore(!isMore);
+            }}
+          >
+            {props.contents.length > 20 ? (
+              isMore ? (
+                <Text size="13px" color="gray">
+                  더보기
+                </Text>
+              ) : (
+                <Text size="13px" color="gray">
+                  접기
+                </Text>
+              )
+            ) : (
+              ''
+            )}
+          </i>
+        </Wrapper>
+      </Wrapper>
+      {/*     {layout === 'top-bottom' && (
         <Wrapper is_column>
           <ImageCarousel
             image={props.image_url}
             phraseList={props.phraseList}
           />
 
-          <Grid>
-            <Grid margin="0 2vw">
+          <Wrapper>
+            <Grid>
               <Text>댓글 {props.comment_cnt}개</Text>
               <Permit>
                 {like ? (
@@ -99,9 +154,9 @@ const Post = (props) => {
                 )}
               </Permit>
             </Grid>
-          </Grid>
+          </Wrapper>
           <Wrapper>
-            <Grid margin="0 3px" padding="0 2vw">
+            <Grid>
               {props.contents.length > 20 && isMore
                 ? props.contents.substring(0, 20) + '...'
                 : props.contents}
@@ -312,8 +367,8 @@ const Post = (props) => {
             </Grid>
           </Wrapper>
         </Wrapper>
-      )}
-    </Wrapper>
+      )} */}
+    </PostWrapper>
   );
 };
 
@@ -321,6 +376,9 @@ Post.defaultProps = {
   is_detail: false
 };
 
-const PostWrapper = styled.div``;
+const PostWrapper = styled.div`
+  ${(props) => props.theme.flex_column};
+  max-width: 650px;
+`;
 
 export default Post;

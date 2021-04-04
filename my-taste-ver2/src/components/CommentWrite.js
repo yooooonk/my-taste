@@ -2,6 +2,7 @@ import React from 'react';
 import { actionCreators as commentActions } from '../redux/modules/comment';
 import { Grid, Input, Button } from '../elements';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const CommentWrite = (props) => {
     setCommentText('');
   };
   return (
-    <React.Fragment>
+    <Container>
       <Input
         placeholder="댓글 내용을 입력해주세요 :)"
         _onChange={onChange}
@@ -33,8 +34,16 @@ const CommentWrite = (props) => {
       >
         작성
       </Button>
-    </React.Fragment>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 0 2vw;
+  ${(props) => props.theme.flex_row};
+  justify-content: space-between;
+  width: 100%;
+  margin: 2vw 0;
+`;
 
 export default CommentWrite;

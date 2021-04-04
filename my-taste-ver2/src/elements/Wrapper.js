@@ -6,7 +6,9 @@ const Wrapper = (props) => {
 };
 
 Wrapper.defaultProps = {
-  bg: 'white'
+  bg: 'white',
+  margin: 0,
+  padding: 0
 };
 const Box = styled.div`
   width: ${(props) => (props.width ? props.width : '100%')};
@@ -16,5 +18,7 @@ const Box = styled.div`
   justify-content: ${(props) => (props.jc ? props.jc : 'center')};
   align-items: ${(props) => (props.ai ? props.ai : 'center')};
   background-color: ${(props) => props.bg};
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
 `;
 export default Wrapper;
