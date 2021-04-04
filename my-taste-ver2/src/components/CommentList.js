@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Grid, Image, Text } from '../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as commentActions } from '../redux/modules/comment';
+import Wrapper from '../elements/Wrapper';
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
@@ -37,20 +38,19 @@ const CommentItem = (props) => {
     contents,
     insert_dt
   } = props;
-
   return (
-    <Grid>
-      <Grid width="40%">
-        <Image shape="circle" src={user_profile} />
+    <Wrapper jc="space-between">
+      <Wrapper jc="flex-start">
+        <Image is_circle src={user_profile} />
         <Text bold>{user_name}</Text>
-      </Grid>
-      <Grid margin="0px 3vw">
+      </Wrapper>
+      <Wrapper jc="space-between" width="300%">
         <Text margin="0px">{contents}</Text>
         <Text margin="0px" size="10px">
           {insert_dt.split(' ')[0]}
         </Text>
-      </Grid>
-    </Grid>
+      </Wrapper>
+    </Wrapper>
   );
 };
 
@@ -60,5 +60,7 @@ CommentItem.defaultProps = {
   user_id: '',
   post_id: 1,
   contents: '귀여운 고양이네요!',
-  insert_dt: '2021-01-01 19:00:00'
+  insert_dt: '2021-01-01 19:00:00',
+  src:
+    'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0'
 };

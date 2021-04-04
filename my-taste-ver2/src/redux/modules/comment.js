@@ -61,6 +61,8 @@ const addCommentFB = (post_id, contents) => {
       user_name: user_info.user_name,
       user_profile: user_info.user_profile,
       contents: contents,
+      user_profile:
+        'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0',
       insert_dt: moment().format('YYYY-MM-DD hh:mm:ss')
     };
 

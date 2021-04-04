@@ -41,6 +41,42 @@
    [v] 댓글 알림
    [v] 좋아요 알림
 
+![](https://images.velog.io/images/ouo_yoonk/post/6022eff8-676d-44b4-8417-3268f5125d36/home.gif)
+
+# 🙋About
+
+My Taste를 수정하고, 개선한 ver2!
+
+- stack : React, redux, thunk, styled-component, firebase
+- 개발기간 : 21.3.28~21.4.1(1차)
+
+## 상세기능과 개선기능
+
+### 반응형으로 수정
+
+![](https://images.velog.io/images/ouo_yoonk/post/7ed3cb47-912a-47fa-83a7-68665efeb7b7/responsive.gif)
+
+### 로그인, 회원가입
+
+![](https://images.velog.io/images/ouo_yoonk/post/0a626ff3-a9d7-406e-91c8-2cc24a5a7612/login.gif)
+
+- 로그인은 firebase의 authentication 기능 이용
+- Error Msg 컴포넌트를 만들어 error msg 처리
+- 로그인 여부에 따른 버튼 노출은 Permit 컴포넌트를 만들어 처리
+
+### 이미지 캐루셀과 레이아웃 선택기능
+
+![](https://images.velog.io/images/ouo_yoonk/post/44fd61ac-258a-4a0d-8810-ef6cb52de108/layout.gif)
+🐤 radio 버튼으로 layout을 선택하면 layout type을 store에 저장.
+{layouttype && ()}
+{layouttype && ()} 이런식으로 타입별로 조건부 렌더링을 했다. layout component를 만들어서 끼워넣는 방법이 있을까..? -이미지 캐루셀 버튼 이동
+
+### 포스트 디테일에서 좋아요, 댓글, 알림기능 추가
+
+![](https://images.velog.io/images/ouo_yoonk/post/1db8c48f-6e2e-40bc-bfcf-1ecfc6bd283f/noti.gif)
+
+- firebase의 realtime database를 이용해 알람기능을 만들었다
+
 ## ?
 
 - styled component 글로벌
