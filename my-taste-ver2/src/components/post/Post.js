@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, I, Image, Text } from '../elements';
+import { Grid, I, Image, Text, Wrapper } from '../../elements';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
-import ImageCarousel from './ImageCarousel';
-import Permit from '../shared/Permit';
+import ImageCarousel from '../ImageCarousel';
+import Permit from '../../shared/Permit';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as postActions } from '../../redux/modules/post';
 import { MdCreate, MdDelete } from 'react-icons/md';
-import { history } from '../redux/configStore';
-import Header from './Header';
+import { history } from '../../redux/configStore';
+import Header from '../Header';
 import styled from 'styled-components';
-import Wrapper from '../elements/Wrapper';
 const Post = (props) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.user?.uid);

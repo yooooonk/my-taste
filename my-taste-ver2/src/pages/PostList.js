@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid } from '../elements';
 import Permit from '../shared/Permit';
-import Post from '../components/Post';
+import Post from '../components/post/Post';
 import { actionCreators as postActions } from '../redux/modules/post';
 import InfinityScroll from '../shared/InfinityScroll';
 import styled from 'styled-components';

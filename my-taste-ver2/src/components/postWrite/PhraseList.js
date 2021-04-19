@@ -1,9 +1,9 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
-import { Grid, I } from '../elements';
+import { Grid, I } from '../../elements';
 import styled from 'styled-components';
-import ErrorMsg from './ErrorMsg';
-import Wrapper from '../elements/Wrapper';
+import ErrorMsg from '../ErrorMsg';
+import Wrapper from '../../elements/Wrapper';
 import { useSelector } from 'react-redux';
 
 const PhraseList = (props) => {

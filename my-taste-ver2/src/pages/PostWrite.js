@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
 import LayoutPicker from '../components/LayoutPicker';
-import PhraseList from '../components/PhraseList';
+import PhraseList from '../components/postWrite/PhraseList';
 import Wrapper from '../elements/Wrapper';
 
 const PostWrite = (props) => {

@@ -11,6 +11,10 @@
   --main-color: rgb(255, 82, 82);
 }
 
+input {
+  outline: none;
+}
+
 .App {
   text-align: center;
 }

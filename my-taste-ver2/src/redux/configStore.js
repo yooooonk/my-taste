@@ -7,6 +7,7 @@ import Image from './modules/image';
 import Post from './modules/post';
 import Comment from './modules/comment';
 import View from './modules/view';
+import Book from './modules/book';
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   user: User,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   post: Post,
   comment: Comment,
   view: View,
+  book: Book,
   router: connectRouter(history)
 });
 
@@ -21,11 +23,11 @@ const middlewares = [thunk.withExtraArgument({ history: history })]; // history-
 
 const env = process.env.NODE_ENV;
 
-if (env === 'development') {
+/* if (env === 'development') {
   const { logger } = require('redux-logger'); // if문 안에서만 쓰려고
   middlewares.push(logger);
 }
-
+ */
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { Grid, Image, Text } from '../elements';
+import { Grid, Image, Text, Wrapper } from '../../elements';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as commentActions } from '../redux/modules/comment';
-import Wrapper from '../elements/Wrapper';
+import { actionCreators as commentActions } from '../../redux/modules/comment';
 
 const CommentList = (props) => {
   const dispatch = useDispatch();

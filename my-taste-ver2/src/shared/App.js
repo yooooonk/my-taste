@@ -17,6 +17,7 @@ import PostDetail from '../pages/PostDetail';
 import Notification from '../pages/Notification';
 import AppLayout from '../components/AppLayout';
 import Home from '../pages/Home';
+import Search from '../pages/Search';
 function App() {
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ function App() {
       <AppLayout>
         <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
+          <Route path="/search" exact component={Search} />
           <Route path="/feed" exact component={PostList} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
@@ -46,11 +48,5 @@ function App() {
     </div>
   );
 }
-
-/* const AppWrapper = styled.div`
-  background:${props=>props.theme.xx}
-
-  df
-` */
 
 export default App;

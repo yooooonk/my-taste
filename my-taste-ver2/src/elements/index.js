@@ -4,5 +4,6 @@ import Text from './Text';
 import Button from './Button';
 import Input from './Input';
 import I from './I';
+import Wrapper from './Wrapper';
 
-export { Grid, Image, Text, Button, Input, I };
+export { Grid, Image, Text, Button, Input, I, Wrapper };

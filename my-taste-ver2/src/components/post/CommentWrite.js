@@ -1,6 +1,6 @@
 import React from 'react';
-import { actionCreators as commentActions } from '../redux/modules/comment';
-import { Grid, Input, Button } from '../elements';
+import { actionCreators as commentActions } from '../../redux/modules/comment';
+import { Grid, Input, Button } from '../../elements';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
