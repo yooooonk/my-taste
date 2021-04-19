@@ -30,11 +30,13 @@ const Search = () => {
   return (
     <Container>
       <SearchBar />
-      {detailBook ? (
-        <BookDetail onWrite={onWrite} />
-      ) : (
-        <NoResult msg="좋아하는 책을 검색해주세요 &#128151;" />
-      )}
+      <DetailWrapper>
+        {detailBook ? (
+          <BookDetail onWrite={onWrite} />
+        ) : (
+          <NoResult msg="좋아하는 책을 검색해주세요 &#128151;" />
+        )}
+      </DetailWrapper>
       <SearchList />
     </Container>
   );
@@ -46,6 +48,11 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   //background-size: contain;
+`;
+
+const DetailWrapper = styled.div`
+  background-color: yellow;
+  width: 100%;
 `;
 
 export default Search;

@@ -12,13 +12,11 @@ const AppLayout = ({ children }) => {
 };
 
 const Container = styled.div`
-  height: 100vh;
-  ${(props) => props.theme.border_box};
-  background-color: ${(props) => props.theme.main_color};
-
   &::-webkit-scrollbar {
     display: none;
   }
+
+  background-color: ${(props) => props.theme.main_color};
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;
@@ -57,7 +55,7 @@ const Main = styled.div`
   }
 
   @media ${(props) => props.theme.desktop} {
-    width: 80%;
+    width: 75%;
     margin-right: 30px;
     border-radius: 30px;
     height: 90vh;
