@@ -11,14 +11,17 @@ import { bookActions } from '../redux/modules/book';
 
 const Search = () => {
   const { detailBook, isPostFormOpen } = useSelector((state) => state.book);
+  const { isLogin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (isLogin) {
+      dispatch(bookActions.fetchBookBasket());
+    }
     return () => {
-      dispatch(bookActions.setSearchList(null));
-      dispatch(bookActions.setDetailBook(null));
+      dispatch(bookActions.clearBookState());
     };
-  }, []);
+  }, [isLogin]);
 
   const onWrite = useCallback(
     (isWrite) => () => {

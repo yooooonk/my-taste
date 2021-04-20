@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart, FaPencilAlt } from 'react-icons/fa';
+import { bookActions } from '../../redux/modules/book';
 //import { bookLikeRequest, bookUnlikeRequest } from "../modules/book";
 const BookDetail = ({ onWrite }) => {
   const { detailBook, bookBasket } = useSelector((state) => state.book);
+  const { isLogin } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -12,13 +14,19 @@ const BookDetail = ({ onWrite }) => {
   }`;
   const status = `${detailBook.status ? '' : '절판'}`;
 
-  const inBasketBook = bookBasket.find((v) => v.isbn === detailBook.isbn);
+  const basketBook = bookBasket.find((v) => v.isbn === detailBook.isbn);
 
   const onLike = useCallback(() => {
+    console.log('좋아요');
+    dispatch(bookActions.likeBook(detailBook));
     //dispatch(bookLikeRequest(detailBook))
   });
 
   const onUnlike = useCallback(() => {
+    console.log('취소', basketBook.id);
+
+    dispatch(bookActions.dislikeBook(basketBook.id));
+    //console.log(detailBook);
     //dispatch(bookUnlikeRequest(detailBook.isbn))
   });
 
@@ -27,17 +35,18 @@ const BookDetail = ({ onWrite }) => {
       <div className="bookInfo">
         <div className="bookInfo-thumbnail">
           <img src={detailBook.thumbnail} />
-          <div className="button-box">
-            {inBasketBook ? (
-              <FaHeart className="icon like" onClick={onUnlike} />
-            ) : (
-              <FaHeart className="icon unlike" onClick={onLike} />
-            )}
-            <FaPencilAlt
-              className="icon unlike"
-              onClick={onWrite(detailBook)}
-            />
-            {/* {inBasketBook?.isWrite ? (
+          {isLogin && (
+            <div className="button-box">
+              {basketBook ? (
+                <FaHeart className="icon like" onClick={onUnlike} />
+              ) : (
+                <FaHeart className="icon unlike" onClick={onLike} />
+              )}
+              <FaPencilAlt
+                className="icon unlike"
+                onClick={onWrite(detailBook)} //onWrite를 꼭 props로?
+              />
+              {/* {inBasketBook?.isWrite ? (
               <FaPencilAlt className="icon like" onClick={onWrite(book)} />
             ) : (
               <FaPencilAlt
@@ -45,7 +54,8 @@ const BookDetail = ({ onWrite }) => {
                 onClick={onWrite(detailBook)}
               />
             )} */}
-          </div>
+            </div>
+          )}
         </div>
         <div className="bookInfo-content">
           <span className="title">{detailBook.title}</span>

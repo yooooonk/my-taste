@@ -23,11 +23,13 @@ const initialState = {
 const setLoading = createAction('book/SET_LOADING');
 const setSearchList = createAction('book/SET_SEARCH_LIST');
 const setDetailBook = createAction('book/SET_DETAIL_BOOK');
+const setBookBasket = createAction('book/SET_BOOK_BASKET');
+const deleteBookBasket = createAction('book/DELETE_BOOK_BASKET');
+const clearBookState = createAction('book/CLEAR_BOOK_STATE');
 
 // reducer
 const bookReducer = createReducer(initialState, {
   [setSearchList]: (state, { payload }) => {
-    console.log('setSearchList', payload);
     if (payload.page === 1) {
       state.searchList = payload.result.documents;
     } else {
@@ -43,6 +45,20 @@ const bookReducer = createReducer(initialState, {
   },
   [setDetailBook]: (state, { payload }) => {
     state.detailBook = payload;
+  },
+  [setBookBasket]: (state, { payload }) => {
+    console.log(payload);
+    state.bookBasket = [...state.bookBasket, ...payload];
+  },
+  [deleteBookBasket]: (state, { payload }) => {
+    state.bookBasket = state.bookBasket.filter((b) => b.id !== payload);
+  },
+  [clearBookState]: (state, { payload }) => {
+    state.detailBook = null;
+    state.searchList = [];
+    state.isEnd = false;
+    state.page = 0;
+    state.keyword = null;
   }
 });
 
@@ -63,60 +79,45 @@ const fetchBookList = (data) => async (dispatch, getState, { history }) => {
   }
 };
 
-/* const addPostFB = (contents, phraseList) => {
-  return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection('post');
-    const _user = getState().user.user;
+const fetchBookBasket = (data) => async (dispatch, getState, { history }) => {
+  try {
+    const userId = getState().user.user.uid;
 
-    const user_info = {
-      user_name: _user.user_name,
-      user_id: _user.uid,
-      user_profile: _user.user_profile
-    };
+    const docs = await bookAPI.getBookBasket(userId);
+    const basket = [];
+    docs.forEach((doc) => {
+      let book = doc.data();
 
-    const _post = {
-      ...initialPost,
-      contents,
-      phraseList,
-      likers: [],
-      comment_cnt: 0,
-      insert_dt: moment().format('YYYY-MM-DD hh:mm:ss')
-    };
-
-    const _image = getState().image.preview;
-
-    const _upload = storage
-      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
-      .putString(_image, 'data_url');
-
-    _upload.then((snapshot) => {
-      snapshot.ref
-        .getDownloadURL()
-        .then((url) => {
-          return url;
-        })
-        .then((url) => {
-          postDB
-            .add({ ...user_info, ..._post, image_url: url })
-            .then((doc) => {
-              let post = { user_info, ..._post, id: doc.id, image_url: url };
-              dispatch(addPost(post));
-              history.replace('/');
-
-              dispatch(imageActions.setPreview(null));
-            })
-            .catch((err) => {
-              window.alert('앗! 포스트 작성에 문제가 있어요!');
-              console.log('post 작성에 실패했어요!', err);
-            });
-        })
-        .catch((err) => {
-          window.alert('앗! 이미지 업로드에 문제가 있어요!');
-          console.log('앗! 이미지 업로드에 문제가 있어요!', err);
-        });
+      basket.push(book);
     });
-  };
+
+    dispatch(setBookBasket(basket));
+  } catch (error) {
+    console.error(error);
+  }
 };
+const likeBook = (data) => async (dispatch, getState, { history }) => {
+  try {
+    const userId = getState().user.user.uid;
+
+    const res = await bookAPI.createBookBasket({ ...data, userId });
+
+    dispatch(setBookBasket([{ ...data, id: res.id }]));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const dislikeBook = (basketId) => async (dispatch, getState, { history }) => {
+  try {
+    const res = await bookAPI.deleteBookBasket(basketId);
+    dispatch(deleteBookBasket(basketId));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/* 
 const deletePostFB = (postId) => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
@@ -337,7 +338,11 @@ const unlikePostFB = (post_id = null) => {
 export const bookActions = {
   fetchBookList,
   setDetailBook,
-  setSearchList
+  setSearchList,
+  likeBook,
+  dislikeBook,
+  clearBookState,
+  fetchBookBasket
 };
 
 export default bookReducer;

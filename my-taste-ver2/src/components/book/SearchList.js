@@ -17,22 +17,10 @@ const SearchList = () => {
   });
 
   const searchNext = useCallback((e) => {
-    console.log('다음!');
-
+    //TODO : 다음이 너무 자주 호출됨
     if (!isEnd && !loading) {
       dispatch(bookActions.fetchBookList({ keyword, page: page + 1 }));
     }
-    /* const scrollPer = Math.floor(
-      (e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)) *
-        100
-    );
-
-    if (scrollPer > 70) {
-      if (!is_end && !loading) {
-        const page = searchList.length / 10 + 1;
-        //dispatch(book.bookSearchRequest({ page, keyword }));
-      }
-    } */
   });
 
   return (

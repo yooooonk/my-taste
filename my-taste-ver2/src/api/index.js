@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { firestore, storage, realtime } from '../shared/firebase';
 
 const openApi = axios.create();
 openApi.defaults.withCredentials = false;
@@ -15,5 +16,17 @@ export const bookAPI = {
         Authorization: token
       }
     });
+  },
+  createBookBasket: function (data) {
+    const basketDB = firestore.collection('basket');
+    return basketDB.add(data);
+  },
+  deleteBookBasket: function (basketId) {
+    const basketDB = firestore.collection('basket');
+    return basketDB.doc(basketId).delete();
+  },
+  getBookBasket: function (userId) {
+    const basketDB = firestore.collection('basket');
+    return basketDB.where('userId', '==', userId).get();
   }
 };

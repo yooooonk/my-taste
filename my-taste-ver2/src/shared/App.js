@@ -25,6 +25,7 @@ function App() {
   const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
   useEffect(() => {
+    console.log('로그인유지');
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }

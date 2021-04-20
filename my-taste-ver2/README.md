@@ -41,6 +41,16 @@
    [v] 댓글 알림
    [v] 좋아요 알림
 
+6. 책 검색기능
+   [v] 컴포넌트 생성
+   [v] 검색
+   [v] 책 상세보기
+   [] 스타일링, 반응형 적용
+
+7. 책 좋아요 기능
+   [] 모듈 생성
+   []
+
 ![](https://images.velog.io/images/ouo_yoonk/post/6022eff8-676d-44b4-8417-3268f5125d36/home.gif)
 
 # 🙋About
@@ -76,6 +86,8 @@ My Taste를 수정하고, 개선한 ver2!
 ![](https://images.velog.io/images/ouo_yoonk/post/1db8c48f-6e2e-40bc-bfcf-1ecfc6bd283f/noti.gif)
 
 - firebase의 realtime database를 이용해 알람기능을 만들었다
+
+### thunk async-await 사용
 
 ## ?
 

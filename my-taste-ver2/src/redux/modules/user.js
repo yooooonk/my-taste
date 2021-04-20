@@ -25,6 +25,28 @@ const setFbAuthError = createAction(SET_FB_AUTH_ERROR, (authError) => ({
   authError
 }));
 
+// reducer
+export default handleActions(
+  {
+    [SET_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = action.payload.user;
+        draft.isLogin = true;
+        draft.fbAuthError = { isError: false, msg: '' };
+      }),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = null;
+        draft.isLogin = false;
+      }),
+    [SET_FB_AUTH_ERROR]: (state, action) =>
+      produce(state, (draft) => {
+        draft.fbAuthError = action.payload.authError;
+      })
+  },
+  initialState
+);
+
 // middleware
 const signupFB = (id, nickname, pw) => {
   return function (dispatch, getState, { history }) {
@@ -145,27 +167,6 @@ const logoutFB = () => {
   };
 };
 
-// reducer
-export default handleActions(
-  {
-    [SET_USER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.user = action.payload.user;
-        draft.isLogin = true;
-        draft.fbAuthError = { isError: false, msg: '' };
-      }),
-    [LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.user = null;
-        draft.isLogin = false;
-      }),
-    [SET_FB_AUTH_ERROR]: (state, action) =>
-      produce(state, (draft) => {
-        draft.fbAuthError = action.payload.authError;
-      })
-  },
-  initialState
-);
 // action creator export
 const actionCreators = {
   signupFB,
