@@ -11,6 +11,7 @@ const initialState = {
   searchList: [],
   isEnd: false,
   page: 0,
+  keyword: null,
   loading: false,
   detailBook: null,
   bookBasket: [],
@@ -21,6 +22,7 @@ const initialState = {
 // actions
 const setLoading = createAction('book/SET_LOADING');
 const setSearchList = createAction('book/SET_SEARCH_LIST');
+const setDetailBook = createAction('book/SET_DETAIL_BOOK');
 
 // reducer
 const bookReducer = createReducer(initialState, {
@@ -31,12 +33,16 @@ const bookReducer = createReducer(initialState, {
     } else {
       state.searchList = [...state.searchList, ...payload.result.documents];
     }
-
+    state.keyword = payload.keyword;
+    state.page = payload.page;
     state.isEnd = payload.result.meta.is_end;
     state.loading = false;
   },
   [setLoading]: (state, { payload }) => {
     state.loading = payload;
+  },
+  [setDetailBook]: (state, { payload }) => {
+    state.detailBook = payload;
   }
 });
 
@@ -45,7 +51,13 @@ const fetchBookList = (data) => async (dispatch, getState, { history }) => {
   try {
     dispatch(setLoading(true));
     const res = await bookAPI.getBookList(data);
-    dispatch(setSearchList({ result: res.data, page: data.page }));
+    dispatch(
+      setSearchList({
+        result: res.data,
+        page: data.page,
+        keyword: data.keyword
+      })
+    );
   } catch (error) {
     console.error(error);
   }
@@ -323,7 +335,9 @@ const unlikePostFB = (post_id = null) => {
 
 // action creator export
 export const bookActions = {
-  fetchBookList
+  fetchBookList,
+  setDetailBook,
+  setSearchList
 };
 
 export default bookReducer;

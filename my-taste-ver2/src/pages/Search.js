@@ -7,6 +7,7 @@ import {
   SearchBar,
   SearchList
 } from '../components/book';
+import { bookActions } from '../redux/modules/book';
 
 const Search = () => {
   const { detailBook, isPostFormOpen } = useSelector((state) => state.book);
@@ -14,7 +15,8 @@ const Search = () => {
 
   useEffect(() => {
     return () => {
-      //dispatch(clearSearchCompnent());
+      dispatch(bookActions.setSearchList(null));
+      dispatch(bookActions.setDetailBook(null));
     };
   }, []);
 

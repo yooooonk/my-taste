@@ -24,7 +24,7 @@ const BookDetail = ({ onWrite }) => {
 
   return (
     <div className="BookDetail">
-      {/* <div className="bookInfo">
+      <div className="bookInfo">
         <div className="bookInfo-thumbnail">
           <img src={detailBook.thumbnail} />
           <div className="button-box">
@@ -33,15 +33,18 @@ const BookDetail = ({ onWrite }) => {
             ) : (
               <FaHeart className="icon unlike" onClick={onLike} />
             )}
-
-            {inBasketBook?.isWrite ? (
+            <FaPencilAlt
+              className="icon unlike"
+              onClick={onWrite(detailBook)}
+            />
+            {/* {inBasketBook?.isWrite ? (
               <FaPencilAlt className="icon like" onClick={onWrite(book)} />
             ) : (
               <FaPencilAlt
                 className="icon unlike"
                 onClick={onWrite(detailBook)}
               />
-            )}
+            )} */}
           </div>
         </div>
         <div className="bookInfo-content">
@@ -60,7 +63,7 @@ const BookDetail = ({ onWrite }) => {
             </a>
           </span>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

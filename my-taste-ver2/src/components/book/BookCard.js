@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { bookActions } from '../../redux/modules/book';
 
 const BookCard = ({ book }) => {
   const dispatch = useDispatch();
@@ -8,7 +9,8 @@ const BookCard = ({ book }) => {
   let card = null;
 
   const onClickBookCard = useCallback(() => {
-    //dispatch(setDetailBook(book));
+    dispatch(bookActions.setDetailBook(book));
+
     changeCardStyle();
   });
 
@@ -17,8 +19,6 @@ const BookCard = ({ book }) => {
       selectedCard.classList.toggle('selected');
     }
     card.classList.toggle('selected');
-
-    //dispatch(setSelectedCard(card));
   });
 
   return (

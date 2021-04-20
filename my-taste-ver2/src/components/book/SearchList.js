@@ -4,10 +4,13 @@ import ScrollWrapper from '../../shared/ScrollWrapper';
 //import book from '../../redux/modules/book';
 import { BookCard, NoResult } from '../book';
 import styled from 'styled-components';
+import { bookActions } from '../../redux/modules/book';
 
 const SearchList = () => {
   const dispatch = useDispatch();
-  const { searchList, is_end, loading } = useSelector((state) => state.book);
+  const { searchList, page, keyword, isEnd, loading } = useSelector(
+    (state) => state.book
+  );
 
   const mapToComponent = searchList?.map((book) => {
     return <BookCard book={book} key={book.isbn} />;
@@ -15,6 +18,10 @@ const SearchList = () => {
 
   const searchNext = useCallback((e) => {
     console.log('다음!');
+
+    if (!isEnd && !loading) {
+      dispatch(bookActions.fetchBookList({ keyword, page: page + 1 }));
+    }
     /* const scrollPer = Math.floor(
       (e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)) *
         100
@@ -31,11 +38,7 @@ const SearchList = () => {
   return (
     <Container>
       {searchList.length > 0 && (
-        <ScrollWrapper
-          callNext={searchNext}
-          is_next={!is_end}
-          loading={loading}
-        >
+        <ScrollWrapper callNext={searchNext} is_next={!isEnd} loading={loading}>
           {searchList.map((book, idx) => {
             return <BookCard key={idx} book={book} key={book.isbn} />;
           })}
