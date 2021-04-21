@@ -12,31 +12,30 @@ const AppLayout = ({ children }) => {
 };
 
 const Container = styled.div`
+  background-color: ${(props) => props.theme.main_color};
+  ${(props) => props.theme.border_box};
+  box-sizing: border-box;
+
   &::-webkit-scrollbar {
     display: none;
   }
 
-  background-color: ${(props) => props.theme.main_color};
-
   @media ${(props) => props.theme.mobile} {
     width: 100%;
-    margin: 0 auto;
   }
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    margin: 0 auto;
   }
 
   @media ${(props) => props.theme.desktop} {
-    ${(props) => props.theme.flex_row}
-    border-radius: 30px;
-    margin: 3px;
-    height: 99vh;
+    ${(props) => props.theme.flex_row};
+    height: 100vh;
   }
 `;
 
 const Main = styled.div`
+  ${(props) => props.theme.border_box};
   &::-webkit-scrollbar {
     display: none;
   }

@@ -18,6 +18,7 @@ import Notification from '../pages/Notification';
 import AppLayout from '../components/AppLayout';
 import Home from '../pages/Home';
 import Search from '../pages/Search';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -32,21 +33,19 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <AppLayout>
-        <ConnectedRouter history={history}>
-          <Route path="/" exact component={Home} />
-          <Route path="/search" exact component={Search} />
-          <Route path="/feed" exact component={PostList} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/write" exact component={PostWrite} />
-          <Route path="/write/:id" exact component={PostWrite} />
-          <Route path="/post/:id" exact component={PostDetail} />
-          <Route path="/noti" exact component={Notification} />
-        </ConnectedRouter>
-      </AppLayout>
-    </div>
+    <AppLayout>
+      <ConnectedRouter history={history}>
+        <Route path="/" exact component={Home} />
+        <Route path="/search" exact component={Search} />
+        <Route path="/feed" exact component={PostList} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/write" exact component={PostWrite} />
+        <Route path="/write/:id" exact component={PostWrite} />
+        <Route path="/post/:id" exact component={PostDetail} />
+        <Route path="/noti" exact component={Notification} />
+      </ConnectedRouter>
+    </AppLayout>
   );
 }
 

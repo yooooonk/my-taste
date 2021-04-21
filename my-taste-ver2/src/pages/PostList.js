@@ -4,7 +4,7 @@ import { Button, Grid } from '../elements';
 import Permit from '../shared/Permit';
 import Post from '../components/post/Post';
 import { actionCreators as postActions } from '../redux/modules/post';
-import InfinityScroll from '../shared/InfinityScroll';
+//import InfinityScroll from '../shared/InfinityScroll';
 import styled from 'styled-components';
 import ScrollWrapper from '../shared/ScrollWrapper';
 const PostList = (props) => {
@@ -35,7 +35,6 @@ const PostList = (props) => {
           </Grid>
         );
       })}
-      {/* </InfinityScroll> */}
     </ScrollWrapper>
   );
 };

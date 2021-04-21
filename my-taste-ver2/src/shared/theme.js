@@ -7,9 +7,11 @@ const size = {
 const theme = {
   main_color: 'rgb(255, 82, 82)',
   main_white: '#fffcfc',
-  mobile: `(max-width: ${size.mobile})`,
-  tablet: `(max-width: ${size.tablet})`,
-  desktop: `(min-width: ${size.desktop})`,
+  pink: '#ffe4e5',
+  border_box: `box-sizing:border-box`,
+  mobile: `(max-width: 767px)`,
+  tablet: `(max-width: 1024px)`,
+  desktop: `(min-width: 1025px)`,
   flex_column:
     'display: flex; flex-direction:column; align-items: center; justify-content: space-between; ',
   flex_row:

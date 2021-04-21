@@ -62,8 +62,8 @@ const OutterWrapper = styled.div`
   overflow-y: scroll;
   //background-color: ${(props) => props.theme.main_white};
   width: 100%;
-  ${(props) => props.theme.flex_row}
-  justify-content:center;
+  ${(props) => props.theme.flex_row};
+  justify-content: center;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -71,19 +71,9 @@ const OutterWrapper = styled.div`
 
 const InnerWrapper = styled.div`
   //width: ${(props) => props.width};
+  width: 100%;
+
   height: 100%;
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    width: 60%;
-  }
 `;
 
 export default ScrollWrapper;
