@@ -18,6 +18,7 @@ import Notification from '../pages/Notification';
 import AppLayout from '../components/AppLayout';
 import Home from '../pages/Home';
 import Search from '../pages/Search';
+import BookBasket from '../pages/BookBasket';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/search" exact component={Search} />
         <Route path="/feed" exact component={PostList} />
+        <Route path="/basket" exact component={BookBasket} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/write" exact component={PostWrite} />

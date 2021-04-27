@@ -5,7 +5,9 @@ const size = {
 };
 
 const theme = {
-  main_color: 'rgb(255, 82, 82)',
+  //main_color: 'rgb(255, 82, 82)',
+  main_color: '#a7a39b',
+  //main_white: '#fffcfc',
   main_white: '#fffcfc',
   pink: '#ffe4e5',
   border_box: `box-sizing:border-box`,

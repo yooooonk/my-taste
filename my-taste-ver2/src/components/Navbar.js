@@ -115,7 +115,8 @@ Navbar.defaultProps = {};
 
 const Nav = styled.div`
   ${(props) => props.theme.border_box};
-  color: ${(props) => props.theme.main_white};
+  //color: ${(props) => props.theme.main_white};
+  color: #ffeb60;
   font-family: var(--ballo);
   display: flex;
   flex-direction: column;

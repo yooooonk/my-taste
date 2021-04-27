@@ -48,8 +48,11 @@
    [] 스타일링, 반응형 적용
 
 7. 책 좋아요 기능
-   [] 모듈 생성
-   []
+   [v] 모듈 생성
+   [v] 스타일링
+
+8. basket 페이지
+   [] 컴포넌트 생성
 
 ![](https://images.velog.io/images/ouo_yoonk/post/6022eff8-676d-44b4-8417-3268f5125d36/home.gif)
 
@@ -111,7 +114,11 @@ My Taste를 수정하고, 개선한 ver2!
 - 레이아웃 선택.... -> 모드에 따라 각각 레이아웃을 일단 만들자
 
 - 책검색 목록에서 카드 선택하면 translate 이동?
+
   - 처음에는 bookCard 컴포넌트에서 uesRef를 이용했는데 이전 카드 정보를 기억못함
   - bookCard는 현재 자기자신의 ref만 가지고잇음.
   - store에 selected card를 저장했음
   - 상위컴포넌트인 SearchList에서 preCard state를 줘서 관리하는 걸로 바꿈
+
+- 컴포넌트 디렉토리 구조에 대한 고민
+  - page별로 나눴는데, 재사용성이라는 리액트 철학에 안 맞는 것 같다.

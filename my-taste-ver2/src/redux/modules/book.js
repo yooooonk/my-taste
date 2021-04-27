@@ -47,8 +47,17 @@ const bookReducer = createReducer(initialState, {
     state.detailBook = payload;
   },
   [setBookBasket]: (state, { payload }) => {
-    console.log(payload);
     state.bookBasket = [...state.bookBasket, ...payload];
+    //list 중복제거
+    state.bookBasket = state.bookBasket.reduce((acc, cur) => {
+      let idx = acc.findIndex((acc) => acc.id === cur.id);
+      if (idx === -1) {
+        return [...acc, cur];
+      } else {
+        acc[idx] = cur;
+        return acc;
+      }
+    }, []);
   },
   [deleteBookBasket]: (state, { payload }) => {
     state.bookBasket = state.bookBasket.filter((b) => b.id !== payload);
@@ -88,7 +97,7 @@ const fetchBookBasket = (data) => async (dispatch, getState, { history }) => {
     docs.forEach((doc) => {
       let book = doc.data();
 
-      basket.push(book);
+      basket.push({ ...book, id: doc.id });
     });
 
     dispatch(setBookBasket(basket));
@@ -100,7 +109,12 @@ const likeBook = (data) => async (dispatch, getState, { history }) => {
   try {
     const userId = getState().user.user.uid;
 
-    const res = await bookAPI.createBookBasket({ ...data, userId });
+    const res = await bookAPI.createBookBasket({
+      ...data,
+      userId,
+      isRead: false,
+      isWrite: false
+    });
 
     dispatch(setBookBasket([{ ...data, id: res.id }]));
   } catch (error) {

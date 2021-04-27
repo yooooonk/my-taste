@@ -17,7 +17,6 @@ const SearchList = () => {
     return <BookCard book={book} key={book.isbn} />;
   });
   const changeCardStyle = useCallback((target) => {
-    console.log(preCard);
     if (preCard) {
       preCard.style.transform = `translateX(0px)`;
       preCard.style.backgroundColor = '';
