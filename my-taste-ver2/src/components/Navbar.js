@@ -51,7 +51,9 @@ const Navbar = (props) => {
           <li onClick={onClickMenu('/write')}>
             <Permit>write</Permit>
           </li>
-          <li onClick={onClickMenu('/basket')}>basket</li>
+          <li onClick={onClickMenu('/basket')}>
+            <Permit>basket</Permit>
+          </li>
         </Menu>
         {/* {!isMobile && <LayoutPicker />} */}
         <Icons isOpen={openMenu}>

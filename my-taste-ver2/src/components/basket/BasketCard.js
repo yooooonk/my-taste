@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaPencilAlt, FaTrashAlt, FaBookOpen } from 'react-icons/fa';
 import { BsBook } from 'react-icons/bs';
 import styled from 'styled-components';
+import { bookActions } from '../../redux/modules/book';
 
 const BasketCard = ({ book }) => {
   const dispatch = useDispatch();
 
   const onRemove = useCallback((e) => {
-    console.log('삭제');
-    //dispatch(bookUnlikeRequest(book.isbn));
+    dispatch(bookActions.fetchDeleteBookBasket(book.id));
   });
 
   const onRead = useCallback((e) => {
-    console.log('읽음');
-    //dispatch(updateBookStateRequest({ id: book._id, state: 'isRead' }));
+    dispatch(bookActions.fetchUpdateIsRead(book.id, !book.isRead));
   });
 
   const onWrite = useCallback((e) => {
@@ -32,20 +31,17 @@ const BasketCard = ({ book }) => {
           <span className="publisher">{book.publisher}</span>
         </Content>
       </Info>
-      <div className="button-box">
-        {book.isRead ? (
-          <BsBook className="icon can done" onClick={onRead} />
-        ) : (
-          <BsBook className="icon can" onClick={onRead} />
-        )}
-        {book.isWrite ? (
-          <FaPencilAlt className="icon penceil done" onClick={onWrite} />
-        ) : (
-          <FaPencilAlt className="icon penceil" onClick={onWrite} />
-        )}
-
-        <FaTrashAlt className="icon can" onClick={onRemove} />
-      </div>
+      <ButtonBox>
+        <I done={book.isRead}>
+          <BsBook onClick={onRead} />
+        </I>
+        <I done={book.isWrite}>
+          <FaPencilAlt onClick={onWrite} />
+        </I>
+        <I>
+          <FaTrashAlt onClick={onRemove} />
+        </I>
+      </ButtonBox>
     </Card>
   );
 };
@@ -57,7 +53,48 @@ const Card = styled.div`
   border-bottom: 1px solid rgb(122, 122, 122);
 `;
 
-const Info = styled.div``;
+const Info = styled.div`
+  ${(props) => props.theme.flex_column};
 
-const Content = styled.div``;
+  img {
+    width: 85%;
+    height: 180px;
+  }
+  &:hover .content {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+`;
+
+const Content = styled.div`
+  position: relative;
+  background-color: rgba(245, 245, 245, 0.774);
+  color: rgb(65, 65, 65);
+  width: 90%;
+  top: -50px;
+  border-radius: 12px;
+  transition: 0.3s ease-in-out;
+  opacity: 0;
+
+  span {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  position: relative;
+  top: -50px;
+  justify-content: space-around;
+`;
+
+const I = styled.span`
+  cursor: pointer;
+  & {
+    color: ${(props) => (props.done ? 'red' : 'gray')};
+  }
+`;
 export default BasketCard;

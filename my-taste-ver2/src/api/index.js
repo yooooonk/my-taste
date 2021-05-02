@@ -28,5 +28,9 @@ export const bookAPI = {
   getBookBasket: function (userId) {
     const basketDB = firestore.collection('basket');
     return basketDB.where('userId', '==', userId).get();
+  },
+  updateIsRead: function (basketId, status) {
+    const basketDB = firestore.collection('basket');
+    return basketDB.doc(basketId).update({ isRead: status });
   }
 };

@@ -20,14 +20,13 @@ const BookDetail = ({ onWrite }) => {
 
   const onLike = useCallback(() => {
     console.log('좋아요');
-    dispatch(bookActions.likeBook(detailBook));
-    //dispatch(bookLikeRequest(detailBook))
+    dispatch(bookActions.fetchCreateBookBasket(detailBook));
   });
 
   const onUnlike = useCallback(() => {
     console.log('취소', basketBook.id);
 
-    dispatch(bookActions.dislikeBook(basketBook.id));
+    dispatch(bookActions.fetchDeleteBookBasket(basketBook.id));
     //console.log(detailBook);
     //dispatch(bookUnlikeRequest(detailBook.isbn))
   });
