@@ -128,7 +128,7 @@ const fetchCreateBookBasket =
         ...data,
         userId,
         isRead: false,
-        diaryId: null
+        postId: null
       });
 
       dispatch(setBookBasket([{ ...data, id: res.id }]));
@@ -160,10 +160,10 @@ const fetchUpdateIsRead =
   };
 
 const fetchUpdateIsWrite =
-  (basketId, diaryId) =>
+  (basketId, postId) =>
   async (dispatch, getState, { history }) => {
     try {
-      const data = { diaryId };
+      const data = { postId };
       const res = await bookAPI.updateBookBasket(basketId, data);
       // dispatch(updateIsReadStatus({ basketId, status }));
     } catch (error) {

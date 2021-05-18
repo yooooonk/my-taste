@@ -19,7 +19,7 @@ const PostDetail = (props) => {
 
   React.useEffect(() => {
     if (post) return;
-    dispatch(postActions.getOnePostFB(id));
+    dispatch(postActions.fetchPost(id));
   });
   return (
     <DetailWrapper>

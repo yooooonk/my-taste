@@ -34,7 +34,7 @@ const Post = (props) => {
 
   const deletePost = (e) => {
     e.stopPropagation();
-    dispatch(postActions.deletePostFB(props.id));
+    dispatch(postActions.fetchDeletePost(props.id));
   };
   return (
     <PostWrapper>

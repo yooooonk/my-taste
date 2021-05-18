@@ -21,9 +21,8 @@ const BasketCard = ({ book, goTo }) => {
   });
 
   const onWrite = useCallback((e) => {
-    console.log(book.diaryId);
-    if (book.diaryId) {
-      goTo(`/edit/${book.diaryId}`);
+    if (book.postId) {
+      goTo(`/edit/${book.postId}`);
     } else {
       goTo(`/write/${book.id}`);
       dispatch(imageActions.setPreview(book.thumbnail));

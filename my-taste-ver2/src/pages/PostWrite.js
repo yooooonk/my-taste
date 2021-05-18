@@ -61,10 +61,10 @@ const PostWrite = (props) => {
         phraseList: phraseList,
         contents: value
       };
-      dispatch(postActions.editPostFB(id, updatedPost));
+      dispatch(postActions.fetchUpdatePost(id, updatedPost));
     } else {
       //추가
-      dispatch(postActions.addPostFB(id, value, phraseList));
+      dispatch(postActions.fetchCreatePost(id, value, phraseList));
     }
   };
 

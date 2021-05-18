@@ -17,13 +17,13 @@ const PostList = (props) => {
 
   React.useEffect(() => {
     if (post_list.length < 2) {
-      dispatch(postActions.getPostFB());
+      dispatch(postActions.fetchPosts());
     }
   }, []);
   return (
     <ScrollWrapper
       callNext={() => {
-        dispatch(postActions.getPostFB(paging.next));
+        dispatch(postActions.fetchPosts(paging.next));
       }}
       is_next={paging.next ? true : false}
       loading={is_loading}
