@@ -92,6 +92,11 @@ My Taste를 수정하고, 개선한 ver2!
 
 ### thunk async-await 사용
 
+### modal 만들기
+
+- 라이브러리를 사용하지 않고 재사용 가능한 dialog를 만들었다.
+- basketCard의 경우 각 카드마다 dialog를 호출했다. 좋은 방법이 아닐것같은데..
+
 ## ?
 
 - styled component 글로벌

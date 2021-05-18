@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import BasketCard from '../components/basket/BasketCard';
 import NoResult from '../components/book/NoResult';
+import Dialog from '../components/Dialog';
+import { Button } from '../elements';
 import { bookActions } from '../redux/modules/book';
 
-const BookBasket = () => {
+const BookBasket = ({ history }) => {
   const dispatch = useDispatch();
   const { bookBasket } = useSelector((state) => state.book);
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -15,8 +17,12 @@ const BookBasket = () => {
       dispatch(bookActions.fetchBookBasket());
     }
   }, [isLogin]);
+
+  const goTo = (url) => {
+    history.push(url);
+  };
   const basketCardList = bookBasket.map((book) => {
-    return <BasketCard key={book.id} book={book} />;
+    return <BasketCard key={book.id} book={book} goTo={goTo} />;
   });
   /*  const onWrite =  useCallback((book)=>(e)=>{
         console.log(book)

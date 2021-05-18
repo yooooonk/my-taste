@@ -4,12 +4,16 @@ import { FaPencilAlt, FaTrashAlt, FaBookOpen } from 'react-icons/fa';
 import { BsBook } from 'react-icons/bs';
 import styled from 'styled-components';
 import { bookActions } from '../../redux/modules/book';
+import { actionCreators as imageActions } from '../../redux/modules/image';
+import Dialog from '../Dialog';
 
-const BasketCard = ({ book }) => {
+const BasketCard = ({ book, goTo }) => {
   const dispatch = useDispatch();
 
   const onRemove = useCallback((e) => {
-    dispatch(bookActions.fetchDeleteBookBasket(book.id));
+    if (window.confirm('basket에서 삭제하시겠습니까?')) {
+      dispatch(bookActions.fetchDeleteBookBasket(book.id));
+    }
   });
 
   const onRead = useCallback((e) => {
@@ -17,32 +21,41 @@ const BasketCard = ({ book }) => {
   });
 
   const onWrite = useCallback((e) => {
-    console.log('쓰기');
+    console.log(book.diaryId);
+    if (book.diaryId) {
+      goTo(`/edit/${book.diaryId}`);
+    } else {
+      goTo(`/write/${book.id}`);
+      dispatch(imageActions.setPreview(book.thumbnail));
+    }
   });
+
   return (
-    <Card>
-      <Info href={book.url} target="_blank">
-        <img src={book.thumbnail} />
-        <Content className="content">
-          <span className="title">
-            <b>{book.title}</b>
-          </span>
-          <span className="author">{book.authors}</span>
-          <span className="publisher">{book.publisher}</span>
-        </Content>
-      </Info>
-      <ButtonBox>
-        <I done={book.isRead}>
-          <BsBook onClick={onRead} />
-        </I>
-        <I done={book.isWrite}>
-          <FaPencilAlt onClick={onWrite} />
-        </I>
-        <I>
-          <FaTrashAlt onClick={onRemove} />
-        </I>
-      </ButtonBox>
-    </Card>
+    <>
+      <Card>
+        <Info href={book.url} target="_blank">
+          <img src={book.thumbnail} />
+          <Content className="content">
+            <span className="title">
+              <b>{book.title}</b>
+            </span>
+            <span className="author">{book.authors}</span>
+            <span className="publisher">{book.publisher}</span>
+          </Content>
+        </Info>
+        <ButtonBox>
+          <I done={book.isRead}>
+            <BsBook onClick={onRead} />
+          </I>
+          <I done={book.diaryId}>
+            <FaPencilAlt onClick={onWrite} />
+          </I>
+          <I>
+            <FaTrashAlt onClick={onRemove} />
+          </I>
+        </ButtonBox>
+      </Card>
+    </>
   );
 };
 

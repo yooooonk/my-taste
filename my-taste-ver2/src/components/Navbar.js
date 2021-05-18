@@ -46,14 +46,15 @@ const Navbar = (props) => {
           My Taste
         </Logo>
         <Menu isOpen={openMenu}>
-          <li onClick={onClickMenu('/search')}>search</li>
-          <li onClick={onClickMenu('/feed')}>feed</li>
-          <li onClick={onClickMenu('/write')}>
-            <Permit>write</Permit>
-          </li>
           <li onClick={onClickMenu('/basket')}>
             <Permit>basket</Permit>
           </li>
+          <li onClick={onClickMenu('/search')}>search</li>
+
+          <li onClick={onClickMenu('/feed')}>feed</li>
+          {/* <li onClick={onClickMenu('/write')}>
+            <Permit>write</Permit>
+          </li> */}
         </Menu>
         {/* {!isMobile && <LayoutPicker />} */}
         <Icons isOpen={openMenu}>
