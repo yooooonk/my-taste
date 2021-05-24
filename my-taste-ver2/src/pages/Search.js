@@ -9,35 +9,30 @@ import {
 } from '../components/book';
 import { bookActions } from '../redux/modules/book';
 
-const Search = () => {
-  const { detailBook, isPostFormOpen } = useSelector((state) => state.book);
+const Search = (props) => {
+  const { history } = props;
+  const { detailBook } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(bookActions.clearBookState());
+    };
+  }, []);
 
   useEffect(() => {
     if (isLogin) {
       dispatch(bookActions.fetchBookBasket());
     }
-    return () => {
-      dispatch(bookActions.clearBookState());
-    };
   }, [isLogin]);
 
-  const onWrite = useCallback(
-    (isWrite) => () => {
-      console.log('디테일에서 쓰기', isWrite);
-      if (!isWrite._id) {
-        //dispatch(setIsPostFormOpen(true));
-      }
-    },
-    []
-  );
   return (
     <Container>
       <SearchBar />
       <DetailWrapper className="detail">
         {detailBook ? (
-          <BookDetail onWrite={onWrite} />
+          <BookDetail />
         ) : (
           <NoResult msg="좋아하는 책을 검색해주세요 &#128151;" />
         )}

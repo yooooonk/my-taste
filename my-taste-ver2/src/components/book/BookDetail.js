@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaHeart, FaPencilAlt } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 import { bookActions } from '../../redux/modules/book';
 import styled from 'styled-components';
 
-//import { bookLikeRequest, bookUnlikeRequest } from "../modules/book";
-const BookDetail = ({ onWrite }) => {
+const BookDetail = () => {
   const { detailBook, bookBasket } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
 
@@ -17,44 +16,28 @@ const BookDetail = ({ onWrite }) => {
   const status = `${detailBook.status ? '' : '절판'}`;
 
   const basketBook = bookBasket.find((v) => v.isbn === detailBook.isbn);
+  console.log('basketBook', basketBook);
 
   const onLike = useCallback(() => {
-    console.log('좋아요');
     dispatch(bookActions.fetchCreateBookBasket(detailBook));
   });
 
   const onUnlike = useCallback(() => {
-    console.log('취소', basketBook.id);
-
     dispatch(bookActions.fetchDeleteBookBasket(basketBook.id));
-    //console.log(detailBook);
-    //dispatch(bookUnlikeRequest(detailBook.isbn))
   });
 
   return (
     <DetailContainer>
       <Thumbnail>
-        <img src={detailBook.thumbnail} />
+        <img src={detailBook.thumbnail} alt="thumbnail" />
         {isLogin && (
-          <div className="button-box">
+          <ButtonBox>
             {basketBook ? (
               <FaHeart className="icon like" onClick={onUnlike} />
             ) : (
               <FaHeart className="icon unlike" onClick={onLike} />
             )}
-            <FaPencilAlt
-              className="icon unlike"
-              onClick={onWrite(detailBook)} //onWrite를 꼭 props로?
-            />
-            {/* {inBasketBook?.isWrite ? (
-              <FaPencilAlt className="icon like" onClick={onWrite(book)} />
-            ) : (
-              <FaPencilAlt
-                className="icon unlike"
-                onClick={onWrite(detailBook)}
-              />
-            )} */}
-          </div>
+          </ButtonBox>
         )}
       </Thumbnail>
       <Contents>
@@ -69,7 +52,7 @@ const BookDetail = ({ onWrite }) => {
         </span>
         <span className="description">
           {detailBook.contents.substr(0, 80)}...
-          <a href={detailBook.url} target="_blank">
+          <a href={detailBook.url} target="_blank" rel="noreferrer">
             {' '}
             자세히
           </a>
@@ -98,40 +81,40 @@ const Thumbnail = styled.div`
     border-radius: 20px;
     box-shadow: $shadow rgba(255, 99, 99, 0.2);
   }
+`;
 
-  .button-box {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+const ButtonBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 
-    & .icon {
-      margin: 10px;
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 30%;
-      cursor: pointer;
-      &:hover {
-        box-shadow: 3px 3px 10px rgba(180, 132, 132, 0.5);
-      }
+  & .icon {
+    margin: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 30%;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 3px 3px 10px rgba(180, 132, 132, 0.5);
     }
+  }
 
-    & .like {
-      color: ${(props) => props.theme.main_color};
-      border: 1px solid ${(props) => props.theme.main_color};
+  & .like {
+    color: ${(props) => props.theme.main_color};
+    border: 1px solid ${(props) => props.theme.main_color};
+  }
+
+  & .unlike {
+    color: pink;
+    border: 2px dotted pink;
+
+    &:hover {
     }
+  }
 
-    & .unlike {
-      color: pink;
-      border: 2px dotted pink;
-
-      &:hover {
-      }
-    }
-
-    & .penceil {
-      color: pink;
-      border: 2px dotted $mainColor;
-    }
+  & .penceil {
+    color: pink;
+    border: 2px dotted $mainColor;
   }
 `;
 

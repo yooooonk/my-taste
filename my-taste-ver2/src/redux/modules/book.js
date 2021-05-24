@@ -127,7 +127,7 @@ const fetchCreateBookBasket =
       const res = await bookAPI.createBookBasket({
         ...data,
         userId,
-        isRead: false,
+        readDate: null,
         postId: null
       });
 
