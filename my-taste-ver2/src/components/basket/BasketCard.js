@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { bookActions } from '../../redux/modules/book';
 import { actionCreators as imageActions } from '../../redux/modules/image';
 import Dialog from '../Dialog';
+import moment from 'moment';
 
 const BasketCard = ({ book, goTo }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,13 @@ const BasketCard = ({ book, goTo }) => {
   });
 
   const onRead = useCallback((e) => {
-    dispatch(bookActions.fetchUpdateIsRead(book.id, !book.isRead));
+    const readDate = moment().format('YYYYMMDD');
+
+    if (book.readDate) {
+      dispatch(bookActions.fetchUpdateBookBasket(book.id, { readDate: null }));
+    } else {
+      dispatch(bookActions.fetchUpdateBookBasket(book.id, { readDate }));
+    }
   });
 
   const onWrite = useCallback((e) => {
@@ -33,7 +40,7 @@ const BasketCard = ({ book, goTo }) => {
     <>
       <Card>
         <Info href={book.url} target="_blank">
-          <img src={book.thumbnail} />
+          <img src={book.thumbnail} alt="thumbnail" />
           <Content className="content">
             <span className="title">
               <b>{book.title}</b>
@@ -43,10 +50,10 @@ const BasketCard = ({ book, goTo }) => {
           </Content>
         </Info>
         <ButtonBox>
-          <I done={book.isRead}>
+          <I done={book.readDate}>
             <BsBook onClick={onRead} />
           </I>
-          <I done={book.diaryId}>
+          <I done={book.postId}>
             <FaPencilAlt onClick={onWrite} />
           </I>
           <I>

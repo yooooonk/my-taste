@@ -29,7 +29,7 @@ const Post = (props) => {
 
   const editPost = (e) => {
     e.stopPropagation();
-    history.push(`/write/${props.id}`);
+    history.push(`/edit/${props.id}`);
   };
 
   const deletePost = (e) => {

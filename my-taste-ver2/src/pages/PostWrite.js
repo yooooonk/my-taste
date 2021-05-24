@@ -39,7 +39,7 @@ const PostWrite = (props) => {
 
     if (post) return;
 
-    dispatch(postActions.getOnePostFB(id));
+    dispatch(postActions.fetchPost(id));
   }, []);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ const PostWrite = (props) => {
         phraseList: phraseList,
         contents: value
       };
+
       dispatch(postActions.fetchUpdatePost(id, updatedPost));
     } else {
       //추가

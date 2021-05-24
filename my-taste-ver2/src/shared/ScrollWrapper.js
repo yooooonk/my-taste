@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
 import styled from 'styled-components';
-import Spinner from '../elements/Spinner';
+import { css } from '@emotion/react';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 const ScrollWrapper = (props) => {
-  const { children, callNext, is_next, loading, width } = props;
-  const { isMobile } = useSelector((state) => state.view);
+  const { callNext, is_next, loading } = props;
 
   const handleScrollForMobile = _.throttle((e) => {
     if (loading) return;
@@ -32,7 +32,8 @@ const ScrollWrapper = (props) => {
       callNext();
     }
   }, 300);
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (loading) return;
     if (is_next) {
       window.addEventListener('scroll', handleScrollForMobile);
@@ -48,7 +49,7 @@ const ScrollWrapper = (props) => {
     <OutterWrapper onScroll={handleScrollForDesktop}>
       <InnerWrapper>
         {props.children}
-        {is_next && <Spinner />}
+        <PulseLoader loading={is_next} css={override} color="pink" />
       </InnerWrapper>
     </OutterWrapper>
   );
@@ -70,10 +71,14 @@ const OutterWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  //width: ${(props) => props.width};
   width: 100%;
-
   height: 100%;
+`;
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
 `;
 
 export default ScrollWrapper;

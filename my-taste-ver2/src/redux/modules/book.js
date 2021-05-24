@@ -25,7 +25,7 @@ const setSearchList = createAction('book/SET_SEARCH_LIST');
 const setDetailBook = createAction('book/SET_DETAIL_BOOK');
 const setBookBasket = createAction('book/SET_BOOK_BASKET');
 const deleteBookBasketCard = createAction('book/DELETE_BOOK_BASKET_CARD');
-const updateIsReadStatus = createAction('book/UPDATE_IS_READ_STATUS');
+const updateBookBasket = createAction('book/UPDATE_IS_READ_STATUS');
 const clearBookState = createAction('book/CLEAR_BOOK_STATE');
 
 // reducer
@@ -59,16 +59,16 @@ const bookReducer = createReducer(initialState, {
         return acc;
       }
     }, []);
+    state.loading = false;
   },
   [deleteBookBasketCard]: (state, { payload }) => {
     state.bookBasket = state.bookBasket.filter((b) => b.id !== payload);
   },
-  [updateIsReadStatus]: (state, { payload }) => {
+  [updateBookBasket]: (state, { payload }) => {
     const idx = state.bookBasket.findIndex((b) => b.id === payload.basketId);
-
     state.bookBasket[idx] = {
       ...state.bookBasket[idx],
-      isRead: payload.status
+      ...payload.status
     };
   },
   [clearBookState]: (state, { payload }) => {
@@ -103,6 +103,7 @@ const fetchBookBasket =
   (data) =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(setLoading(true));
       const userId = getState().user.user.uid;
 
       const docs = await bookAPI.getBookBasket(userId);
@@ -148,12 +149,12 @@ const fetchDeleteBookBasket =
     }
   };
 
-const fetchUpdateIsRead =
+const fetchUpdateBookBasket =
   (basketId, status) =>
   async (dispatch, getState, { history }) => {
     try {
-      const res = await bookAPI.updateBookBasket(basketId, { isRead: status });
-      dispatch(updateIsReadStatus({ basketId, status }));
+      const res = await bookAPI.updateBookBasket(basketId, status);
+      dispatch(updateBookBasket({ basketId, status }));
     } catch (error) {
       console.error(error);
     }
@@ -163,9 +164,9 @@ const fetchUpdateIsWrite =
   (basketId, postId) =>
   async (dispatch, getState, { history }) => {
     try {
-      const data = { postId };
-      const res = await bookAPI.updateBookBasket(basketId, data);
-      // dispatch(updateIsReadStatus({ basketId, status }));
+      const status = { postId };
+      const res = await bookAPI.updateBookBasket(basketId, status);
+      dispatch(updateBookBasket({ basketId, status }));
     } catch (error) {
       console.error(error);
     }
@@ -179,7 +180,7 @@ export const bookActions = {
   fetchBookBasket,
   fetchCreateBookBasket,
   fetchDeleteBookBasket,
-  fetchUpdateIsRead,
+  fetchUpdateBookBasket,
   fetchUpdateIsWrite,
   clearBookState
 };

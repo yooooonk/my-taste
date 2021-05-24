@@ -16,7 +16,6 @@ const BookDetail = () => {
   const status = `${detailBook.status ? '' : '절판'}`;
 
   const basketBook = bookBasket.find((v) => v.isbn === detailBook.isbn);
-  console.log('basketBook', basketBook);
 
   const onLike = useCallback(() => {
     dispatch(bookActions.fetchCreateBookBasket(detailBook));

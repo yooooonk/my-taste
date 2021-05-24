@@ -67,11 +67,9 @@ export const bookAPI = {
     return basketDB.doc(basketId).delete();
   },
   getBookBasket: function (userId) {
-    // const basketDB = firestore.collection('basket');
     return basketDB.where('userId', '==', userId).get();
   },
   updateBookBasket: function (basketId, data) {
-    // const basketDB = firestore.collection('basket');
     return basketDB.doc(basketId).update(data);
   }
 };

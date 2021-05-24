@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import BasketCard from '../components/basket/BasketCard';
 import NoResult from '../components/book/NoResult';
-import Dialog from '../components/Dialog';
-import { Button } from '../elements';
 import { bookActions } from '../redux/modules/book';
+import { css } from '@emotion/react';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 const BookBasket = ({ history }) => {
   const dispatch = useDispatch();
-  const { bookBasket } = useSelector((state) => state.book);
+  const { bookBasket, loading } = useSelector((state) => state.book);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const BookBasket = ({ history }) => {
       {bookBasket.length == 0 && (
         <NoResult msg="좋아하는 책을 담아주세요. &#10024;" />
       )}
+      <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
     </Container>
   );
 };
@@ -54,4 +55,14 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
+const spinnerStyle = css`
+  top: 0;
+  right: 0;
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 export default BookBasket;

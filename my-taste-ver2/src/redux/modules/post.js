@@ -134,9 +134,8 @@ const fetchCreatePost =
       const post = { user_info, ..._post, id: doc.id, image_url: url };
       dispatch(addPost(post));
 
-      if (basketId) {
-        dispatch(bookActions.fetchUpdateIsWrite(basketId, doc.id));
-      }
+      const status = { postId: doc.id };
+      dispatch(bookActions.fetchUpdateBookBasket(basketId, status));
 
       history.replace('/basket');
 
@@ -178,7 +177,6 @@ const fetchUpdatePost =
           image_url: url
         });
         dispatch(editPost(postId, { ...post, image_url: url }));
-        history.replace('/');
       }
     } catch (error) {
       alert('게시글 수정에 실패했습니다');
@@ -192,7 +190,7 @@ const fetchDeletePost =
     try {
       const res = await postAPI.deletePost(postId);
       dispatch(deletePost(postId));
-      history.replace('/');
+      history.replace('/feed');
     } catch (error) {
       alert('삭제에 실패했습니다');
       console.error(error);
