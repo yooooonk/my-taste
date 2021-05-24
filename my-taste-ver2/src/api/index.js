@@ -66,8 +66,16 @@ export const bookAPI = {
     // const basketDB = firestore.collection('basket');
     return basketDB.doc(basketId).delete();
   },
-  getBookBasket: function (userId) {
-    return basketDB.where('userId', '==', userId).get();
+  getBookBasket: function (userId, start = null, size = 10) {
+    let query = postDB.where('userId', '==', userId);
+
+    if (start) {
+      query = query.startAt(start);
+    }
+
+    return query.limit(size + 1).get();
+
+    // return basketDB.where('userId', '==', userId).get();
   },
   updateBookBasket: function (basketId, data) {
     return basketDB.doc(basketId).update(data);

@@ -17,7 +17,8 @@ const initialState = {
   bookBasket: [],
   bookDiary: [],
   phraseInputList: [],
-  selectedCard: null
+  selectedCard: null,
+  paging: { start: null, next: null, size: 10 }
 };
 // actions
 const setLoading = createAction('book/SET_LOADING');
@@ -100,9 +101,15 @@ const fetchBookList =
   };
 
 const fetchBookBasket =
-  (data) =>
+  (start = null, size = 10) =>
   async (dispatch, getState, { history }) => {
     try {
+      let paging = getState().book.paging;
+
+      if (paging.start && paging.next) {
+        return;
+      }
+
       dispatch(setLoading(true));
       const userId = getState().user.user.uid;
 
