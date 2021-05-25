@@ -5,7 +5,7 @@ import { bookActions } from '../../redux/modules/book';
 import styled from 'styled-components';
 
 const BookDetail = () => {
-  const { detailBook, bookBasket } = useSelector((state) => state.book);
+  const { detailBook, dashBoard } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const BookDetail = () => {
   }`;
   const status = `${detailBook.status ? '' : '절판'}`;
 
-  const basketBook = bookBasket.find((v) => v.isbn === detailBook.isbn);
+  const basketBook = dashBoard.find((v) => v.isbn === detailBook.isbn);
 
   const onLike = useCallback(() => {
     dispatch(bookActions.fetchCreateBookBasket(detailBook));

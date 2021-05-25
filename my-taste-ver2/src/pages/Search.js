@@ -23,7 +23,7 @@ const Search = (props) => {
 
   useEffect(() => {
     if (isLogin) {
-      dispatch(bookActions.fetchBookBasket());
+      dispatch(bookActions.fetchBookBasketAll());
     }
   }, [isLogin]);
 

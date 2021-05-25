@@ -16,7 +16,8 @@ const initialState = {
   bookDiary: [],
   phraseInputList: [],
   selectedCard: null,
-  paging: { start: null, next: null, size: 15 }
+  paging: { start: null, next: null, size: 15 },
+  dashBoard: []
 };
 // actions
 const setLoading = createAction('book/SET_LOADING');
@@ -26,6 +27,7 @@ const setBookBasket = createAction('book/SET_BOOK_BASKET');
 const deleteBookBasketCard = createAction('book/DELETE_BOOK_BASKET_CARD');
 const updateBookBasket = createAction('book/UPDATE_IS_READ_STATUS');
 const clearBookState = createAction('book/CLEAR_BOOK_STATE');
+const setDashboad = createAction('book/SET_DASHBOARD');
 
 // reducer
 const bookReducer = createReducer(initialState, {
@@ -46,8 +48,17 @@ const bookReducer = createReducer(initialState, {
   [setDetailBook]: (state, { payload }) => {
     state.detailBook = payload;
   },
+  [setDashboad]: (state, { payload }) => {
+    state.dashBoard = payload;
+    state.loading = false;
+  },
   [setBookBasket]: (state, { payload }) => {
-    state.bookBasket = [...state.bookBasket, ...payload.basket];
+    if (payload.paging) {
+      state.bookBasket = [...state.bookBasket, ...payload.basket];
+    } else {
+      state.bookBasket = [...payload.basket, ...state.bookBasket];
+    }
+
     //list 중복제거
     state.bookBasket = state.bookBasket.reduce((acc, cur) => {
       let idx = acc.findIndex((acc) => acc.id === cur.id);
@@ -138,6 +149,28 @@ const fetchBookBasket =
       console.error(error);
     }
   };
+
+const fetchBookBasketAll =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      dispatch(setLoading(true));
+      const userId = getState().user.user.uid;
+
+      const docs = await bookAPI.getBookBasketAll(userId);
+
+      const dashboard = [];
+      docs.forEach((doc) => {
+        let basket = doc.data();
+
+        dashboard.push({ ...basket, id: doc.id });
+      });
+
+      dispatch(setDashboad(dashboard));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 const fetchCreateBookBasket =
   (data) =>
   async (dispatch, getState, { history }) => {
@@ -200,6 +233,7 @@ export const bookActions = {
   setDetailBook,
   setSearchList,
   fetchBookBasket,
+  fetchBookBasketAll,
   fetchCreateBookBasket,
   fetchDeleteBookBasket,
   fetchUpdateBookBasket,
