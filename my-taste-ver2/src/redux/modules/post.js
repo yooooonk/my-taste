@@ -102,6 +102,7 @@ const fetchCreatePost =
         ...initialPost,
         contents,
         phraseList,
+        basketId,
         likers: [],
         comment_cnt: 0,
         insert_dt: moment().format('YYYY-MM-DD hh:mm:ss')
@@ -185,11 +186,15 @@ const fetchUpdatePost =
   };
 
 const fetchDeletePost =
-  (postId) =>
+  (postId, basketId) =>
   async (dispatch, getState, { history }) => {
     try {
       const res = await postAPI.deletePost(postId);
+
       dispatch(deletePost(postId));
+
+      dispatch(bookActions.fetchUpdateBookBasket(basketId, { postId: null }));
+
       history.replace('/feed');
     } catch (error) {
       alert('삭제에 실패했습니다');

@@ -215,18 +215,6 @@ const fetchUpdateBookBasket =
     }
   };
 
-const fetchUpdateIsWrite =
-  (basketId, postId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const status = { postId };
-      const res = await bookAPI.updateBookBasket(basketId, status);
-      dispatch(updateBookBasket({ basketId, status }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
 // action creator export
 export const bookActions = {
   fetchBookList,
@@ -237,7 +225,6 @@ export const bookActions = {
   fetchCreateBookBasket,
   fetchDeleteBookBasket,
   fetchUpdateBookBasket,
-  fetchUpdateIsWrite,
   clearBookState
 };
 

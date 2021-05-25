@@ -10,31 +10,34 @@ import { history } from '../../redux/configStore';
 import Header from '../Header';
 import styled from 'styled-components';
 const Post = (props) => {
+  const { user_info, basketId, id } = props;
+  console.log('postProps', props);
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.user.user?.uid);
+  const uid = useSelector((state) => state.user.user?.uid);
   const { isMobile, layout } = useSelector((state) => state.view);
 
-  const is_me = props.user_info.user_id === id;
+  const is_me = user_info.user_id === uid;
   const [isMore, setIsMore] = useState(true);
-  let like = props.likers.includes(id);
+  let like = props.likers.includes(uid);
   const onUnlike = (e) => {
     e.stopPropagation();
-    dispatch(postActions.unlikePostFB(props.id));
+    dispatch(postActions.unlikePostFB(id));
   };
 
   const onLike = (e) => {
     e.stopPropagation();
-    dispatch(postActions.likePostFB(props.id));
+    dispatch(postActions.likePostFB(id));
   };
 
   const editPost = (e) => {
     e.stopPropagation();
-    history.push(`/edit/${props.id}`);
+    history.push(`/edit/${id}`);
   };
 
   const deletePost = (e) => {
     e.stopPropagation();
-    dispatch(postActions.fetchDeletePost(props.id));
+
+    dispatch(postActions.fetchDeletePost(id, basketId));
   };
   return (
     <PostWrapper>
