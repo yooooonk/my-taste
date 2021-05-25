@@ -6,6 +6,7 @@ import NoResult from '../components/book/NoResult';
 import { bookActions } from '../redux/modules/book';
 import { css } from '@emotion/react';
 import PulseLoader from 'react-spinners/PulseLoader';
+import _ from 'lodash';
 
 const BookBasket = ({ history }) => {
   const dispatch = useDispatch();
@@ -38,11 +39,21 @@ const BookBasket = ({ history }) => {
     const diaryPopup = ()=>{
         return <Diary diary={d} />
     } */
+  const onScroll = _.throttle((e) => {
+    if (loading) return;
 
+    const scrollPer = Math.floor(
+      (e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)) *
+        100
+    );
+    if (scrollPer > 80) {
+      dispatch(bookActions.fetchBookBasket());
+    }
+  }, 300);
   return (
-    <Container>
+    <Container onScroll={onScroll}>
       {basketCardList}
-      {bookBasket.length == 0 && (
+      {bookBasket.length === 0 && (
         <NoResult msg="좋아하는 책을 담아주세요. &#10024;" />
       )}
       <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
@@ -53,14 +64,20 @@ const BookBasket = ({ history }) => {
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const spinnerStyle = css`
   top: 0;
   right: 0;
-  position: absolute;
-  width: 80%;
-  height: 100%;
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;

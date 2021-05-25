@@ -1,10 +1,8 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 import { bookAPI } from '../../api';
-
+import moment from 'moment';
 import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
-//import 'moment';
-//import moment from 'moment';
 
 // initialState
 const initialState = {
@@ -18,7 +16,7 @@ const initialState = {
   bookDiary: [],
   phraseInputList: [],
   selectedCard: null,
-  paging: { start: null, next: null, size: 10 }
+  paging: { start: null, next: null, size: 15 }
 };
 // actions
 const setLoading = createAction('book/SET_LOADING');
@@ -49,7 +47,7 @@ const bookReducer = createReducer(initialState, {
     state.detailBook = payload;
   },
   [setBookBasket]: (state, { payload }) => {
-    state.bookBasket = [...state.bookBasket, ...payload];
+    state.bookBasket = [...state.bookBasket, ...payload.basket];
     //list 중복제거
     state.bookBasket = state.bookBasket.reduce((acc, cur) => {
       let idx = acc.findIndex((acc) => acc.id === cur.id);
@@ -60,6 +58,10 @@ const bookReducer = createReducer(initialState, {
         return acc;
       }
     }, []);
+
+    if (payload.paging) {
+      state.paging = payload.paging;
+    }
     state.loading = false;
   },
   [deleteBookBasketCard]: (state, { payload }) => {
@@ -101,27 +103,37 @@ const fetchBookList =
   };
 
 const fetchBookBasket =
-  (start = null, size = 10) =>
+  () =>
   async (dispatch, getState, { history }) => {
     try {
-      let paging = getState().book.paging;
+      const { start, size, next } = getState().book.paging;
 
-      if (paging.start && paging.next) {
+      if (start && !next) {
         return;
       }
 
       dispatch(setLoading(true));
       const userId = getState().user.user.uid;
 
-      const docs = await bookAPI.getBookBasket(userId);
+      const docs = await bookAPI.getBookBasket(userId, next, size);
+
+      let paging = {
+        start: docs.docs[0],
+        next:
+          docs.docs.length === size + 1
+            ? docs.docs[docs.docs.length - 1]
+            : null,
+        size: size
+      };
+
       const basket = [];
       docs.forEach((doc) => {
         let book = doc.data();
 
         basket.push({ ...book, id: doc.id });
       });
-
-      dispatch(setBookBasket(basket));
+      basket.pop();
+      dispatch(setBookBasket({ basket, paging }));
     } catch (error) {
       console.error(error);
     }
@@ -136,10 +148,13 @@ const fetchCreateBookBasket =
         ...data,
         userId,
         readDate: null,
-        postId: null
+        postId: null,
+        insert_dt: moment().format('YYYY-MM-DD hh:mm:ss')
       });
 
-      dispatch(setBookBasket([{ ...data, id: res.id }]));
+      dispatch(
+        setBookBasket({ basket: [{ ...data, id: res.id }], paging: null })
+      );
     } catch (error) {
       console.error(error);
     }

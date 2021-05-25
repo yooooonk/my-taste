@@ -67,15 +67,24 @@ export const bookAPI = {
     return basketDB.doc(basketId).delete();
   },
   getBookBasket: function (userId, start = null, size = 10) {
-    let query = postDB.where('userId', '==', userId);
+    // let query = postDB.where('userId', '==', userId);
+
+    let query = basketDB
+      .where('userId', '==', userId)
+      .orderBy('insert_dt', 'desc');
 
     if (start) {
+      console.log('start', start);
       query = query.startAt(start);
     }
 
     return query.limit(size + 1).get();
 
-    // return basketDB.where('userId', '==', userId).get();
+    /*  return basketDB
+      .where('userId', '==', userId)
+      .orderBy('insert_dt', 'desc')
+      .limit(10)
+      .get(); */
   },
   updateBookBasket: function (basketId, data) {
     return basketDB.doc(basketId).update(data);
