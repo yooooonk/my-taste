@@ -23,7 +23,7 @@ const PostList = (props) => {
   return (
     <ScrollWrapper
       callNext={() => {
-        dispatch(postActions.fetchPosts(paging.next));
+        dispatch(postActions.fetchPosts());
       }}
       is_next={paging.next ? true : false}
       loading={is_loading}

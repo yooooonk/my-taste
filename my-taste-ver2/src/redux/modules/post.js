@@ -1,4 +1,4 @@
-import { createAction, handleActions } from 'redux-actions';
+import { createReducer, createAction } from '@reduxjs/toolkit';
 import { produce } from 'immer';
 import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
@@ -19,75 +19,56 @@ const initialState = {
     '친절과 빛과 삶과 공감의 확대'
   ]
 };
-// actions
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_POST = 'SET_POST';
-const EDIT_POST = 'EDIT_POST';
-const LOADING = 'LOADING';
 
-// action creators
-const addPost = createAction(ADD_POST, (post) => ({ post }));
-const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
-const setPost = createAction(SET_POST, (post_list, paging) => ({
-  post_list,
-  paging
-}));
-const loading = createAction(LOADING, (is_loading) => ({
-  is_loading
-}));
-const editPost = createAction(EDIT_POST, (post_id, post) => ({
-  post_id,
-  post
-}));
-const setRandomPhrase = createAction('book/SET_RANDOM_PHRASE');
+// actions
+const setPost = createAction('post/SET_POST');
+
+const addPost = createAction('post/ADD_POST');
+const editPost = createAction('post/EDIT_POST');
+const deletePost = createAction('post/DELETE_POST');
+const loading = createAction('post/LOADING');
+const setRandomPhrase = createAction('post/SET_RANDOM_PHRASE');
 
 // reducer
-export default handleActions(
-  {
-    [SET_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.push(...action.payload.post_list);
-        // 중복처리
-        draft.list = draft.list.reduce((acc, cur) => {
-          let idx = acc.findIndex((acc) => acc.id === cur.id);
-          if (idx === -1) {
-            return [...acc, cur];
-          } else {
-            acc[idx] = cur;
-            return acc;
-          }
-        }, []);
+const postReducer = createReducer(initialState, {
+  [setPost]: (state, { payload }) => {
+    state.list = [...state.list, ...payload.post];
 
-        if (action.payload.paging) {
-          draft.paging = action.payload.paging;
-        }
-        draft.is_loading = false;
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.unshift(action.payload.post);
-      }),
-    [EDIT_POST]: (state, action) =>
-      produce(state, (draft) => {
-        let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+    state.list = state.list.reduce((acc, cur) => {
+      let idx = acc.findIndex((acc) => acc.id === cur.id);
+      if (idx === -1) {
+        return [...acc, cur];
+      } else {
+        acc[idx] = cur;
+        return acc;
+      }
+    }, []);
 
-        draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
-      }),
-    [DELETE_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list = draft.list.filter((p) => p.id !== action.payload.postId);
-      }),
-    [LOADING]: (state, action) =>
-      produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
-      }),
-    [setRandomPhrase]: (state, { payload }) => {
-      state.randomPhrases = [...state.randomPhrases, ...payload];
+    if (payload.paging) {
+      state.paging = payload.paging;
     }
+
+    state.is_loading = false;
   },
-  initialState
-);
+  [addPost]: (state, { payload }) => {
+    state.list.unshift(payload);
+    state.is_loading = false;
+  },
+  [editPost]: (state, { payload }) => {
+    let idx = state.list.findIndex((p) => p.id === payload.postId);
+
+    state.list[idx] = { ...state.list[idx], ...payload.post };
+  },
+  [deletePost]: (state, { payload }) => {
+    state.list = state.list.filter((p) => p.id !== payload);
+  },
+  [loading]: (state, { payload }) => {
+    state.is_loading = payload;
+  },
+  [setRandomPhrase]: (state, { payload }) => {
+    state.randomPhrases = [...state.randomPhrases, ...payload];
+  }
+});
 
 // middleware actions
 const initialPost = {
@@ -96,6 +77,7 @@ const initialPost = {
   comment_cnt: 0,
   insert_dt: moment().format('YYYY-MM-DD hh:mm:ss')
 };
+
 const fetchCreatePost =
   (basketId, contents, phraseList) =>
   async (dispatch, getState, { history }) => {
@@ -169,27 +151,26 @@ const fetchUpdatePost =
 
       const preview = getState().image.preview;
 
-      const postIdx = getState().post.list.findIndex((p) => p.id === postId);
-      const post = getState().post.list[postIdx];
-
       if (preview === post.image_url) {
+        // 사진수정 x
         const res = await postAPI.updatePost(postId, post);
 
-        dispatch(editPost(postId, { ...post }));
-        history.replace('/');
+        dispatch(editPost({ postId, post }));
       } else {
+        // 사진수정할경우
         const user_id = getState().user.user.uid;
         const snapshot = imageAPI.uploadImage(
           `images/${user_id}_${new Date().getTime()}`,
           preview
         );
         const url = snapshot.ref.getDownloadURL();
-        const res = await postAPI.updatePost(postId, {
-          ...post,
-          image_url: url
-        });
-        dispatch(editPost(postId, { ...post, image_url: url }));
+
+        const newPostData = { ...post, image_url: url };
+        const res = await postAPI.updatePost(postId, newPostData);
+        dispatch(editPost({ postId, post: newPostData }));
       }
+
+      history.replace('/feed');
     } catch (error) {
       alert('게시글 수정에 실패했습니다');
       console.error(error);
@@ -214,20 +195,18 @@ const fetchDeletePost =
   };
 
 const fetchPosts =
-  (start = null, size = 3) =>
+  () =>
   async (dispatch, getState, { history }) => {
     try {
-      let _paging = getState().post.paging;
+      let { start, next, size } = getState().post.paging;
 
-      if (_paging.start && !_paging.next) {
+      if (start && !next) {
         return;
       }
 
       dispatch(loading(true));
 
-      const docs = await postAPI.getPosts(start, size);
-
-      let post_list = [];
+      const docs = await postAPI.getPosts(next, size);
 
       let paging = {
         start: docs.docs[0],
@@ -237,6 +216,8 @@ const fetchPosts =
             : null,
         size: size
       };
+
+      let post_list = [];
 
       docs.forEach((doc) => {
         let _post = doc.data();
@@ -259,7 +240,7 @@ const fetchPosts =
       });
       post_list.pop();
 
-      dispatch(setPost(post_list, paging));
+      dispatch(setPost({ paging, post: post_list }));
     } catch (error) {
       console.error(error);
     }
@@ -285,7 +266,7 @@ const fetchPost =
         { id: res.id, user_info: {} }
       );
 
-      dispatch(setPost([post]), {});
+      dispatch(setPost({ post, paging: null }));
     } catch (error) {
       alert('포스트를 읽어오는데 실패했습니다');
       console.error(error);
@@ -306,7 +287,7 @@ const likePostFB =
         likers: likers
       });
 
-      dispatch(editPost(postId, { ...post, likers: likers }));
+      dispatch(editPost({ postId, post: { ...post, likers: likers } }));
 
       const _noti_item = await notiAPI.pushNoti(
         `noti/${post.user_info.user_id}/list`
@@ -338,7 +319,7 @@ const unlikePostFB =
 
       const likers = _post.likers.filter((i) => i !== myId);
       const res = await postAPI.updatePost(postId, { likers });
-      dispatch(editPost(postId, { ..._post, likers: likers }));
+      dispatch(editPost({ postId, post: { ..._post, likers: likers } }));
     } catch (error) {
       console.error(error);
     }
@@ -358,3 +339,4 @@ const actionCreators = {
 };
 
 export { actionCreators };
+export default postReducer;

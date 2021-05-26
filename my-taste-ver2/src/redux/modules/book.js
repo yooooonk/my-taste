@@ -55,8 +55,10 @@ const bookReducer = createReducer(initialState, {
 
   [setBookBasket]: (state, { payload }) => {
     if (payload.paging) {
+      // 로드
       state.bookBasket = [...state.bookBasket, ...payload.basket];
     } else {
+      // 추가
       state.bookBasket = [...payload.basket, ...state.bookBasket];
     }
 

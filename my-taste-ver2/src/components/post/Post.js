@@ -11,7 +11,7 @@ import Header from '../Header';
 import styled from 'styled-components';
 const Post = (props) => {
   const { user_info, basketId, id } = props;
-  console.log('postProps', props);
+
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.user?.uid);
   const { isMobile, layout } = useSelector((state) => state.view);
