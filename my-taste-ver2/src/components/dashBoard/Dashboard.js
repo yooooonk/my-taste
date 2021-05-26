@@ -44,9 +44,9 @@ const Dashboard = (props) => {
   return (
     <Container>
       <CardWrapper>
-        <DashboardCard data={totalBookCnt} type={'basketCount'} />
-        <DashboardCard data={isReadCnt} type={'isReadCount'} />
-        <DashboardCard data={isWriteCnt} type={'isWriteCount'} />
+        <DashboardCard data={totalBookCnt} type="basketCount" />
+        <DashboardCard data={isReadCnt} type="isReadCount" />
+        <DashboardCard data={isWriteCnt} type="isWriteCount" />
       </CardWrapper>
       <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
     </Container>
@@ -62,8 +62,8 @@ const Container = styled.div`
 
 const CardWrapper = styled.div`
   width: 100%;
-  height: 50%;
-  background-color: skyblue;
+
+  ${(props) => props.theme.flex_row}
 `;
 
 const spinnerStyle = css`

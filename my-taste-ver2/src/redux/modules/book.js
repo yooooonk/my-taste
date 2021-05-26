@@ -52,6 +52,7 @@ const bookReducer = createReducer(initialState, {
     state.dashBoard = payload;
     state.loading = false;
   },
+
   [setBookBasket]: (state, { payload }) => {
     if (payload.paging) {
       state.bookBasket = [...state.bookBasket, ...payload.basket];
