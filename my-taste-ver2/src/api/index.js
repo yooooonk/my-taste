@@ -28,6 +28,9 @@ export const postAPI = {
   },
   getPost: function (postId) {
     return postDB.doc(postId).get();
+  },
+  getRandomPost: function () {
+    return postDB.orderBy('insert_dt', 'desc').limit(5).get();
   }
 };
 

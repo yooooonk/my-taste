@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   comment: Comment,
   view: View,
   book: Book,
+
   router: connectRouter(history)
 });
 

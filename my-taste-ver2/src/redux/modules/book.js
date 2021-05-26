@@ -1,5 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-import { bookAPI } from '../../api';
+import { bookAPI, postAPI } from '../../api';
 import moment from 'moment';
 import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
@@ -27,7 +27,7 @@ const setBookBasket = createAction('book/SET_BOOK_BASKET');
 const deleteBookBasketCard = createAction('book/DELETE_BOOK_BASKET_CARD');
 const updateBookBasket = createAction('book/UPDATE_IS_READ_STATUS');
 const clearBookState = createAction('book/CLEAR_BOOK_STATE');
-const setDashboad = createAction('book/SET_DASHBOARD');
+const setDashboard = createAction('book/SET_DASHBOARD');
 
 // reducer
 const bookReducer = createReducer(initialState, {
@@ -48,7 +48,7 @@ const bookReducer = createReducer(initialState, {
   [setDetailBook]: (state, { payload }) => {
     state.detailBook = payload;
   },
-  [setDashboad]: (state, { payload }) => {
+  [setDashboard]: (state, { payload }) => {
     state.dashBoard = payload;
     state.loading = false;
   },
@@ -167,7 +167,7 @@ const fetchBookBasketAll =
         dashboard.push({ ...basket, id: doc.id });
       });
 
-      dispatch(setDashboad(dashboard));
+      dispatch(setDashboard(dashboard));
     } catch (error) {
       console.error(error);
     }
@@ -221,8 +221,8 @@ export const bookActions = {
   fetchBookList,
   setDetailBook,
   setSearchList,
-  fetchBookBasket,
   fetchBookBasketAll,
+  fetchBookBasket,
   fetchCreateBookBasket,
   fetchDeleteBookBasket,
   fetchUpdateBookBasket,

@@ -11,7 +11,13 @@ import { imageAPI, notiAPI, postAPI } from '../../api';
 const initialState = {
   list: [],
   paging: { start: null, next: null, size: 3 },
-  is_loading: false
+  is_loading: false,
+  randomPhrases: [
+    '지키는 일이다. 지켜보는 일이다. 사랑한다는 것은',
+    '살아온 기적이 살아갈 기적이 된다고 사노라면 많은 기쁨이 있다고',
+    '씨앗처럼 정지하라 꽃은 멈춤의 힘으로 피어난다',
+    '친절과 빛과 삶과 공감의 확대'
+  ]
 };
 // actions
 const ADD_POST = 'ADD_POST';
@@ -34,6 +40,8 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post
 }));
+const setRandomPhrase = createAction('book/SET_RANDOM_PHRASE');
+
 // reducer
 export default handleActions(
   {
@@ -73,7 +81,10 @@ export default handleActions(
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-      })
+      }),
+    [setRandomPhrase]: (state, { payload }) => {
+      state.randomPhrases = [...state.randomPhrases, ...payload];
+    }
   },
   initialState
 );
@@ -205,47 +216,53 @@ const fetchDeletePost =
 const fetchPosts =
   (start = null, size = 3) =>
   async (dispatch, getState, { history }) => {
-    let _paging = getState().post.paging;
+    try {
+      let _paging = getState().post.paging;
 
-    if (_paging.start && !_paging.next) {
-      return;
+      if (_paging.start && !_paging.next) {
+        return;
+      }
+
+      dispatch(loading(true));
+
+      const docs = await postAPI.getPosts(start, size);
+
+      let post_list = [];
+
+      let paging = {
+        start: docs.docs[0],
+        next:
+          docs.docs.length === size + 1
+            ? docs.docs[docs.docs.length - 1]
+            : null,
+        size: size
+      };
+
+      docs.forEach((doc) => {
+        let _post = doc.data();
+
+        // ['commenct_cnt', 'contents', ..]
+        let post = Object.keys(_post).reduce(
+          (acc, cur) => {
+            if (cur.indexOf('user_') !== -1) {
+              return {
+                ...acc,
+                user_info: { ...acc.user_info, [cur]: _post[cur] }
+              };
+            }
+            return { ...acc, [cur]: _post[cur] };
+          },
+          { id: doc.id, user_info: {} }
+        );
+
+        post_list.push(post);
+      });
+      post_list.pop();
+
+      dispatch(setPost(post_list, paging));
+    } catch (error) {
+      console.error(error);
     }
-
-    dispatch(loading(true));
-
-    const docs = await postAPI.getPosts(start, size);
-
-    let post_list = [];
-
-    let paging = {
-      start: docs.docs[0],
-      next:
-        docs.docs.length === size + 1 ? docs.docs[docs.docs.length - 1] : null,
-      size: size
-    };
-
-    docs.forEach((doc) => {
-      let _post = doc.data();
-
-      // ['commenct_cnt', 'contents', ..]
-      let post = Object.keys(_post).reduce(
-        (acc, cur) => {
-          if (cur.indexOf('user_') !== -1) {
-            return {
-              ...acc,
-              user_info: { ...acc.user_info, [cur]: _post[cur] }
-            };
-          }
-          return { ...acc, [cur]: _post[cur] };
-        },
-        { id: doc.id, user_info: {} }
-      );
-
-      post_list.push(post);
-    });
-    post_list.pop();
-
-    dispatch(setPost(post_list, paging));
   };
 
 const fetchPost =

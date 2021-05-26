@@ -19,6 +19,7 @@ import AppLayout from '../components/AppLayout';
 import Home from '../pages/Home';
 import Search from '../pages/Search';
 import BookBasket from '../pages/BookBasket';
+import BookCalendar from '../pages/BookCalendar';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
         <Route path="/basket" exact component={BookBasket} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
-        {/* <Route path="/write" exact component={PostWrite} /> */}
+        <Route path="/calendar" exact component={BookCalendar} />
         <Route path="/edit/:id" exact component={PostWrite} />
         <Route path="/write/:id" exact component={PostWrite} />
         <Route path="/post/:id" exact component={PostDetail} />

@@ -52,6 +52,7 @@ const Navbar = (props) => {
           <li onClick={onClickMenu('/search')}>search</li>
 
           <li onClick={onClickMenu('/feed')}>feed</li>
+          <li onClick={onClickMenu('/calendar')}>calendar</li>
           {/* <li onClick={onClickMenu('/write')}>
             <Permit>write</Permit>
           </li> */}
