@@ -325,6 +325,23 @@ const unlikePostFB =
     }
   };
 
+const fetchRandomPhrase =
+  (postId = null) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const docs = await postAPI.getRandomPost();
+
+      let phraseList = [];
+      docs.forEach((p) => {
+        phraseList.push(...p.data().phraseList);
+      });
+
+      dispatch(setRandomPhrase(phraseList));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 // action creator export
 const actionCreators = {
   addPost,
@@ -335,7 +352,8 @@ const actionCreators = {
   fetchUpdatePost,
   fetchDeletePost,
   likePostFB,
-  unlikePostFB
+  unlikePostFB,
+  fetchRandomPhrase
 };
 
 export { actionCreators };

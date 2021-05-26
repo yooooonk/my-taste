@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookActions } from '../../redux/modules/book';
+import { actionCreators as postActions } from '../../redux/modules/post';
 import DashboardCard from './DashboardCard';
 import { css } from '@emotion/react';
 import PulseLoader from 'react-spinners/PulseLoader';
@@ -17,7 +18,7 @@ const Dashboard = (props) => {
   const [isReadCnt, setIsReadCnt] = useState(0);
   const [isWriteCnt, setIsWriteCnt] = useState(0);
 
-  const [randomPhrase, setRandomPhrase] = useState('');
+  const [phrase, setPhrase] = useState('');
 
   // dashboard에서 사용할 데이터 가져오기
   useEffect(() => {
@@ -26,6 +27,7 @@ const Dashboard = (props) => {
     console.log('오늘의 문장으로 기분을 환기해보세요');
 
     dispatch(bookActions.fetchBookBasketAll());
+    dispatch(postActions.fetchRandomPhrase());
   }, []);
 
   // 통계 데이터
@@ -53,7 +55,11 @@ const Dashboard = (props) => {
   }, [dashBoard]);
 
   // 랜덤 문구
-  useEffect(() => {}, [randomPhrases]);
+  useEffect(() => {
+    const len = randomPhrases.length;
+    const idx = Math.floor(Math.random() * len);
+    setPhrase(randomPhrases[idx]);
+  }, [randomPhrases]);
 
   return (
     <Container>
@@ -64,7 +70,7 @@ const Dashboard = (props) => {
       </CardWrapper>
       <RandomPhraseWrapper>
         <Title>오늘의 문장</Title>
-        <PhraseBox>{randomPhrase}</PhraseBox>
+        <PhraseBox>{phrase}</PhraseBox>
       </RandomPhraseWrapper>
       <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
     </Container>
