@@ -52,7 +52,7 @@ const Input = (props) => {
 Input.defaultProps = {
   multiLine: false,
   label: false,
-  placeholder: '텍스트를 입력해주세요.',
+  placeholder: '',
   type: 'text',
   value: '',
   is_submit: false,
@@ -61,13 +61,17 @@ Input.defaultProps = {
 };
 
 const TextInput = styled.input`
-  //border: 1px solid #212121;
   border: none;
-  border-bottom: 2px dashed pink;
+  background-color: ${(props) => props.theme.color.gray};
   width: 100%;
+  height: 1.75rem;
   padding: 12px 4px;
-  height: 40px;
   box-sizing: border-box;
+  border-radius: 5px;
+
+  &::placeholder {
+    font-size: 0.5rem;
+  }
 `;
 
 const Textarea = styled.textarea`

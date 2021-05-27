@@ -16,6 +16,7 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import _ from 'lodash';
+import Login from './Login';
 const Navbar = (props) => {
   const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ const Navbar = (props) => {
           <FaAppleAlt />
           My Taste
         </Logo>
+        <Login />
         <Menu isOpen={openMenu}>
           <li onClick={onClickMenu('/basket')}>
             <Permit>basket</Permit>
@@ -53,11 +55,8 @@ const Navbar = (props) => {
 
           <li onClick={onClickMenu('/feed')}>feed</li>
           <li onClick={onClickMenu('/calendar')}>calendar</li>
-          {/* <li onClick={onClickMenu('/write')}>
-            <Permit>write</Permit>
-          </li> */}
         </Menu>
-        {/* {!isMobile && <LayoutPicker />} */}
+
         <Icons isOpen={openMenu}>
           <Permit not>
             <Btns>
@@ -119,28 +118,23 @@ Navbar.defaultProps = {};
 
 const Nav = styled.div`
   ${(props) => props.theme.border_box};
-  //color: ${(props) => props.theme.main_white};
+  background-color: ${(props) => props.theme.color.gray_light};
   color: #ffeb60;
   font-family: var(--ballo);
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 8px 12px;
   height: 100%;
-
-  @media ${(props) => props.theme.mobile} {
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    align-items: flex-start;
-    width: 100%;
-  }
+  align-items: flex-start;
+  width: 100%;
 
   @media ${(props) => props.theme.desktop} {
     justify-content: space-around;
-    width: 20%;
+    width: 25%;
+    margin: 4rem;
+    border-bottom-left-radius: 2.5rem;
+    border-top-right-radius: 2.5rem;
+    height: 85vh;
   }
 `;
 
@@ -168,6 +162,7 @@ const Menu = styled.ul`
   cursor: pointer;
   font-size: 1.5em;
   width: 100%;
+
   ${(props) => props.theme.flex_column};
   transition: 0.3s all;
   & li {

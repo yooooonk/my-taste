@@ -19,20 +19,15 @@ const Login = (props) => {
   return (
     <Wrapper
       is_column
-      width={isMobile ? '100%' : '50vh'}
+      width="100%"
       jc="space-around"
       height="100%"
+      bg="transparent"
     >
-      <Header>
-        <Text bold>로그인</Text>
-        <i />
-      </Header>
+      {/* <Text bold>로그인</Text> */}
       <Wrapper is_column>
         <Wrapper>
-          <Wrapper width="200px">
-            <Text>아이디</Text>
-          </Wrapper>
-
+          <Text>ID</Text>
           <Input
             value={id}
             _onChange={(e) => {
@@ -41,9 +36,7 @@ const Login = (props) => {
           />
         </Wrapper>
         <Wrapper>
-          <Wrapper width="200px">
-            <Text>비밀번호</Text>
-          </Wrapper>
+          <Text>PW</Text>
           <Input
             is_submit
             onSubmit={onLogin}

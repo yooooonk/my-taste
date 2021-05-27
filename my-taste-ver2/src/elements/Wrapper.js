@@ -6,7 +6,7 @@ const Wrapper = (props) => {
 };
 
 Wrapper.defaultProps = {
-  bg: 'white',
+  bg: 'transparent',
   margin: 0,
   padding: 0
 };

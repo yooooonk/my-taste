@@ -12,7 +12,8 @@ const AppLayout = ({ children }) => {
 };
 
 const Container = styled.div`
-  background-color: ${(props) => props.theme.main_color};
+  background-color: ${(props) => props.theme.color.gray};
+
   ${(props) => props.theme.border_box};
   box-sizing: border-box;
 
@@ -40,24 +41,16 @@ const Main = styled.div`
     display: none;
   }
 
-  background-color: ${(props) => props.theme.main_white};
+  background-color: ${(props) => props.theme.color.gray_light};
   overflow: scroll;
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    padding: 0;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    padding: 0;
-  }
+  width: 100%;
+  padding: 0;
 
   @media ${(props) => props.theme.desktop} {
     width: 75%;
     margin-right: 30px;
     border-radius: 30px;
-    height: 90vh;
+    height: 85vh;
     ${(props) => props.theme.flex_column}
   }
 `;

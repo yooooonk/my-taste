@@ -17,28 +17,28 @@ Button.defaultProps = {
   children: null,
   margin: false,
   width: '100%',
-  height: '25px',
+  height: '1.75rem',
   disabled: false
 };
 
 const Btn = styled.button`
-  border-radius: 10px;
-  background-color: white;
-  border: 1px solid var(--main-color);
-  border-color: ${(props) =>
-    props.disabled ? 'gray' : props.theme.main_color};
+  border-radius: 5px;
+  ${(props) =>
+    props.disabled
+      ? `background-color:${props.theme.color.gray}; color:${props.theme.color.navy}; border-color:${props.theme.color.gray}`
+      : `background-color:${props.theme.color.navy}; color:white;  border-color:${props.theme.color.navy}`};
+  border: 1px solid;
   text-align: center;
-  color: ${(props) => (props.disabled ? 'gray' : props.theme.main_color)};
   width: ${(props) => props.width};
   height: ${(props) => props.heigth};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   cursor: pointer;
-
+  transition: 0.1s;
   &:hover {
     ${(props) =>
       props.disabled
         ? ''
-        : `background-color:${props.theme.main_color}; color:white;`}
+        : `background-color:white; color:${props.theme.color.navy};`}
   }
 `;
 
