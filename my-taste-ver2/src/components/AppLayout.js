@@ -13,20 +13,19 @@ const AppLayout = ({ children }) => {
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.color.gray};
-
+  height: 100%;
   ${(props) => props.theme.border_box};
   box-sizing: border-box;
+  width: 100%;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 100%;
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 100%;
   }
 
   @media ${(props) => props.theme.desktop} {

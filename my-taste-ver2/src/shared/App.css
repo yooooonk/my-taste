@@ -53,3 +53,7 @@ input {
     transform: rotate(360deg);
   }
 }
+
+body {
+  height: 100%;
+}

@@ -21,7 +21,9 @@ const Navbar = (props) => {
     dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
   const [openMenu, setOpenMenu] = useState(false);
+
   useEffect(() => {
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -41,9 +43,7 @@ const Navbar = (props) => {
       <Wrapper jc="space-between">
         <Logo onClick={() => history.replace('/')}>My Taste,</Logo>
         <Hamburger onClick={() => setOpenMenu(!openMenu)}>
-          <I size="1.5em">
-            <FaBars />
-          </I>
+          <FaBars />
         </Hamburger>
       </Wrapper>
 
@@ -135,8 +135,7 @@ const Nav = styled.div`
   flex-direction: column;
   height: 100%;
   align-items: flex-start;
-  width: 100%;
-  max-width: 350px;
+  width: 100vw;
 
   @media ${(props) => props.theme.desktop} {
     width: 25%;
@@ -145,6 +144,7 @@ const Nav = styled.div`
     border-top-right-radius: 2.5rem;
     height: 85vh;
     justify-content: space-between;
+    max-width: 350px;
   }
 `;
 
@@ -240,15 +240,20 @@ const Icons = styled.div`
 `;
 
 const Btns = styled.div`
-  & span {
-    color: white;
+  & svg {
+    font-size: 1rem;
+    color: ${(props) => props.theme.color.navy};
   }
-  ${(props) => props.theme.flex_row}
+  ${(props) => props.theme.flex_row};
+  justify-content: center;
+  width: 100%;
 `;
 
 const Hamburger = styled.div`
   margin: 15px;
-
+  & svg {
+    color: ${(props) => props.theme.color.navy};
+  }
   @media ${(props) => props.theme.desktop} {
     display: none;
   }

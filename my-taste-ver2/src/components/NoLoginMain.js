@@ -77,7 +77,9 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  padding: 1rem;
+
   @media ${(props) => props.theme.desktop} {
     flex-direction: row;
   }
@@ -85,42 +87,44 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: $ballo;
-  font-size: 10vh;
-  line-height: 75px;
+  font-size: 4rem;
   text-transform: uppercase;
   color: white;
-  font-family: var(--roboto);
+  font-weight: bold;
+
   span {
     width: 100%;
     float: left;
     display: block;
-
-    /* -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
-                    clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%); */
     transform: translateY(-50px);
     opacity: 0;
     animation: ${titleAnimation} ease 10s infinite;
-
+    width: 100%;
     &:first-child {
       animation-delay: 0.3s;
-      color: #ffb9c6;
+      color: ${(props) => props.theme.color.yellow};
     }
 
     &:nth-child(2) {
-      color: rgb(255, 123, 147);
+      color: ${(props) => props.theme.color.orange};
     }
 
     &:last-child {
       animation-delay: 0.5s;
-      color: ${(props) => props.theme.main_color};
+      color: ${(props) => props.theme.color.blue};
     }
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    // width: 50%;
   }
 `;
 
 const Description = styled.div`
   color: gray;
-  font-size: 3vh;
-
+  font-size: 1.5rem;
+  text-align: right;
+  width: 100%;
   span {
     display: block;
     animation: ${desAnimation} 10s ease 0.5s infinite;
@@ -131,6 +135,11 @@ const Description = styled.div`
     &:nth-child(3) {
       animation-delay: 1.2s;
     }
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 30%;
+    text-align: left;
   }
 `;
 
