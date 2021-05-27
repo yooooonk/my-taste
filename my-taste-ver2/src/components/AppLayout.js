@@ -45,6 +45,7 @@ const Main = styled.div`
   overflow: scroll;
   width: 100%;
   padding: 0;
+  height: 100%;
 
   @media ${(props) => props.theme.desktop} {
     width: 75%;

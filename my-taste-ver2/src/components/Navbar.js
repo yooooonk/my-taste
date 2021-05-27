@@ -20,6 +20,7 @@ import Login from './Login';
 const Navbar = (props) => {
   const dispatch = useDispatch();
 
+  const { isMobile } = useSelector((state) => state.view);
   const handleResize = _.throttle(() => {
     dispatch(viewActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
@@ -35,82 +36,80 @@ const Navbar = (props) => {
     dispatch(userActions.logoutFB());
   };
 
-  const onClickMenu = (path) => (e) => {
+  const moveToPage = (path) => (e) => {
     setOpenMenu(false);
     history.push(path);
   };
   return (
-    <React.Fragment>
+    <>
       <Nav>
-        <Logo onClick={() => history.push('/')}>
-          <FaAppleAlt />
-          My Taste
-        </Logo>
-        <Login />
+        <Logo onClick={() => history.replace('/')}>My Taste</Logo>
+        {!isMobile && <Login isNav moveSignUpPage={moveToPage('/signup')} />}
         <Menu isOpen={openMenu}>
-          <li onClick={onClickMenu('/basket')}>
+          <li onClick={moveToPage('/basket')}>
             <Permit>basket</Permit>
           </li>
-          <li onClick={onClickMenu('/search')}>search</li>
+          <li onClick={moveToPage('/search')}>search</li>
 
-          <li onClick={onClickMenu('/feed')}>feed</li>
-          <li onClick={onClickMenu('/calendar')}>calendar</li>
+          <li onClick={moveToPage('/feed')}>feed</li>
+          <li onClick={moveToPage('/calendar')}>calendar</li>
         </Menu>
+        {isMobile && (
+          <Icons isOpen={openMenu}>
+            <Permit not>
+              <Btns>
+                <Tooltip title="로그인">
+                  <IconButton
+                    className="icon"
+                    aria-label="delete"
+                    onClick={moveToPage('/login')}
+                  >
+                    <FaPowerOff />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="회원가입">
+                  <IconButton
+                    className="icon"
+                    aria-label="delete"
+                    onClick={moveToPage('/signup')}
+                  >
+                    <FaKissWinkHeart />
+                  </IconButton>
+                </Tooltip>
+              </Btns>
+            </Permit>
 
-        <Icons isOpen={openMenu}>
-          <Permit not>
-            <Btns>
-              <Tooltip title="로그인">
-                <IconButton
-                  className="icon"
-                  aria-label="delete"
-                  onClick={onClickMenu('/login')}
-                >
-                  <FaPowerOff />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="회원가입">
-                <IconButton
-                  className="icon"
-                  aria-label="delete"
-                  onClick={onClickMenu('/signup')}
-                >
-                  <FaKissWinkHeart />
-                </IconButton>
-              </Tooltip>
-            </Btns>
-          </Permit>
-
-          <Permit>
-            <Btns>
-              <Tooltip title="알림">
-                <IconButton onClick={onClickMenu('/noti')}>
-                  <NotiBadge />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="로그아웃">
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => {
-                    setOpenMenu(false);
-                    logout();
-                  }}
-                >
-                  <I>
-                    <FaPowerOff className="icon" />
-                  </I>
-                </IconButton>
-              </Tooltip>
-            </Btns>
-          </Permit>
-        </Icons>
+            <Permit>
+              <Btns>
+                <Tooltip title="알림">
+                  <IconButton onClick={moveToPage('/noti')}>
+                    <NotiBadge />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="로그아웃">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      setOpenMenu(false);
+                      logout();
+                    }}
+                  >
+                    <I>
+                      <FaPowerOff className="icon" />
+                    </I>
+                  </IconButton>
+                </Tooltip>
+              </Btns>
+            </Permit>
+          </Icons>
+        )}
       </Nav>
       <Hamburger onClick={() => setOpenMenu(!openMenu)}>
         <I size="1.5em">
           <FaBars />
         </I>
       </Hamburger>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -127,6 +126,7 @@ const Nav = styled.div`
   height: 100%;
   align-items: flex-start;
   width: 100%;
+  max-width: 350px;
 
   @media ${(props) => props.theme.desktop} {
     justify-content: space-around;

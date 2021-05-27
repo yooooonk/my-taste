@@ -25,15 +25,18 @@ const Btn = styled.button`
   border-radius: 5px;
   ${(props) =>
     props.disabled
-      ? `background-color:${props.theme.color.gray}; color:${props.theme.color.navy}; border-color:${props.theme.color.gray}`
+      ? `background-color:${props.theme.color.gray}; color:${props.theme.color.navy};border-color:${props.theme.color.gray};`
       : `background-color:${props.theme.color.navy}; color:white;  border-color:${props.theme.color.navy}`};
   border: 1px solid;
+
   text-align: center;
   width: ${(props) => props.width};
   height: ${(props) => props.heigth};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   cursor: pointer;
   transition: 0.1s;
+  padding: 0.25rem;
+
   &:hover {
     ${(props) =>
       props.disabled
