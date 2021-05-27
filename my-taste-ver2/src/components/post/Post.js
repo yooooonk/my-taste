@@ -14,7 +14,7 @@ const Post = (props) => {
 
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.user?.uid);
-  const { isMobile, layout } = useSelector((state) => state.view);
+  const { isMobile, layout } = useSelector((state) => state.common);
 
   const is_me = user_info.user_id === uid;
   const [isMore, setIsMore] = useState(true);

@@ -10,11 +10,12 @@ import { Container } from '@material-ui/core';
 
 const Login = (props) => {
   const { moveSignUpPage, isNav } = props;
+
   const dispatch = useDispatch();
-  const fbAuthError = useSelector((state) => state.user.fbAuthError);
-  const { isMobile } = useSelector((state) => state.view);
+
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+
   const onLogin = (e) => {
     if (!id || !pw) return;
     dispatch(userActions.loginFB(id, pw));
@@ -28,6 +29,7 @@ const Login = (props) => {
             <td>ID</td>
             <td>
               <Input
+                isGray={isNav}
                 value={id}
                 _onChange={(e) => {
                   setId(e.target.value);
@@ -41,6 +43,7 @@ const Login = (props) => {
             <td>PW</td>
             <td>
               <Input
+                isGray={isNav}
                 is_submit
                 onSubmit={onLogin}
                 value={pw}
@@ -73,19 +76,11 @@ const Login = (props) => {
 };
 
 const LoginContainer = styled.div`
-  height: 100%;
-  width: 100%;
   ${(props) => props.theme.flex_column};
   justify-content: center;
   ${(props) => props.theme.border_box};
-  padding: 1rem;
-  /* @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  } */
+  padding: 2rem;
+  align-items: center;
 `;
 
 const Table = styled.table`

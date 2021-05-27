@@ -8,7 +8,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import styled from 'styled-components';
 import ScrollWrapper from '../shared/ScrollWrapper';
 const PostList = (props) => {
-  const { isMobile } = useSelector((state) => state.view);
+  const { isMobile } = useSelector((state) => state.common);
   const { history } = props;
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);

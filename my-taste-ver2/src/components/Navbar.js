@@ -1,28 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { I } from '../elements';
+import { I, Wrapper } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
 import { actionCreators as userActions } from '../redux/modules/user';
-import { actionCreators as viewActions } from '../redux/modules/view';
+import { actionCreators as commonActions } from '../redux/modules/common';
 import NotiBadge from './NotiBadge';
 import styled, { keyframes } from 'styled-components';
-import {
-  FaAppleAlt,
-  FaPowerOff,
-  FaKissWinkHeart,
-  FaBars
-} from 'react-icons/fa';
+import { FaPowerOff, FaKissWinkHeart, FaBars } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import _ from 'lodash';
 import Login from './Login';
+import Profile from './Profile';
 const Navbar = (props) => {
   const dispatch = useDispatch();
 
-  const { isMobile } = useSelector((state) => state.view);
+  const { isMobile } = useSelector((state) => state.common);
   const handleResize = _.throttle(() => {
-    dispatch(viewActions.setIsMobile(window.innerWidth < 1025));
+    dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
   const [openMenu, setOpenMenu] = useState(false);
   useEffect(() => {
@@ -41,75 +37,91 @@ const Navbar = (props) => {
     history.push(path);
   };
   return (
-    <>
-      <Nav>
-        <Logo onClick={() => history.replace('/')}>My Taste</Logo>
-        {!isMobile && <Login isNav moveSignUpPage={moveToPage('/signup')} />}
-        <Menu isOpen={openMenu}>
-          <li onClick={moveToPage('/basket')}>
-            <Permit>basket</Permit>
-          </li>
-          <li onClick={moveToPage('/search')}>search</li>
+    <Nav>
+      <Wrapper jc="space-between">
+        <Logo onClick={() => history.replace('/')}>My Taste,</Logo>
+        <Hamburger onClick={() => setOpenMenu(!openMenu)}>
+          <I size="1.5em">
+            <FaBars />
+          </I>
+        </Hamburger>
+      </Wrapper>
 
-          <li onClick={moveToPage('/feed')}>feed</li>
-          <li onClick={moveToPage('/calendar')}>calendar</li>
-        </Menu>
-        {isMobile && (
-          <Icons isOpen={openMenu}>
-            <Permit not>
-              <Btns>
-                <Tooltip title="로그인">
-                  <IconButton
-                    className="icon"
-                    aria-label="delete"
-                    onClick={moveToPage('/login')}
-                  >
-                    <FaPowerOff />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="회원가입">
-                  <IconButton
-                    className="icon"
-                    aria-label="delete"
-                    onClick={moveToPage('/signup')}
-                  >
-                    <FaKissWinkHeart />
-                  </IconButton>
-                </Tooltip>
-              </Btns>
-            </Permit>
+      {!isMobile && (
+        <Wrapper width="100%" height="100%">
+          <Permit not>
+            <Login isNav moveSignUpPage={moveToPage('/signup')} />
+          </Permit>
+          <Permit>
+            <Profile />
+          </Permit>
+        </Wrapper>
+      )}
+      <Menu isOpen={openMenu}>
+        <span className="search" onClick={moveToPage('/search')}>
+          Search
+        </span>
+        <span className="feed" onClick={moveToPage('/feed')}>
+          Feed
+        </span>
 
-            <Permit>
-              <Btns>
-                <Tooltip title="알림">
-                  <IconButton onClick={moveToPage('/noti')}>
-                    <NotiBadge />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="로그아웃">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => {
-                      setOpenMenu(false);
-                      logout();
-                    }}
-                  >
-                    <I>
-                      <FaPowerOff className="icon" />
-                    </I>
-                  </IconButton>
-                </Tooltip>
-              </Btns>
-            </Permit>
-          </Icons>
-        )}
-      </Nav>
-      <Hamburger onClick={() => setOpenMenu(!openMenu)}>
-        <I size="1.5em">
-          <FaBars />
-        </I>
-      </Hamburger>
-    </>
+        <span className="shelf" onClick={moveToPage('/basket')}>
+          Shelf
+        </span>
+        <span className="calendar" onClick={moveToPage('/calendar')}>
+          Calendar
+        </span>
+      </Menu>
+      {isMobile && (
+        <Icons isOpen={openMenu}>
+          <Permit not>
+            <Btns>
+              <Tooltip title="로그인">
+                <IconButton
+                  className="icon"
+                  aria-label="delete"
+                  onClick={moveToPage('/login')}
+                >
+                  <FaPowerOff />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="회원가입">
+                <IconButton
+                  className="icon"
+                  aria-label="delete"
+                  onClick={moveToPage('/signup')}
+                >
+                  <FaKissWinkHeart />
+                </IconButton>
+              </Tooltip>
+            </Btns>
+          </Permit>
+
+          <Permit>
+            <Btns>
+              <Tooltip title="알림">
+                <IconButton onClick={moveToPage('/noti')}>
+                  <NotiBadge />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="로그아웃">
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => {
+                    setOpenMenu(false);
+                    logout();
+                  }}
+                >
+                  <I>
+                    <FaPowerOff className="icon" />
+                  </I>
+                </IconButton>
+              </Tooltip>
+            </Btns>
+          </Permit>
+        </Icons>
+      )}
+    </Nav>
   );
 };
 
@@ -119,64 +131,98 @@ const Nav = styled.div`
   ${(props) => props.theme.border_box};
   background-color: ${(props) => props.theme.color.gray_light};
   color: #ffeb60;
-  font-family: var(--ballo);
   display: flex;
   flex-direction: column;
-  padding: 8px 12px;
   height: 100%;
   align-items: flex-start;
   width: 100%;
   max-width: 350px;
 
   @media ${(props) => props.theme.desktop} {
-    justify-content: space-around;
     width: 25%;
-    margin: 4rem;
+    margin-right: 4rem;
     border-bottom-left-radius: 2.5rem;
     border-top-right-radius: 2.5rem;
     height: 85vh;
+    justify-content: space-between;
   }
 `;
 
 const Logo = styled.div`
+  padding: 1rem;
   cursor: pointer;
   text-align: center;
   font-size: 1.5em;
-  line-height: 3.5vw;
-  margin: 5px 20px;
-
+  font-weight: bold;
   ${(props) => props.theme.flex_column}
   justify-content:center;
   align-items: center;
-  color: ${(props) => props.theme.main_white};
+  color: ${(props) => props.theme.color.navy};
 
-  @media ${(props) => props.theme.mobile} {
-    //${(props) => props.theme.flex_column}
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+    height: 20%;
+    padding: 3rem 0;
   }
 `;
 
-const Menu = styled.ul`
-  transition: 0.3s;
+const Menu = styled.div`
   list-style: none;
-  padding-left: 0;
   cursor: pointer;
-  font-size: 1.5em;
   width: 100%;
-
+  color: ${(props) => props.theme.color.gray_light};
   ${(props) => props.theme.flex_column};
   transition: 0.3s all;
-  & li {
-    margin: 5px;
+  ${(props) => props.theme.border_box};
+
+  & span {
+    ${(props) => props.theme.flex_row};
+    align-items: center;
+    width: 100%;
+    height: 1.75rem;
+    justify-content: center;
+
     &:hover {
       transform: skew(-15deg);
     }
+
+    &.search {
+      background-color: ${(props) => props.theme.color.yellow};
+    }
+
+    &.shelf {
+      background-color: ${(props) => props.theme.color.orange};
+    }
+
+    &.feed {
+      background-color: ${(props) => props.theme.color.blue};
+    }
+
+    &.calendar {
+      background-color: ${(props) => props.theme.color.green};
+    }
+
+    @media ${(props) => props.theme.desktop} {
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      width: 30%;
+      padding-left: 1rem;
+      margin: 0.25rem 0;
+      justify-content: flex-start;
+    }
   }
+
   @media ${(props) => props.theme.mobile} {
     display: ${(props) => (props.isOpen ? '' : 'none')};
   }
 
   @media ${(props) => props.theme.tablet} {
     display: ${(props) => (props.isOpen ? '' : 'none')};
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    align-items: flex-end;
+    margin-bottom: 10%;
   }
 `;
 
@@ -201,9 +247,6 @@ const Btns = styled.div`
 `;
 
 const Hamburger = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
   margin: 15px;
 
   @media ${(props) => props.theme.desktop} {

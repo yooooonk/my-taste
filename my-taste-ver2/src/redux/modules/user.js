@@ -5,7 +5,7 @@ import { auth } from '../../shared/firebase';
 
 // initialState
 const initialState = {
-  userInfo: null,
+  user: null,
   isLogin: false,
   fbAuthError: {
     isError: false,

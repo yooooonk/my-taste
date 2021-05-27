@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { apiKey } from './firebase';
+import styled from 'styled-components';
 
 const Permit = (props) => {
   const { not, children } = props;
@@ -13,16 +14,16 @@ const Permit = (props) => {
     if (isSession && isLogin) {
       return null;
     } else {
-      return <div>{children}</div>;
+      return <Container>{children}</Container>;
     }
   } else {
     if (isSession && isLogin) {
-      return <div>{children}</div>;
+      return <Container>{children}</Container>;
     } else {
       return null;
     }
   }
-  console.log('permit 이도저도 아님 ㅇㅅㅇ');
+
   return null;
 };
 
@@ -30,4 +31,9 @@ Permit.defaultProps = {
   not: false
 };
 
+const Container = styled.div`
+  width: inherit;
+  height: inherit;
+  display: inherit;
+`;
 export default Permit;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FormControlLabel, RadioGroup, Radio, Switch } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as viewActions } from '../redux/modules/view';
+import { actionCreators as commonActions } from '../redux/modules/common';
 import Wrapper from '../elements/Wrapper';
 
 const LayoutPicker = () => {
   const dispatch = useDispatch();
-  const layout = useSelector((state) => state.view.layout);
+  const layout = useSelector((state) => state.common.layout);
 
   const handleRadioChange = (event) => {
-    dispatch(viewActions.setLayout(event.target.value));
+    dispatch(commonActions.setLayout(event.target.value));
   };
   return (
     <RadioGroup

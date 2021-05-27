@@ -32,6 +32,7 @@ const Container = styled.div`
   @media ${(props) => props.theme.desktop} {
     ${(props) => props.theme.flex_row};
     height: 100vh;
+    padding: 8rem;
   }
 `;
 
@@ -41,7 +42,6 @@ const Main = styled.div`
     display: none;
   }
 
-  background-color: ${(props) => props.theme.color.gray_light};
   overflow: scroll;
   width: 100%;
   padding: 0;
@@ -49,10 +49,10 @@ const Main = styled.div`
 
   @media ${(props) => props.theme.desktop} {
     width: 75%;
-    margin-right: 30px;
-    border-radius: 30px;
     height: 85vh;
     ${(props) => props.theme.flex_column}
+    border-top-left-radius: 2.5rem;
+    border-bottom-right-radius: 2.5rem;
   }
 `;
 

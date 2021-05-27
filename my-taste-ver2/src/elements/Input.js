@@ -11,7 +11,8 @@ const Input = (props) => {
     multiLine,
     value,
     is_submit,
-    onSubmit
+    onSubmit,
+    isGray
   } = props;
 
   if (multiLine) {
@@ -32,6 +33,7 @@ const Input = (props) => {
       {label && <Text margin="0px">{label}</Text>}
       {is_submit ? (
         <TextInput
+          isGray={isGray}
           type={type}
           placeholder={placeholder}
           onChange={_onChange}
@@ -57,12 +59,14 @@ Input.defaultProps = {
   value: '',
   is_submit: false,
   onSubmit: () => {},
-  _onChange: () => {}
+  _onChange: () => {},
+  isGray: false
 };
 
 const TextInput = styled.input`
   border: none;
-  background-color: ${(props) => props.theme.color.gray};
+  background-color: ${(props) =>
+    props.isGray ? props.theme.color.gray : props.theme.color.gray_light};
   width: 100%;
   height: 1.75rem;
   padding: 12px 4px;
