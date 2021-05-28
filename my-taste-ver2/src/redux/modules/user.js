@@ -7,7 +7,7 @@ import { auth } from '../../shared/firebase';
 const initialState = {
   user: null,
   isLogin: false,
-  fbAuthError: {
+  loginError: {
     isError: false,
     msg: ''
   }
@@ -32,7 +32,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.isLogin = true;
-        draft.fbAuthError = { isError: false, msg: '' };
+        draft.loginError = { isError: false, msg: '' };
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {

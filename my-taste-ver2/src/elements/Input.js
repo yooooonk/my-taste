@@ -7,6 +7,7 @@ const Input = (props) => {
     label,
     placeholder,
     _onChange,
+    _onFocus,
     type,
     multiLine,
     value,
@@ -24,6 +25,7 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
+          onFocus={_onFocus}
         ></Textarea>
       </Grid>
     );
@@ -37,6 +39,7 @@ const Input = (props) => {
           type={type}
           placeholder={placeholder}
           onChange={_onChange}
+          onFocus={_onFocus}
           value={value}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
@@ -45,7 +48,12 @@ const Input = (props) => {
           }}
         />
       ) : (
-        <TextInput type={type} placeholder={placeholder} onChange={_onChange} />
+        <TextInput
+          type={type}
+          placeholder={placeholder}
+          onFocus={_onFocus}
+          onChange={_onChange}
+        />
       )}
     </React.Fragment>
   );
