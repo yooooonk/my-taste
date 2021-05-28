@@ -69,8 +69,8 @@ const Dashboard = (props) => {
         <DashboardCard data={isWriteCnt} type="isWriteCount" />
       </CardWrapper>
       <RandomPhraseWrapper>
-        <Title>오늘의 문장</Title>
-        <PhraseBox>{phrase}</PhraseBox>
+        <Title>Today's Phrase</Title>
+        <PhraseBox>"{phrase}"</PhraseBox>
       </RandomPhraseWrapper>
       <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
     </Container>
@@ -82,18 +82,40 @@ Dashboard.propTypes = {};
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  ${(props) => props.theme.flex_column};
+  ${(props) => props.theme.border_box};
+  justify-content: center;
 `;
 
 const CardWrapper = styled.div`
   width: 100%;
-  ${(props) => props.theme.flex_row}
+  height: 50%;
+  ${(props) => props.theme.flex_row};
+  justify-content: center;
+  padding: 1rem;
+  ${(props) => props.theme.border_box};
 `;
 
-const RandomPhraseWrapper = styled.div``;
+const RandomPhraseWrapper = styled.div`
+  ${(props) => props.theme.border_box};
+  color: ${(props) => props.theme.color.navy};
+  width: 100%;
+  height: 40%;
+  border: 1px solid black;
+`;
 
-const Title = styled.div``;
+const Title = styled.div`
+  font-weight: bold;
+  margin: 0.5rem 0;
+`;
 
-const PhraseBox = styled.div``;
+const PhraseBox = styled.div`
+  ${(props) => props.theme.flex_row};
+  justify-content: center;
+  background-color: ${(props) => props.theme.color.gray_light};
+  width: 100%;
+  height: 80%;
+`;
 const spinnerStyle = css`
   top: 0;
   right: 0;

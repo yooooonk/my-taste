@@ -19,6 +19,7 @@ const theme = {
   flex_row:
     'display: flex; align-items: center; justify-content: space-between;',
   box_size: `box-sizing:border-box`,
+  border_style: `border-top-left-radius:2rem; border-bottom-right-radius:2rem`,
   color: {
     red: '#f9685d',
     red_light: '#9998b',

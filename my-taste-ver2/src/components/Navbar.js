@@ -133,7 +133,7 @@ const Nav = styled.div`
   color: #ffeb60;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  //height: 10vh;
   align-items: flex-start;
   width: 100vw;
 

@@ -57,12 +57,42 @@ const Signup = (props) => {
 
   return (
     <SignupContainer>
-      <Header>
-        <Text bold>회원가입</Text>
-        <i />
-      </Header>
-      <Middle>
-        <Grid padding="0 6px">
+      <Text bold>회원가입</Text>
+
+      <FormTable>
+        <tbody>
+          <tr>
+            <td>아이디 / e-mail</td>
+            <td>
+              <Input
+                _onChange={(e) => {
+                  setId(e.target.value);
+                }}
+              />
+              <ErrorMsg valid={idError}>이메일 형식으로 입력해주세요</ErrorMsg>
+              <ErrorMsg valid={fbAuthError.isError}>
+                이미 가입된 이메일입니다
+              </ErrorMsg>
+            </td>
+          </tr>
+          <tr>
+            <td>비밀번호</td>
+            <td>
+              <Input
+                type="password"
+                _onChange={(e) => {
+                  setPw(e.target.value);
+                }}
+              />
+              <ErrorMsg valid={pwdError}>
+                비밀번호는 6글자 이상 입력해주세요
+              </ErrorMsg>
+            </td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+        </tbody>
+        {/*   <Grid padding="0 6px">
           <Text>아이디</Text>
           <Input
             _onChange={(e) => {
@@ -106,13 +136,13 @@ const Signup = (props) => {
             }}
           />
           <ErrorMsg valid={pwdChkError}>입력한 비밀번호와 다릅니다</ErrorMsg>
-        </Grid>
-      </Middle>
+        </Grid> */}
+      </FormTable>
       <Button
         disabled={!pwCheck || !pw || !id || !nickname}
         _onClick={onSignup}
       >
-        회원가입
+        가입하기
       </Button>
     </SignupContainer>
   );
@@ -133,9 +163,13 @@ const SignupContainer = styled.div`
   }
 `;
 
-const Middle = styled.div`
-  width: 30vw;
-  margin: 10vh 0;
+const FormTable = styled.table`
+  /* width: 30vw;
+  margin: 10vh 0; */
+  & tr {
+    margin: 1rem;
+    background-color: pink;
+  }
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;

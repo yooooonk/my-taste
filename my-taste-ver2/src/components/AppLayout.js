@@ -13,24 +13,16 @@ const AppLayout = ({ children }) => {
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.color.gray};
-  height: 100%;
   ${(props) => props.theme.border_box};
   box-sizing: border-box;
   width: 100%;
-
+  height: 100vh;
   &::-webkit-scrollbar {
     display: none;
   }
 
-  @media ${(props) => props.theme.mobile} {
-  }
-
-  @media ${(props) => props.theme.tablet} {
-  }
-
   @media ${(props) => props.theme.desktop} {
     ${(props) => props.theme.flex_row};
-    height: 100vh;
     padding: 8rem;
   }
 `;

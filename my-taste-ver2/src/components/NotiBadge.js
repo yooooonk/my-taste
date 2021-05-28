@@ -35,7 +35,7 @@ const NotiBadge = (props) => {
         invisible={isRead}
         onClick={notiCheck}
       >
-        <MdNotifications style={{ color: 'white' }} />
+        <MdNotifications style={{ color: '#3a5378' }} />
       </Badge>
     </div>
   );
