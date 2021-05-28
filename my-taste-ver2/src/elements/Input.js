@@ -25,11 +25,7 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
-<<<<<<< HEAD
-          onFocus={() => console.log('gg')}
-=======
           onFocus={_onFocus}
->>>>>>> signup
         ></Textarea>
       </Grid>
     );

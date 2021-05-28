@@ -79,6 +79,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   padding: 1rem;
+  ${(props) => props.theme.border_box};
 
   @media ${(props) => props.theme.desktop} {
     flex-direction: row;

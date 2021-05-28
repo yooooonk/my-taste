@@ -76,6 +76,7 @@ const Login = (props) => {
 };
 
 const LoginContainer = styled.div`
+  width: 100%;
   ${(props) => props.theme.flex_column};
   justify-content: center;
   ${(props) => props.theme.border_box};

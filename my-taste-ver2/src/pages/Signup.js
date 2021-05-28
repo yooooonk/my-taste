@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Grid, Text, Input, Button, Wrapper } from '../elements';
 import {
   testEmailValid,
   testPwValid,
   testRepatNumber,
   testUsernameValid
 } from '../shared/common';
+import ErrorMsg from '../components/ErrorMsg';
 import { actionCreators as userActions } from '../redux/modules/user';
 import styled from 'styled-components';
-import { InputValid, Button, Text } from '../elements';
+import InputValid from '../elements/InputValid';
 
 const Signup = (props) => {
+  const { history } = props;
+
   const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [nickname, setNickName] = useState('');
   const [pw, setPw] = useState('');
   const [pwCheck, setPwCheck] = useState('');
   const [totalValidPass, setTotalValidPass] = useState(false);
+
   // email validation
   const [isOpenEmailValid, setIsOpenEmailValid] = useState(false);
   const [isStartEmailInput, setIsStartEmailInput] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidEmailChk, setIsValidEmailChk] = useState(false);
   const isValidEmailMultiple = useSelector(
     (state) => state.user.isValidEmailMultiple
   );
@@ -43,80 +47,6 @@ const Signup = (props) => {
 
   const { loginError } = useSelector((state) => state.user);
 
-  /* const isFailValid = () => {
-    let fail = false;
-    setIdError(false);
-    setNicknameError(false);
-    setPwdError(false);
-    setPwdChkError(false);
-
-    if (!id || !emailCheck(id)) {
-      setIdError(true);
-      fail = true;
-    }
-
-  // input 입력 값
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-
-  // email validation
-  const [isOpenEmailValid, setIsOpenEmailValid] = useState(false);
-  const [isStartEmailInput, setIsStartEmailInput] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidEmailChk, setIsValidEmailChk] = useState(false);
-  const isValidEmailMultiple = useSelector(
-    (state) => state.user.isValidEmailMultiple
-  );
-
-  // username validation
-  const [isOpenUsernameValid, setIsOpenUsernameValid] = useState(false);
-  const [isStartUsernameInput, setIsStartUsernameInput] = useState(false);
-  const [isValidUsername, setIsValidUsername] = useState(false);
-  const [isValidUsernameLength, setIsValidUsernameLength] = useState(false);
-
-  // passwrod validation
-  const [isOpenPasswordValid, setIsOpenPasswordValid] = useState(false);
-  const [isStartPasswordInput, setIsStartPasswordInput] = useState(false);
-  const [isValidPassword, setIsValidPassword] = useState(false);
-  const [isValidPasswordRepeat, setIsValidPasswordRepeat] = useState(false);
-
-  // password check validation
-  const [isOpenPwChkValid, setIsOpenPwChkValid] = useState(false);
-
-  // 회원가입 버튼
-  const onClickSignup = () => {
-    if (!checkTotalvalidation()) return alert('입력요건을 지켜주세요');
-
-    const data = {
-      username,
-      email,
-      password
-    };
-
-    dispatch(userActions.signup(data));
-  };
-
-  // 이메일 중복체크 버튼 이벤트
-  const onClickMultipleChk = () => {
-    dispatch(userActions.emailCheck(email));
-    setIsValidEmailChk(true);
-  };
-
-  // 이메일 입력 - email 형식 체크, 형식 validation 초기화
-  const onChangeEmail = (e) => {
-    if (!isStartEmailInput) setIsStartEmailInput(true);
-
-    setEmail(e.target.value);
-
-    if (isValidEmailMultiple) {
-      dispatch(userActions.setIsValidEmailMultiple(false));
-    }
-
-    setIsValidEmail(testEmailValid(e.target.value));
-  };
- */
   // 이메일 입력 - email 형식 체크, 형식 validation 초기화
   const onChangeEmail = (e) => {
     if (!isStartEmailInput) setIsStartEmailInput(true);
@@ -155,10 +85,7 @@ const Signup = (props) => {
   const onSignup = (e) => {
     if (!checkTotalvalidation()) return alert('입력요건을 지켜주세요');
 
-    // username 길이 체크
-    setIsValidUsernameLength(
-      e.target.value.length >= 3 && e.target.value.length <= 20
-    );
+    dispatch(userActions.signupFB(id, nickname, pw));
   };
 
   useEffect(() => {
@@ -186,6 +113,10 @@ const Signup = (props) => {
 
     return passEmail && passUsername && passPw;
   };
+
+  const goBack = () => {
+    history.replace('/');
+  };
   return (
     <SignupContainer>
       <Text bold>회원가입</Text>
@@ -193,24 +124,10 @@ const Signup = (props) => {
       <FormTable>
         <tbody>
           <tr>
-            <td>e-mail</td>
             <td>
-              <Button
-                _onClick={onClickMultipleChk}
-                disabled={!isValidEmail}
-                padding="8px"
-                width="100px"
-              >
-                중복확인
-              </Button>
+              <Text>EMAIL</Text>{' '}
             </td>
-          </tr>
-
-          <tr>
-            <th>
-              <Text>이름 *</Text>
-            </th>
-            <td className="input">
+            <td>
               <Input
                 _onChange={onChangeEmail}
                 _onFocus={() => setIsOpenEmailValid(true)}
@@ -231,7 +148,9 @@ const Signup = (props) => {
             </td>
           </tr>
           <tr>
-            <td>닉네임</td>
+            <td>
+              <Text>NAME</Text>
+            </td>
             <td>
               {' '}
               <Input
@@ -257,14 +176,12 @@ const Signup = (props) => {
               </ValidWrapper>
             </td>
           </tr>
-
           <tr>
-            <th>
-              <Text>비밀번호 *</Text>
-            </th>
-            <td className="input">
+            <td>
+              <Text>PW</Text>
+            </td>
+            <td>
               <Input
-                onFocus={() => setIsOpenPasswordValid(true)}
                 type="password"
                 _onChange={onChangePassword}
                 placeholder="비밀번호를 입력해주세요"
@@ -293,7 +210,9 @@ const Signup = (props) => {
             </td>
           </tr>
           <tr>
-            <td>비밀번호 확인</td>
+            <td>
+              <Text>PW CHECK</Text>
+            </td>
             <td>
               <Input
                 type="password"
@@ -315,55 +234,62 @@ const Signup = (props) => {
               </ValidWrapper>
             </td>
           </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Wrapper>
+                <Button _onClick={goBack}>취소</Button>
+                <Button disabled={!totalValidPass} _onClick={onSignup}>
+                  가입하기
+                </Button>
+              </Wrapper>
+            </td>
+          </tr>
         </tbody>
       </FormTable>
 
       <ErrorMsg valid={loginError.isError}>이미 가입된 이메일입니다</ErrorMsg>
-      <Button disabled={!totalValidPass} _onClick={onSignup}>
-        가입하기
-      </Button>
     </SignupContainer>
   );
 };
 
 const SignupContainer = styled.div`
-  width: 100%;
   height: 100%;
+  padding: 1rem;
+  ${(props) => props.theme.border_box};
 
   ${(props) => props.theme.flex_column};
-  align-items: center;
   justify-content: center;
-`;
 
-const Input = styled.input`
-  border: 1px solid #212121;
-  width: 100%;
-  padding: 12px 4px;
-  box-sizing: border-box;
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
 `;
 
 const FormTable = styled.table`
-  & th {
-    text-align: left;
+  width: 100%;
+
+  & tr {
+    align-items: flex-start;
+    justify-content: center;
   }
+
   & td {
     padding: 0.5rem;
-  }
-  & td.input {
-    width: 300px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    & tr {
-      ${(props) => props.theme.flex_column};
-      align-items: flex-start;
-      justify-content: center;
+
+    &:nth-child(1) {
+      width: 20%;
     }
-    & th {
-      margin-left: 8px;
+    &:nth-child(2) {
+      width: 70%;
     }
-    & td {
-      width: 95%;
-      text-align: right;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 70%;
+    max-width: 500px;
+    & td.input {
+      width: 300px;
     }
   }
 `;
@@ -371,12 +297,6 @@ const FormTable = styled.table`
 const ValidWrapper = styled.div`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
   padding-top: 0.5em;
-`;
-
-const Title = styled.span`
-  margin: 2rem;
-  font-weight: 800;
-  font-size: 1.5rem;
 `;
 
 export default Signup;
