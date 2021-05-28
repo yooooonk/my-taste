@@ -7,6 +7,7 @@ const Input = (props) => {
     label,
     placeholder,
     _onChange,
+    _onFocus,
     type,
     multiLine,
     value,
@@ -24,6 +25,7 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
+          onFocus={() => console.log('gg')}
         ></Textarea>
       </Grid>
     );
@@ -37,6 +39,7 @@ const Input = (props) => {
           type={type}
           placeholder={placeholder}
           onChange={_onChange}
+          onFocus={_onFocus}
           value={value}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
@@ -60,6 +63,7 @@ Input.defaultProps = {
   is_submit: false,
   onSubmit: () => {},
   _onChange: () => {},
+  _onFocus: () => {},
   isGray: false
 };
 
