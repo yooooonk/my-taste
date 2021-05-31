@@ -25,20 +25,7 @@ const BookBasket = ({ history }) => {
   const basketCardList = bookBasket.map((book) => {
     return <BasketCard key={book.id} book={book} goTo={goTo} />;
   });
-  /*  const onWrite =  useCallback((book)=>(e)=>{
-        console.log(book)
-    },[bookDiaryone]) */
 
-  /* const basketCardList = bookBasket.map((book) => {
-    return <BasketCard book={book} key={book._id} onWrite={onWrite} />;
-  }); */
-
-  /*  useEffect(()=>{
-        dispatch(getBookBasketRequest())
-    },[])
-    const diaryPopup = ()=>{
-        return <Diary diary={d} />
-    } */
   const onScroll = _.throttle((e) => {
     if (loading) return;
 
@@ -52,11 +39,11 @@ const BookBasket = ({ history }) => {
   }, 300);
   return (
     <Container onScroll={onScroll}>
+      <PulseLoader loading={loading} css={spinnerStyle} color="#3a5378" />
       {basketCardList}
       {bookBasket.length === 0 && (
         <NoResult msg="좋아하는 책을 담아주세요. &#10024;" />
       )}
-      <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
     </Container>
   );
 };
@@ -67,6 +54,7 @@ const Container = styled.div`
   overflow-y: scroll;
   width: 100%;
   height: 100%;
+  background-color: ${(props) => props.theme.color.orange};
 
   &::-webkit-scrollbar {
     display: none;
@@ -77,7 +65,7 @@ const spinnerStyle = css`
   top: 0;
   right: 0;
   width: 100%;
-
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

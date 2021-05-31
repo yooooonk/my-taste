@@ -49,7 +49,7 @@ const ScrollWrapper = (props) => {
     <OutterWrapper onScroll={handleScrollForDesktop}>
       <InnerWrapper>
         {props.children}
-        <PulseLoader loading={is_next} css={override} color="pink" />
+        <PulseLoader loading={is_next} css={override} color="#3a5378" />
       </InnerWrapper>
     </OutterWrapper>
   );

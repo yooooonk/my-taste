@@ -81,6 +81,7 @@ const Content = styled.div`
   & span.title {
     font-weight: bold;
     font-size: 1.1rem;
+    margin: 0.5rem 0;
   }
 
   & .author,

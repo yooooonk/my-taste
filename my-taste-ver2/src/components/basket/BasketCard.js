@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaPencilAlt, FaTrashAlt, FaBookOpen } from 'react-icons/fa';
-import { BsBook } from 'react-icons/bs';
+import { FaPen, FaBookOpen, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
 import { bookActions } from '../../redux/modules/book';
 import { actionCreators as imageActions } from '../../redux/modules/image';
-import Dialog from '../Dialog';
 import moment from 'moment';
 
 const BasketCard = ({ book, goTo }) => {
@@ -37,83 +35,64 @@ const BasketCard = ({ book, goTo }) => {
   });
 
   return (
-    <>
-      <Card>
-        <Info href={book.url} target="_blank">
-          <img src={book.thumbnail} alt="thumbnail" />
-          <Content className="content">
-            <span className="title">
-              <b>{book.title}</b>
-            </span>
-            <span className="author">{book.authors}</span>
-            <span className="publisher">{book.publisher}</span>
-          </Content>
-        </Info>
-        <ButtonBox>
-          <I done={book.readDate}>
-            <BsBook onClick={onRead} />
-          </I>
-          <I done={book.postId}>
-            <FaPencilAlt onClick={onWrite} />
-          </I>
-          <I>
-            <FaTrashAlt onClick={onRemove} />
-          </I>
-        </ButtonBox>
-      </Card>
-    </>
+    <Card>
+      <Thumbnail src={book.thumbnail} alt="thumbnail" />
+      <ButtonBox>
+        <I done={book.readDate}>
+          <FaBookOpen onClick={onRead} />
+        </I>
+        <I done={book.postId}>
+          <FaPen onClick={onWrite} />
+        </I>
+        <I>
+          <FaTrash onClick={onRemove} />
+        </I>
+      </ButtonBox>
+    </Card>
   );
 };
 
 const Card = styled.div`
-  margin: 1vw;
+  margin: 1rem;
   width: 150px;
   height: 225px;
-  border-bottom: 1px solid rgb(122, 122, 122);
-`;
+  padding: 0 0.5rem;
+  background-color: ${(props) => props.theme.color.gray_light};
+  border-radius: 0.5rem;
+  transition: 0.3s all ease-out;
+  justify-content: space-between;
 
-const Info = styled.div`
-  ${(props) => props.theme.flex_column};
-
-  img {
-    width: 85%;
-    height: 180px;
-  }
-  &:hover .content {
-    opacity: 1;
+  &:hover {
     transform: translateY(-10px);
   }
+  ${(props) => props.theme.flex_column};
+  justify-content: space-around;
+  ${(props) => props.theme.border_box};
 `;
 
-const Content = styled.div`
-  position: relative;
-  background-color: rgba(245, 245, 245, 0.774);
-  color: rgb(65, 65, 65);
-  width: 90%;
-  top: -50px;
-  border-radius: 12px;
-  transition: 0.3s ease-in-out;
-  opacity: 0;
-
-  span {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+const Thumbnail = styled.img`
+  width: 100%;
+  height: 75%;
 `;
 
 const ButtonBox = styled.div`
-  display: flex;
-  position: relative;
-  top: -50px;
-  justify-content: space-around;
+  ${(props) => props.theme.flex_row};
+  ${(props) => props.theme.border_box};
+  width: 100%;
+  height: 15%;
+  padding: 0 0.5rem;
 `;
 
 const I = styled.span`
   cursor: pointer;
-  & {
-    color: ${(props) => (props.done ? 'red' : 'gray')};
+  font-size: 1.25rem;
+  transition: 0.2s all ease;
+  color: ${(props) =>
+    props.done ? props.theme.color.red : props.theme.color.navy_light};
+
+  &:hover {
+    color: ${(props) =>
+      props.done ? props.theme.color.navy_light : props.theme.color.red};
   }
 `;
 export default BasketCard;

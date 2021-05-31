@@ -43,7 +43,7 @@ const BookDetail = () => {
               </tr>
               <tr>
                 <td>출판일</td>
-                <td></td>
+                <td>{detailBook.datetime.split('T')[0]}</td>
               </tr>
               <tr>
                 <td>가격</td>

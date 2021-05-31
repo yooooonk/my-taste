@@ -3,6 +3,7 @@ import { bookAPI, postAPI } from '../../api';
 import moment from 'moment';
 import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
+import { remove } from 'lodash';
 
 // initialState
 const initialState = {
@@ -28,6 +29,8 @@ const deleteBookBasketCard = createAction('book/DELETE_BOOK_BASKET_CARD');
 const updateBookBasket = createAction('book/UPDATE_IS_READ_STATUS');
 const clearBookState = createAction('book/CLEAR_BOOK_STATE');
 const setDashboard = createAction('book/SET_DASHBOARD');
+const addDashboard = createAction('book/ADD_DASHBOARD');
+const removeDashboard = createAction('book/REMOVE_DASHBOARD');
 
 // reducer
 const bookReducer = createReducer(initialState, {
@@ -51,6 +54,15 @@ const bookReducer = createReducer(initialState, {
   [setDashboard]: (state, { payload }) => {
     state.dashBoard = payload;
     state.loading = false;
+  },
+  [addDashboard]: (state, { payload }) => {
+    state.dashBoard = [...state.dashBoard, payload];
+    state.loading = false;
+  },
+  [removeDashboard]: (state, { payload }) => {
+    state.dashBoard = state.dashBoard.filter((d) => {
+      return d.id !== payload;
+    });
   },
 
   [setBookBasket]: (state, { payload }) => {
@@ -191,6 +203,8 @@ const fetchCreateBookBasket =
       dispatch(
         setBookBasket({ basket: [{ ...data, id: res.id }], paging: null })
       );
+
+      dispatch(addDashboard({ ...data, id: res.id }));
     } catch (error) {
       console.error(error);
     }
@@ -202,6 +216,7 @@ const fetchDeleteBookBasket =
     try {
       const res = await bookAPI.deleteBookBasket(basketId);
       dispatch(deleteBookBasketCard(basketId));
+      dispatch(removeDashboard(basketId));
     } catch (error) {
       console.error(error);
     }

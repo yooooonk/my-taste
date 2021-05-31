@@ -17,7 +17,7 @@ const PostWrite = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
   const { preview } = useSelector((state) => state.image);
-  const { isMobile } = useSelector((state) => state.view);
+  const { isMobile } = useSelector((state) => state.common);
   const [requireError, setRequireError] = useState(false);
 
   const isEdit = props.match.path.indexOf('edit') > -1;
