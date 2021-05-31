@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postActions } from '../redux/modules/post';
 import Permit from '../shared/Permit';
@@ -10,17 +10,20 @@ import { Grid, Wrapper } from '../elements';
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
+
   const { list } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
-  const { isMobile } = useSelector((state) => state.view);
+  const { isMobile } = useSelector((state) => state.common);
+
   const id = props.match.params.id;
   const idx = list.findIndex((p) => p.id === id);
   const post = list[idx];
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (post) return;
     dispatch(postActions.fetchPost(id));
   });
+
   return (
     <DetailWrapper>
       {post && (

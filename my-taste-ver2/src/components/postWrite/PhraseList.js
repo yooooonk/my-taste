@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const PhraseList = (props) => {
   const { phraseList, _onClick } = props;
-  const { isMobile } = useSelector((state) => state.view);
+
   return (
     <Wrapper is_column>
       {phraseList?.map((p, idx) => {

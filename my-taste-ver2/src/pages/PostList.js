@@ -5,9 +5,10 @@ import Permit from '../shared/Permit';
 import Post from '../components/post/Post';
 import { postActions } from '../redux/modules/post';
 import { commonActions } from '../redux/modules/common';
-
+import _ from 'lodash';
 import styled from 'styled-components';
 import ScrollWrapper from '../shared/ScrollWrapper';
+
 const PostList = (props) => {
   const { isMobile } = useSelector((state) => state.common);
   const { history } = props;
@@ -26,14 +27,21 @@ const PostList = (props) => {
       dispatch(commonActions.setCurrentMenu(null));
     };
   }, []);
+
+  const onScroll = _.throttle((e) => {
+    if (is_loading) return;
+
+    const scrollPer = Math.floor(
+      (e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)) *
+        100
+    );
+    if (scrollPer > 80) {
+      dispatch(postActions.fetchPosts());
+    }
+  }, 300);
+
   return (
-    <ScrollWrapper
-      callNext={() => {
-        dispatch(postActions.fetchPosts());
-      }}
-      is_next={paging.next ? true : false}
-      loading={is_loading}
-    >
+    <Container onScroll={onScroll}>
       {post_list.map((p, idx) => {
         return (
           <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
@@ -41,28 +49,21 @@ const PostList = (props) => {
           </Grid>
         );
       })}
-    </ScrollWrapper>
+    </Container>
   );
 };
 
-/* const ScrollWrapper = styled.div`
+const Container = styled.div`
+  ${(props) => props.theme.flex_row};
+  flex-wrap: wrap;
   overflow-y: scroll;
-  background-color: #f6f6f6;
   width: 100%;
-  ${(props) => props.theme.flex_row}
-  justify-content:center;
+  height: 100%;
+  background-color: ${(props) => props.theme.color.blue};
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-const InnerWrapper = styled.div`
-  width: 50%;
-  height: 100%;
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  }
-`; */
 export default PostList;

@@ -13,6 +13,7 @@ import { commonActions } from '../redux/modules/common';
 const Search = (props) => {
   const { detailBook } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
+  const { isMobile } = useSelector((state) => state.common);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +34,11 @@ const Search = (props) => {
     <Container>
       <DetailWrapper>
         <SearchBar />
-        {detailBook ? <BookDetail /> : <NoResult msg="" />}
+        {detailBook ? (
+          <BookDetail />
+        ) : (
+          <NoResult msg="좋아하는 책을 검색해보세요" />
+        )}
       </DetailWrapper>
       <SearchList />
     </Container>
@@ -56,6 +61,7 @@ const Container = styled.div`
 const DetailWrapper = styled.div`
   position: relative;
   width: 100%;
+  height: 35%;
   ${(props) => props.theme.flex_column};
   justify-content: space-between;
   background-color: ${(props) => props.theme.color.gray_light};
