@@ -8,8 +8,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
   is_circle: false,
-  src:
-    'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0',
+  src: 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0',
   size: '36px',
   radius: 0,
   _onClick: () => {},
@@ -18,9 +17,8 @@ Image.defaultProps = {
 };
 
 const ImageShape = styled.div`
-  --size: ${(props) => props.size};
-  width: var(--size);
-  height: var(--size);
+  width: ${(props) => props.size}vw;
+  height: ${(props) => props.size}vw;
   border-radius: ${(props) => (props.is_circle ? '50%' : props.radius)};
   background-image: url('${(props) => props.src}');
   background-size: cover;

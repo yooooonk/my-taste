@@ -4,24 +4,19 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { Image } from '../elements';
 import styled from 'styled-components';
 
-const ImageCarousel = ({ image, phraseList, size }) => {
+const ImageCarousel = ({ image, phraseList }) => {
   const [totalSlides, setTotalSlides] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
-
+  const size = 20;
   useEffect(() => {
-    /* if (image.indexOf('http') === 0) {
-      setImageSrc(image);
-    } else {
-      setImageSrc(`${backUrl}/${image}`);
-    } */
-    slideRef.current.style.width = `${60 * (phraseList.length + 1)}vh`;
+    slideRef.current.style.width = `${size * (phraseList.length + 1)}vw`; //여기
     setTotalSlides(phraseList.length);
   }, []);
 
   const mapToCarouselDiv = phraseList.map((v, idx) => {
     return (
-      <CarouselDiv text={v} key={idx}>
+      <CarouselDiv size={size} text={v} key={idx}>
         {v}
       </CarouselDiv>
     );
@@ -45,7 +40,7 @@ const ImageCarousel = ({ image, phraseList, size }) => {
 
   useEffect(() => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide * 60}vh)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
+    slideRef.current.style.transform = `translateX(-${currentSlide * size}vw)`; // 여기
   }, [currentSlide]);
   return (
     <Wrapper>
@@ -53,15 +48,16 @@ const ImageCarousel = ({ image, phraseList, size }) => {
         {currentSlide > 0 ? <FaChevronLeft /> : '  '}
       </SlideBtn>
 
-      <Slider>
+      <Slider size={size}>
         <Paging>
           {currentSlide + 1}/{totalSlides + 1}
         </Paging>
         <ImageWrap ref={slideRef}>
-          <Image margin="0px" size="60vh" src={image} />
+          <Image margin="0px" size={size} src={image} />
           {mapToCarouselDiv}
         </ImageWrap>
       </Slider>
+
       <SlideBtn className="right" onClick={(e) => nextSlide(e)}>
         {currentSlide === totalSlides ? '' : <FaChevronRight />}
       </SlideBtn>
@@ -72,28 +68,36 @@ const ImageCarousel = ({ image, phraseList, size }) => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  position: relative;
+  width: ${(props) => props.size}vw;
+  height: ${(props) => props.size}vw;
 `;
 
 const SlideBtn = styled.div`
   width: 20px;
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  height: 20px;
+  height: 100%;
+  color: ${(props) => props.theme.color.gray};
+
+  &:hover {
+    color: ${(props) => props.theme.color.navy};
+  }
+
+  ${(props) => props.theme.flex_row};
   &.left {
-    top: 30vh;
     z-index: 1;
-    left: 30px;
+    left: 0;
   }
 
   &.right {
-    top: 30vh;
     z-index: 1;
-    right: 30px;
+    right: 0;
   }
 `;
 
 const Slider = styled.div`
-  width: 60vh;
+  width: ${(props) => props.size}vw; // 여기
   overflow: hidden;
 `;
 
@@ -101,7 +105,7 @@ const ImageWrap = styled.div`
   display: flex;
   overflow: hidden;
   flex-wrap: nowrap;
-  height: 60vh;
+  height: ${(props) => props.size}vw; // 여기
 `;
 
 const CarouselDiv = styled.div`
@@ -109,21 +113,23 @@ const CarouselDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vh;
-  height: 60vh;
+  width: ${(props) => props.size}vw; // 여기
+  height: ${(props) => props.size}vw; // 여기
 `;
 
 const Paging = styled.div`
-  display: inline-block;
-  text-align: center;
-  position: relative;
-  border-radius: 10px;
-  z-index: 1;
-  top: 4vh;
-  left: 24vh;
+  position: absolute;
   width: 40px;
   color: white;
-  font-size: 0.8em;
-  background-color: rgba(128, 128, 128, 0.795);
+  font-size: 0.5rem;
+  background-color: rgb(164, 164, 164, 0.75);
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+  z-index: 1;
+  border-radius: 1rem;
+  height: 1rem;
+  ${(props) => props.theme.flex_row};
+  justify-content: center;
 `;
 export default ImageCarousel;
