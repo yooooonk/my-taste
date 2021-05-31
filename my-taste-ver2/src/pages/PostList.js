@@ -44,9 +44,11 @@ const PostList = (props) => {
     <Container onScroll={onScroll}>
       {post_list.map((p, idx) => {
         return (
-          <Grid key={idx} _onClick={() => history.push(`/post/${p.id}`)}>
-            <Post {...p} />
-          </Grid>
+          <Post
+            {...p}
+            _onClick={() => history.push(`/post/${p.id}`)}
+            key={idx}
+          />
         );
       })}
     </Container>
@@ -60,6 +62,8 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.color.blue};
+  padding: 1.5rem;
+  ${(props) => props.theme.border_box};
 
   &::-webkit-scrollbar {
     display: none;

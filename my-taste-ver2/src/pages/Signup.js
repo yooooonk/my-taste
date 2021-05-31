@@ -83,6 +83,7 @@ const Signup = (props) => {
   };
 
   const onSignup = (e) => {
+    console.log(checkTotalvalidation());
     if (!checkTotalvalidation()) return alert('입력요건을 지켜주세요');
 
     dispatch(userActions.signupFB(id, nickname, pw));
@@ -106,7 +107,7 @@ const Signup = (props) => {
     pwCheck
   ]);
   const checkTotalvalidation = () => {
-    let passEmail = id && isValidEmail && isValidEmailMultiple;
+    let passEmail = id && isValidEmail;
     let passUsername = nickname && isValidUsername;
     let passPw =
       pw && isValidPassword && isValidPasswordRepeat && pw === pwCheck;

@@ -56,7 +56,9 @@ const signupFB = (id, nickname, pw) => {
       .then((user) => {
         auth.currentUser
           .updateProfile({
-            displayName: nickname
+            displayName: nickname,
+            photoURL:
+              'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0'
           })
           .then(() => {
             dispatch(
@@ -66,7 +68,7 @@ const signupFB = (id, nickname, pw) => {
               })
             );
 
-            history.push('/login');
+            history.replace('/');
           })
           .catch((error) => {
             console.log(error.code);

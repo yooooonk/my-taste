@@ -10,7 +10,7 @@ import { imageAPI, notiAPI, postAPI } from '../../api';
 // initialState
 const initialState = {
   list: [],
-  paging: { start: null, next: null, size: 3 },
+  paging: { start: null, next: null, size: 6 },
   is_loading: false,
   randomPhrases: [
     '지키는 일이다. 지켜보는 일이다. 사랑한다는 것은',

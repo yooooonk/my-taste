@@ -4,11 +4,11 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { Image } from '../elements';
 import styled from 'styled-components';
 
-const ImageCarousel = ({ image, phraseList }) => {
+const ImageCarousel = ({ image, phraseList, size }) => {
   const [totalSlides, setTotalSlides] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
-  const size = 20;
+
   useEffect(() => {
     slideRef.current.style.width = `${size * (phraseList.length + 1)}vw`; //여기
     setTotalSlides(phraseList.length);

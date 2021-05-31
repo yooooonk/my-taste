@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import React from 'react';
 const Image = (props) => {
-  const { _onClick } = props;
+  const { _onClick, size } = props;
 
-  return <ImageShape {...props} onClick={_onClick}></ImageShape>;
+  return <ImageShape size={size} {...props} onClick={_onClick}></ImageShape>;
 };
 
 Image.defaultProps = {
   is_circle: false,
   src: 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0',
-  size: '36px',
+  size: 3,
   radius: 0,
   _onClick: () => {},
   _onDelete: () => {},
