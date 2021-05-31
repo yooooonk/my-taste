@@ -6,11 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { css } from '@emotion/react';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { bookActions } from '../redux/modules/book';
+import { commonActions } from '../redux/modules/common';
 
 const BookCalendar = (props) => {
   const dispatch = useDispatch();
   const { isLogin } = useSelector((state) => state.user);
   const { dashBoard, loading } = useSelector((state) => state.book);
+
+  useEffect(() => {
+    dispatch(commonActions.setCurrentMenu('calendar'));
+
+    return () => {
+      dispatch(commonActions.setCurrentMenu(null));
+    };
+  }, []);
 
   useEffect(() => {
     if (isLogin) {

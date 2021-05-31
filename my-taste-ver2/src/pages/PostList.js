@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid } from '../elements';
 import Permit from '../shared/Permit';
 import Post from '../components/post/Post';
-import { actionCreators as postActions } from '../redux/modules/post';
-//import InfinityScroll from '../shared/InfinityScroll';
+import { postActions } from '../redux/modules/post';
+import { commonActions } from '../redux/modules/common';
+
 import styled from 'styled-components';
 import ScrollWrapper from '../shared/ScrollWrapper';
 const PostList = (props) => {
@@ -15,10 +16,15 @@ const PostList = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const { is_loading, paging } = useSelector((state) => state.post);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    dispatch(commonActions.setCurrentMenu('feed'));
     if (post_list.length < 2) {
       dispatch(postActions.fetchPosts());
     }
+
+    return () => {
+      dispatch(commonActions.setCurrentMenu(null));
+    };
   }, []);
   return (
     <ScrollWrapper

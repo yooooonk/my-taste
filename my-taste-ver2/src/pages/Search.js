@@ -8,16 +8,18 @@ import {
   SearchList
 } from '../components/book';
 import { bookActions } from '../redux/modules/book';
+import { commonActions } from '../redux/modules/common';
 
 const Search = (props) => {
-  const { history } = props;
   const { detailBook } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(commonActions.setCurrentMenu('search'));
     return () => {
       dispatch(bookActions.clearBookState());
+      dispatch(commonActions.setCurrentMenu(null));
     };
   }, []);
 

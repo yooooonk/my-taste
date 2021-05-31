@@ -343,7 +343,7 @@ const fetchRandomPhrase =
   };
 
 // action creator export
-const actionCreators = {
+const postActions = {
   addPost,
   editPost,
   fetchCreatePost,
@@ -356,5 +356,5 @@ const actionCreators = {
   fetchRandomPhrase
 };
 
-export { actionCreators };
+export { postActions };
 export default postReducer;

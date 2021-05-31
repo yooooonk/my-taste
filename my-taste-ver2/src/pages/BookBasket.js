@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import BasketCard from '../components/basket/BasketCard';
 import NoResult from '../components/book/NoResult';
 import { bookActions } from '../redux/modules/book';
+import { commonActions } from '../redux/modules/common';
 import { css } from '@emotion/react';
 import PulseLoader from 'react-spinners/PulseLoader';
 import _ from 'lodash';
@@ -12,6 +13,13 @@ const BookBasket = ({ history }) => {
   const dispatch = useDispatch();
   const { bookBasket, loading } = useSelector((state) => state.book);
   const isLogin = useSelector((state) => state.user.isLogin);
+
+  useEffect(() => {
+    dispatch(commonActions.setCurrentMenu('shelf'));
+    return () => {
+      dispatch(commonActions.setCurrentMenu(null));
+    };
+  }, []);
 
   useEffect(() => {
     if (isLogin) {

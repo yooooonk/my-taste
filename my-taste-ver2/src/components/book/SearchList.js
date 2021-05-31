@@ -22,6 +22,7 @@ const SearchList = () => {
 
     target.style.backgroundColor = `rgb(236,236,236,0.9)`;
   });
+
   const searchNext = useCallback((e) => {
     //TODO : 다음이 너무 자주 호출됨
 
@@ -40,7 +41,6 @@ const SearchList = () => {
                 changeCardStyle={changeCardStyle}
                 key={idx}
                 book={book}
-                key={book.isbn}
               />
             );
           })}

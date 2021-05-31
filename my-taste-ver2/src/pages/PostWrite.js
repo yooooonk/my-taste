@@ -7,9 +7,8 @@ import Upload from '../shared/Upload';
 
 import ErrorMsg from '../components/ErrorMsg';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
-import LayoutPicker from '../components/LayoutPicker';
 import PhraseList from '../components/postWrite/PhraseList';
 import Wrapper from '../elements/Wrapper';
 

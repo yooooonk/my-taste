@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from './Navbar';
+import _ from 'lodash';
+import { commonActions } from '../redux/modules/common';
 
 const AppLayout = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleResize = _.throttle(() => {
+    dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
+  }, 300);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <Container>
       <Navbar />

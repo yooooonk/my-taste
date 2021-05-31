@@ -4,7 +4,7 @@ import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import ImageCarousel from '../ImageCarousel';
 import Permit from '../../shared/Permit';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../../redux/modules/post';
+import { postActions } from '../../redux/modules/post';
 import { MdCreate, MdDelete } from 'react-icons/md';
 import { history } from '../../redux/configStore';
 import Header from '../Header';

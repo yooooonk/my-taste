@@ -1,9 +1,6 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-import { bookAPI, postAPI } from '../../api';
+import { bookAPI } from '../../api';
 import moment from 'moment';
-import { firestore, storage, realtime } from '../../shared/firebase';
-import { actionCreators as imageActions } from './image';
-import { remove } from 'lodash';
 
 // initialState
 const initialState = {

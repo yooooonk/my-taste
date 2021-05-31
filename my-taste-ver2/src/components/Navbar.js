@@ -1,34 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { I, Wrapper } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
 import { actionCreators as userActions } from '../redux/modules/user';
-import { actionCreators as commonActions } from '../redux/modules/common';
+
 import NotiBadge from './NotiBadge';
 import styled, { keyframes } from 'styled-components';
 import { FaPowerOff, FaKissWinkHeart, FaBars } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import _ from 'lodash';
+
 import Login from './Login';
 import Profile from './Profile';
 const Navbar = (props) => {
   const dispatch = useDispatch();
 
-  const { isMobile } = useSelector((state) => state.common);
-  const handleResize = _.throttle(() => {
-    dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
-  }, 300);
   const [openMenu, setOpenMenu] = useState(false);
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const { isMobile, currentMenu } = useSelector((state) => state.common);
 
   const logout = (e) => {
     dispatch(userActions.logoutFB());
@@ -38,6 +28,7 @@ const Navbar = (props) => {
     setOpenMenu(false);
     history.push(path);
   };
+
   return (
     <Nav>
       <Wrapper jc="space-between">
@@ -58,19 +49,35 @@ const Navbar = (props) => {
         </Wrapper>
       )}
       <Menu isOpen={openMenu}>
-        <span className="search" onClick={moveToPage('/search')}>
+        <MenuItem
+          currentMenu={currentMenu === 'search'}
+          className="search"
+          onClick={moveToPage('/search')}
+        >
           Search
-        </span>
-        <span className="feed" onClick={moveToPage('/feed')}>
+        </MenuItem>
+        <MenuItem
+          currentMenu={currentMenu === 'feed'}
+          className="feed"
+          onClick={moveToPage('/feed')}
+        >
           Feed
-        </span>
+        </MenuItem>
 
-        <span className="shelf" onClick={moveToPage('/basket')}>
+        <MenuItem
+          currentMenu={currentMenu === 'shelf'}
+          className="shelf"
+          onClick={moveToPage('/basket')}
+        >
           Shelf
-        </span>
-        <span className="calendar" onClick={moveToPage('/calendar')}>
+        </MenuItem>
+        <MenuItem
+          currentMenu={currentMenu === 'calendar'}
+          className="calendar"
+          onClick={moveToPage('/calendar')}
+        >
           Calendar
-        </span>
+        </MenuItem>
       </Menu>
       {isMobile && (
         <Icons isOpen={openMenu}>
@@ -133,7 +140,6 @@ const Nav = styled.div`
   color: #ffeb60;
   display: flex;
   flex-direction: column;
-  //height: 10vh;
   align-items: flex-start;
   width: 100vw;
 
@@ -175,43 +181,6 @@ const Menu = styled.div`
   transition: 0.3s all;
   ${(props) => props.theme.border_box};
 
-  & span {
-    ${(props) => props.theme.flex_row};
-    align-items: center;
-    width: 100%;
-    height: 1.75rem;
-    justify-content: center;
-
-    &:hover {
-      transform: skew(-15deg);
-    }
-
-    &.search {
-      background-color: ${(props) => props.theme.color.yellow};
-    }
-
-    &.shelf {
-      background-color: ${(props) => props.theme.color.orange};
-    }
-
-    &.feed {
-      background-color: ${(props) => props.theme.color.blue};
-    }
-
-    &.calendar {
-      background-color: ${(props) => props.theme.color.green};
-    }
-
-    @media ${(props) => props.theme.desktop} {
-      border-top-left-radius: 7px;
-      border-bottom-left-radius: 7px;
-      width: 30%;
-      padding-left: 1rem;
-      margin: 0.25rem 0;
-      justify-content: flex-start;
-    }
-  }
-
   @media ${(props) => props.theme.mobile} {
     display: ${(props) => (props.isOpen ? '' : 'none')};
   }
@@ -223,6 +192,52 @@ const Menu = styled.div`
   @media ${(props) => props.theme.desktop} {
     align-items: flex-end;
     margin-bottom: 10%;
+  }
+`;
+
+const MenuItem = styled.span`
+  ${(props) => props.theme.flex_row};
+  align-items: center;
+  width: 100%;
+  height: 1.75rem;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.3);
+    transform-origin: right;
+    font-weight: bold;
+  }
+  &.search {
+    background-color: ${(props) => props.theme.color.yellow};
+  }
+
+  &.shelf {
+    background-color: ${(props) => props.theme.color.orange};
+  }
+
+  &.feed {
+    background-color: ${(props) => props.theme.color.blue};
+  }
+
+  &.calendar {
+    background-color: ${(props) => props.theme.color.green};
+  }
+
+  ${(props) =>
+    props.currentMenu
+      ? `font-weight: 600;
+      transform: scale(1.3);
+      transform-origin: right;
+     `
+      : ''}
+
+  @media ${(props) => props.theme.desktop} {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    width: 30%;
+    padding-left: 1rem;
+    margin: 0.25rem 0;
+    justify-content: flex-start;
   }
 `;
 

@@ -1,34 +1,26 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
+import { createReducer, createAction } from '@reduxjs/toolkit';
+import { initial } from 'lodash';
 
 const initialState = {
   isMobile: false,
-  layout: 'top-bottom'
+  currentMenu: null
 };
 
-const SET_VIEW_MODE = 'SET_VIEW_MODE';
-const SET_LAYOUT = 'SET_LAYOUT';
+const setIsMobile = createAction('common/SET_IS_MOBILE');
+const setCurrentMenu = createAction('common/SET_CURRENT_MENU');
 
-const setIsMobile = createAction(SET_VIEW_MODE, (isMobile) => ({ isMobile }));
-const setLayout = createAction(SET_LAYOUT, (layout) => ({ layout }));
-
-export default handleActions(
-  {
-    [SET_VIEW_MODE]: (state, action) =>
-      produce(state, (draft) => {
-        draft.isMobile = action.payload.isMobile;
-      }),
-    [SET_LAYOUT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.layout = action.payload.layout;
-      })
+const commonReducer = createReducer(initialState, {
+  [setIsMobile]: (state, { payload }) => {
+    state.isMobile = payload;
   },
-  initialState
-);
+  [setCurrentMenu]: (state, { payload }) => {
+    state.currentMenu = payload;
+  }
+});
 // action creator export
-const actionCreators = {
+export const commonActions = {
   setIsMobile,
-  setLayout
+  setCurrentMenu
 };
 
-export { actionCreators };
+export default commonReducer;

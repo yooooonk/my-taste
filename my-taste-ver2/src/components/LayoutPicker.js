@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormControlLabel, RadioGroup, Radio, Switch } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as commonActions } from '../redux/modules/common';
+import commonActions from '../redux/modules/common';
 import Wrapper from '../elements/Wrapper';
 
 const LayoutPicker = () => {

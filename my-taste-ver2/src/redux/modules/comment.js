@@ -4,7 +4,7 @@ import { firestore, realtime } from '../../shared/firebase';
 import firebase from 'firebase/app';
 import 'moment';
 import moment from 'moment';
-import { actionCreators as postActions } from './post';
+import { postActions } from './post';
 
 const initialState = {
   list: {},

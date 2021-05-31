@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookActions } from '../../redux/modules/book';
-import { actionCreators as postActions } from '../../redux/modules/post';
+import { postActions } from '../../redux/modules/post';
 import DashboardCard from './DashboardCard';
 import { css } from '@emotion/react';
 import PulseLoader from 'react-spinners/PulseLoader';
