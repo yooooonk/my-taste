@@ -101,7 +101,6 @@ const RandomPhraseWrapper = styled.div`
   color: ${(props) => props.theme.color.navy};
   width: 100%;
   height: 40%;
-  border: 1px solid black;
 `;
 
 const Title = styled.div`

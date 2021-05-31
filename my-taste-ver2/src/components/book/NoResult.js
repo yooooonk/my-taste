@@ -10,6 +10,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   flex-basis: 60%;
+  color: ${(props) => props.theme.color.gray_light};
 `;
 
 export default NoResult;

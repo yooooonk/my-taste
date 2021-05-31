@@ -29,15 +29,11 @@ const Search = (props) => {
 
   return (
     <Container>
-      <SearchBar />
-      <DetailWrapper className="detail">
-        {detailBook ? (
-          <BookDetail />
-        ) : (
-          <NoResult msg="좋아하는 책을 검색해주세요 &#128151;" />
-        )}
+      <DetailWrapper>
+        <SearchBar />
+        {detailBook ? <BookDetail /> : <NoResult msg="" />}
       </DetailWrapper>
-      <SearchList className="list" />
+      <SearchList />
     </Container>
   );
 };
@@ -56,11 +52,14 @@ const Container = styled.div`
 `;
 
 const DetailWrapper = styled.div`
+  position: relative;
   width: 100%;
-  ${(props) => props.theme.flex_row};
-  justify-content: center;
+  ${(props) => props.theme.flex_column};
+  justify-content: space-between;
+  background-color: ${(props) => props.theme.color.gray_light};
 
   @media ${(props) => props.theme.desktop} {
+    width: 60%;
     height: 100%;
   }
 `;

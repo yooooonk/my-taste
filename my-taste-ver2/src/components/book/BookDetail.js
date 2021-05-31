@@ -27,59 +27,95 @@ const BookDetail = () => {
 
   return (
     <DetailContainer>
-      <Thumbnail>
-        <img src={detailBook.thumbnail} alt="thumbnail" />
-        {isLogin && (
-          <ButtonBox>
-            {basketBook ? (
-              <FaHeart className="icon like" onClick={onUnlike} />
-            ) : (
-              <FaHeart className="icon unlike" onClick={onLike} />
-            )}
-          </ButtonBox>
-        )}
-      </Thumbnail>
-      <Contents>
-        <span className="title">{detailBook.title}</span>
-        <span className="author">
-          {authors} | {detailBook.translators}
-        </span>
-
-        <span className="publisher">{detailBook.publisher} </span>
-        <span className="price">
-          &#128181;{detailBook.price}원 <span>{status}</span>{' '}
-        </span>
-        <span className="description">
-          {detailBook.contents.substr(0, 80)}...
-          <a href={detailBook.url} target="_blank" rel="noreferrer">
-            {' '}
-            자세히
-          </a>
-        </span>
-      </Contents>
+      <MetaData>
+        <Thumbnail src={detailBook.thumbnail} alt="thumbnail" />
+        <DataBox>
+          <Title>{detailBook.title}</Title>
+          <Contents>
+            <tbody>
+              <tr>
+                <td>저자</td>
+                <td>{authors}</td>
+              </tr>
+              <tr>
+                <td>출판사</td>
+                <td>{detailBook.publisher} </td>
+              </tr>
+              <tr>
+                <td>출판일</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>가격</td>
+                <td>{detailBook.price}</td>
+              </tr>
+            </tbody>
+          </Contents>
+          {isLogin && (
+            <ButtonBox>
+              {basketBook ? (
+                <FaHeart className="icon like" onClick={onUnlike} />
+              ) : (
+                <FaHeart className="icon unlike" onClick={onLike} />
+              )}
+            </ButtonBox>
+          )}
+        </DataBox>
+      </MetaData>
+      <Description>
+        {detailBook.contents.substr(0, 100)}...
+        <br />
+        <a href={detailBook.url} target="_blank" rel="noreferrer">
+          {' '}
+          자세히
+        </a>
+      </Description>
     </DetailContainer>
   );
 };
 
 const DetailContainer = styled.div`
-  ${(props) => props.theme.flex_row};
+  ${(props) => props.theme.flex_column};
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 90%;
+  padding: 1rem;
+  ${(props) => props.theme.border_box};
 `;
 
-const Thumbnail = styled.div`
-  display: flex;
+const MetaData = styled.div`
+  ${(props) => props.theme.flex_row};
+  ${(props) => props.theme.border_box};
+  width: 100%;
+
+  color: ${(props) => props.theme.color.navy};
+`;
+
+const Thumbnail = styled.img`
+  border-radius: 1rem;
+  width: 30%;
+
+  @media ${(props) => props.theme.desktop} {
+    width: 40%;
+  }
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 40%;
-
-  img {
+ */
+  /* img {
     width: 75%;
     border-radius: 20px;
     box-shadow: $shadow rgba(255, 99, 99, 0.2);
-  }
+  } */
+`;
+
+const DataBox = styled.div`
+  width: 50%;
+  ${(props) => props.theme.flex_column};
+  height: 100%;
 `;
 
 const ButtonBox = styled.div`
@@ -93,69 +129,57 @@ const ButtonBox = styled.div`
     font-size: 1rem;
     border-radius: 30%;
     cursor: pointer;
-    &:hover {
-      box-shadow: 3px 3px 10px rgba(180, 132, 132, 0.5);
-    }
+    background-color: ${(props) => props.theme.color.navy};
   }
 
   & .like {
-    color: ${(props) => props.theme.main_color};
-    border: 1px solid ${(props) => props.theme.main_color};
+    color: ${(props) => props.theme.color.red};
+
+    &:hover {
+      color: ${(props) => props.theme.color.gray_light};
+    }
   }
 
   & .unlike {
-    color: pink;
-    border: 2px dotted pink;
-
+    color: white;
     &:hover {
+      color: ${(props) => props.theme.color.red};
     }
-  }
-
-  & .penceil {
-    color: pink;
-    border: 2px dotted $mainColor;
   }
 `;
 
-const Contents = styled.div`
-  width: 50%;
+const Contents = styled.table`
+  width: 100%;
+  font-size: 0.85rem;
+`;
 
-  span {
-    display: block;
-    margin: 1vh 0;
-  }
+const Title = styled.span`
+  font-size: 1.5rem;
+  width: 100%;
+  overflow: hidden;
 
-  .title {
-    font-size: 1.5rem;
-    width: 100%;
-    overflow: hidden;
+  font-weight: bold;
+  @media ${(props) => props.theme.mobile} {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  .author,
-  .publisher {
-    font-size: 0.9rem;
+  @media ${(props) => props.theme.tablet} {
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
+`;
 
-  .description {
-    height: 100px;
-    font-size: 0.75rem;
-    a {
-      color: ${(props) => props.theme.main_color};
-    }
+const Description = styled.div`
+  display: none;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+  color: ${(props) => props.theme.color.navy};
+
+  & a {
+    color: ${(props) => props.theme.color.orange};
   }
-
-  .price {
-    font-size: 0.9rem;
-    span {
-      display: inline-block;
-      background-color: pink;
-      color: white;
-      border-radius: 15px;
-      text-align: center;
-      width: 40px;
-    }
+  @media ${(props) => props.theme.desktop} {
+    display: block;
   }
 `;
 

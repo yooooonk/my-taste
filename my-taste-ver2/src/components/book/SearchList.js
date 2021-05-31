@@ -13,18 +13,14 @@ const SearchList = () => {
     (state) => state.book
   );
 
-  const mapToComponent = searchList?.map((book) => {
-    return <BookCard book={book} key={book.isbn} />;
-  });
   const changeCardStyle = useCallback((target) => {
     if (preCard) {
-      preCard.style.transform = `translateX(0px)`;
       preCard.style.backgroundColor = '';
     }
 
     setPreCard(target);
-    target.style.transform = `translateX(-30px)`;
-    target.style.backgroundColor = `white`;
+
+    target.style.backgroundColor = `rgb(236,236,236,0.9)`;
   });
   const searchNext = useCallback((e) => {
     //TODO : 다음이 너무 자주 호출됨
@@ -51,19 +47,16 @@ const SearchList = () => {
         </ScrollWrapper>
       )}
 
-      {searchList.length === 0 && (
-        <NoResult msg="검색결과가 없습니다. &#128166;" />
-      )}
+      {searchList.length === 0 && <NoResult msg="검색결과가 없습니다" />}
     </Container>
   );
 };
 
 const Container = styled.div`
   overflow: scroll;
-  height: 70vh;
-  background-color: ${(props) => props.theme.pink};
-
-  background-color: yellow;
+  height: 70%;
+  width: 100%;
+  background-color: ${(props) => props.theme.color.yellow};
   ${(props) => props.theme.flex_column};
   justify-content: center;
   align-items: center;
@@ -74,8 +67,7 @@ const Container = styled.div`
 
   @media ${(props) => props.theme.desktop} {
     height: 100%;
-    width: 600px;
-    padding: 0;
+    width: 40%;
   }
 `;
 

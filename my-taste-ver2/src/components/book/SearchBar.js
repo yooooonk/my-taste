@@ -32,45 +32,42 @@ const SearchBar = () => {
 
   return (
     <Bar>
-      <FaSearch className="icon" onClick={onClickSearchBtn} />
+      <FaSearch onClick={onClickSearchBtn} />
       <Input type="text" onKeyPress={onEnter} onChange={onChangeQuery} />
     </Bar>
   );
 };
 
 const Bar = styled.div`
+  position: relative;
   width: 100%;
-  margin: 0.5rem 0;
-  & .icon {
-    position: relative;
-    left: 30px;
-    top: 3px;
-    color: rgb(177, 177, 177);
+  padding: 0.5rem 1.5rem;
+
+  ${(props) => props.theme.border_box};
+  ${(props) => props.theme.flex_row};
+
+  & svg {
+    position: absolute;
+    color: ${(props) => props.theme.color.navy};
     z-index: 1;
     cursor: pointer;
+    padding: 0.7rem;
   }
+
   @media ${(props) => props.theme.desktop} {
-    position: absolute;
-    top: 7%;
-    margin-left: 5%;
-    width: 40vw;
+    height: 10%;
   }
 `;
 
 const Input = styled.input`
   ${(props) => props.theme.border_box};
   position: relative;
-  height: 40px;
-  width: 90%;
-  background-color: white;
-  border-radius: 20px;
+  height: 2rem;
+  width: 100%;
+  background-color: ${(props) => props.theme.color.gray};
+  border-radius: 1rem;
   border: none;
-  padding-left: 40px;
-  box-shadow: 5px 5px 20px rgba(180, 132, 132, 0.5);
-
-  @media ${(props) => props.theme.desktop} {
-    width: 30vw;
-  }
+  padding-left: 2rem;
 `;
 
 export default SearchBar;
