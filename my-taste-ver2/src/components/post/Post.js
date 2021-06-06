@@ -62,6 +62,7 @@ const Post = (props) => {
         <Permit>
           {like && <TiHeart className="like" onClick={onUnlike} />}
           {!like && <TiHeartOutline className="dislike" onClick={onLike} />}
+
           <TiMessage className="comment" onClick={_onClick} />
         </Permit>
       </ButtonBox>
@@ -101,6 +102,7 @@ const ButtonBox = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
   margin: 0.5rem 0;
+
   & .like,
   .dislike {
     color: ${(props) => props.theme.color.red};

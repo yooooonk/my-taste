@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import { Grid, Image, Text, Wrapper } from '../../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as commentActions } from '../../redux/modules/comment';
+import styled from 'styled-components';
 
 const CommentList = (props) => {
+  const { post_id } = props;
+
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
-  const { post_id } = props;
+
   useEffect(() => {
     if (!comment_list[post_id]) {
       dispatch(commentActions.getCommentFB(post_id));
@@ -16,27 +19,21 @@ const CommentList = (props) => {
     return null;
   }
   return (
-    <React.Fragment>
+    <Container>
       <Grid is_flex is_column padding="16px">
         {comment_list[post_id].map((c) => {
           return <CommentItem key={c.id} {...c} />;
         })}
       </Grid>
-    </React.Fragment>
+    </Container>
   );
 };
 
 export default CommentList;
 
 const CommentItem = (props) => {
-  const {
-    user_profile,
-    user_name,
-    user_id,
-    post_id,
-    contents,
-    insert_dt
-  } = props;
+  const { user_profile, user_name, user_id, post_id, contents, insert_dt } =
+    props;
   return (
     <Wrapper jc="space-between">
       <Wrapper jc="flex-start">
@@ -60,6 +57,10 @@ CommentItem.defaultProps = {
   post_id: 1,
   contents: '귀여운 고양이네요!',
   insert_dt: '2021-01-01 19:00:00',
-  src:
-    'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0'
+  src: 'https://firebasestorage.googleapis.com/v0/b/my-taste-e6d3f.appspot.com/o/noImage.png?alt=media&token=fc22498a-b954-42db-9683-5a958795adb0'
 };
+
+const Container = styled.div`
+  width: 100%;
+  background-color: pink;
+`;

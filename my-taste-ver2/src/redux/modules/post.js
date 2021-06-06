@@ -253,7 +253,8 @@ const fetchPost =
       const res = await postAPI.getPost(id);
 
       const postData = res.data();
-      let post = Object.keys(postData).reduce(
+
+      /* let post = Object.keys(postData).reduce(
         (acc, cur) => {
           if (cur.indexOf('user_') !== -1) {
             return {
@@ -265,8 +266,8 @@ const fetchPost =
         },
         { id: res.id, user_info: {} }
       );
-
-      dispatch(setPost({ post, paging: null }));
+      console.log('post', post); */
+      dispatch(setPost({ post: [postData], paging: null }));
     } catch (error) {
       alert('포스트를 읽어오는데 실패했습니다');
       console.error(error);
