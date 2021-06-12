@@ -25,6 +25,7 @@ const CommentWrite = (props) => {
         value={commentText}
         onSubmit={write}
         is_submit
+        isGray
       />
       <Button
         width="50px"
@@ -39,11 +40,9 @@ const CommentWrite = (props) => {
 };
 
 const Container = styled.div`
-  padding: 0 2vw;
   ${(props) => props.theme.flex_row};
   justify-content: space-between;
   width: 100%;
-  margin: 2vw 0;
 `;
 
 export default CommentWrite;

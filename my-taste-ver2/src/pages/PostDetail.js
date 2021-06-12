@@ -55,14 +55,7 @@ const PostDetail = (props) => {
 
   return (
     <Container>
-      <ImageWrapper>
-        <ImageCarousel
-          image={post.image_url}
-          phraseList={post.phraseList}
-          size={25}
-        />
-      </ImageWrapper>
-      <Contents>
+      {isMobile && (
         <PostHeader
           src={post.user_info.user_profile}
           userName={post.user_info.user_name}
@@ -70,19 +63,41 @@ const PostDetail = (props) => {
           editPost={editPost}
           deletePost={deletePost}
         />
-        <ButtonBox>
-          {like && <TiHeart className="like" onClick={onUnlike} />}
-          {!like && <TiHeartOutline className="dislike" onClick={onLike} />}
-          좋아요 {post.likers.length}개
-          <TiMessage className="comment" />
-          댓글 {post.comment_cnt}개
-        </ButtonBox>
-        <Des>{post.contents}</Des>
+      )}
+      <ImageWrapper>
+        <ImageCarousel
+          image={post.image_url}
+          phraseList={post.phraseList}
+          size={isMobile ? 100 : 25}
+        />
+      </ImageWrapper>
+      <PostWrapper>
+        <ContentsWrapper>
+          {!isMobile && (
+            <PostHeader
+              src={post.user_info.user_profile}
+              userName={post.user_info.user_name}
+              isMe={uid === post.user_info.user_id}
+              editPost={editPost}
+              deletePost={deletePost}
+            />
+          )}
 
-        {uid && <CommentWrite post_id={id} />}
+          <ButtonBox>
+            {like && <TiHeart className="like" onClick={onUnlike} />}
+            {!like && <TiHeartOutline className="dislike" onClick={onLike} />}
+            좋아요 {post.likers.length}개
+            <TiMessage className="comment" />
+            댓글 {post.comment_cnt}개
+          </ButtonBox>
+          <Des>{post.contents}</Des>
+        </ContentsWrapper>
+        <CommentWrapper>
+          {uid && <CommentWrite post_id={id} />}
 
-        <CommentList post_id={id} />
-      </Contents>
+          <CommentList post_id={id} />
+        </CommentWrapper>
+      </PostWrapper>
     </Container>
   );
 };
@@ -91,25 +106,67 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.color.blue};
   width: 100%;
   height: 100%;
-  ${(props) => props.theme.flex_row};
+  ${(props) => props.theme.column};
+
+  @media ${(props) => props.theme.desktop} {
+    ${(props) => props.theme.flex_row};
+  }
 `;
 
 const ImageWrapper = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 100%;
+
   ${(props) => props.theme.flex_row};
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  @media ${(props) => props.theme.desktop} {
+    width: 50%;
+    height: 100%;
+  }
 `;
 
-const Contents = styled.div`
-  width: 50%;
-  height: 100%;
+const PostWrapper = styled.div`
+  width: 100%;
+  ${(props) => props.theme.border_box};
   background-color: ${(props) => props.theme.color.gray_light};
+  padding: 1rem;
+  ${(props) => props.theme.flex_column};
+
+  @media ${(props) => props.theme.desktop} {
+    width: 50%;
+    height: 100%;
+  }
 `;
 
-const Des = styled.div``;
+const ContentsWrapper = styled.section`
+  ${(props) => props.theme.flex_column};
+  height: 70%;
+`;
 
-const ButtonBox = styled.div``;
+const CommentWrapper = styled.div`
+  height: 30%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const Des = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  margin: 0.5rem 0;
+`;
+
+const ButtonBox = styled.div`
+  width: 100%;
+  ${(props) => props.theme.flex_row};
+  justify-content: flex-start;
+  align-items: center;
+`;
 export default PostDetail;
