@@ -49,6 +49,7 @@ const Input = (props) => {
         />
       ) : (
         <TextInput
+          isGray={isGray}
           type={type}
           placeholder={placeholder}
           onFocus={_onFocus}

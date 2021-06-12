@@ -168,5 +168,13 @@ const ButtonBox = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
   align-items: center;
+  & .like,
+  .dislike {
+    color: ${(props) => props.theme.color.red};
+  }
+
+  & .comment {
+    color: ${(props) => props.theme.color.navy};
+  }
 `;
 export default PostDetail;
