@@ -5,26 +5,25 @@ import { actionCreators as commentActions } from '../../redux/modules/comment';
 import styled from 'styled-components';
 
 const CommentList = (props) => {
-  const { post_id } = props;
+  const { postId } = props;
 
   const dispatch = useDispatch();
-  const comment_list = useSelector((state) => state.comment.list);
+  const commentList = useSelector((state) => state.comment.list);
+  const { isMobile } = useSelector((state) => state.common);
 
   useEffect(() => {
-    if (!comment_list[post_id]) {
-      dispatch(commentActions.getCommentFB(post_id));
+    if (!commentList[postId]) {
+      dispatch(commentActions.getCommentFB(postId));
     }
   }, []);
-  if (!comment_list[post_id] || !post_id) {
+  if (!commentList[postId] || !postId) {
     return null;
   }
   return (
     <Container>
-      <Grid is_flex is_column padding="16px">
-        {comment_list[post_id].map((c) => {
-          return <CommentItem key={c.id} {...c} />;
-        })}
-      </Grid>
+      {commentList[postId].map((c) => {
+        return <CommentItem key={c.id} {...c} isMobile={isMobile} />;
+      })}
     </Container>
   );
 };
@@ -32,21 +31,32 @@ const CommentList = (props) => {
 export default CommentList;
 
 const CommentItem = (props) => {
-  const { user_profile, user_name, user_id, post_id, contents, insert_dt } =
-    props;
+  const {
+    user_profile,
+    user_name,
+    user_id,
+    postId,
+    contents,
+    insert_dt,
+    isMobile
+  } = props;
   return (
-    <Wrapper jc="space-between">
-      <Wrapper jc="flex-start">
-        <Image is_circle src={user_profile} />
-        <Text bold>{user_name}</Text>
+    <CommentItemContainer>
+      <Wrapper width="20%">
+        <Image is_circle src={user_profile} size={isMobile ? 10 : 3} />
       </Wrapper>
-      <Wrapper jc="space-between" width="300%">
-        <Text margin="0px">{contents}</Text>
-        <Text margin="0px" size="10px">
-          {insert_dt.split(' ')[0]}
-        </Text>
+      <Wrapper is_column>
+        <Wrapper jc="flex-start">
+          <Text bold size="1rem" margin="0 3px">
+            {user_name}
+          </Text>
+          <Text size="0.75rem">{contents}</Text>
+        </Wrapper>
+        <Wrapper jc="flex-start">
+          <Text size="0.5rem">{insert_dt.split(' ')[0]}</Text>
+        </Wrapper>
       </Wrapper>
-    </Wrapper>
+    </CommentItemContainer>
   );
 };
 
@@ -62,5 +72,12 @@ CommentItem.defaultProps = {
 
 const Container = styled.div`
   width: 100%;
-  background-color: pink;
+  ${(props) => props.theme.flex_column};
+  justify-content: flex-start;
+`;
+
+const CommentItemContainer = styled.div`
+  width: 100%;
+  ${(props) => props.theme.flex_row};
+  justify-content: flex-start;
 `;

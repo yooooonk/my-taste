@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const { post_id } = props;
+  const { postId } = props;
   const [commentText, setCommentText] = React.useState('');
   const onChange = (e) => {
     setCommentText(e.target.value);
@@ -14,7 +14,7 @@ const CommentWrite = (props) => {
 
   const write = () => {
     if (!commentText) return;
-    dispatch(commentActions.addCommentFB(post_id, commentText));
+    dispatch(commentActions.addCommentFB(postId, commentText));
     setCommentText('');
   };
   return (

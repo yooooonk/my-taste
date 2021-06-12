@@ -93,9 +93,9 @@ const PostDetail = (props) => {
           <Des>{post.contents}</Des>
         </ContentsWrapper>
         <CommentWrapper>
-          {uid && <CommentWrite post_id={id} />}
+          {uid && <CommentWrite postId={id} />}
 
-          <CommentList post_id={id} />
+          <CommentList postId={id} />
         </CommentWrapper>
       </PostWrapper>
     </Container>
@@ -147,6 +147,7 @@ const ContentsWrapper = styled.section`
 
 const CommentWrapper = styled.div`
   height: 30%;
+  width: 100%;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
