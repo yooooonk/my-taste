@@ -9,13 +9,13 @@ import moment from 'moment';
 const BasketCard = ({ book, goTo }) => {
   const dispatch = useDispatch();
 
-  const onRemove = useCallback((e) => {
+  const onRemove = (e) => {
     if (window.confirm('basket에서 삭제하시겠습니까?')) {
       dispatch(bookActions.fetchDeleteBookBasket(book.id));
     }
-  });
+  };
 
-  const onRead = useCallback((e) => {
+  const onRead = (e) => {
     const readDate = moment().format('YYYYMMDD');
 
     if (book.readDate) {
@@ -23,16 +23,16 @@ const BasketCard = ({ book, goTo }) => {
     } else {
       dispatch(bookActions.fetchUpdateBookBasket(book.id, { readDate }));
     }
-  });
+  };
 
-  const onWrite = useCallback((e) => {
+  const onWrite = (e) => {
     if (book.postId) {
       goTo(`/edit/${book.postId}`);
     } else {
       goTo(`/write/${book.id}`);
       dispatch(imageActions.setPreview(book.thumbnail));
     }
-  });
+  };
 
   return (
     <Card>
@@ -54,13 +54,12 @@ const BasketCard = ({ book, goTo }) => {
 
 const Card = styled.div`
   margin: 1rem;
-  width: 150px;
-  height: 225px;
   padding: 0 0.5rem;
   background-color: ${(props) => props.theme.color.gray_light};
   border-radius: 0.5rem;
   transition: 0.3s all ease-out;
   justify-content: space-between;
+  align-self: stretch;
 
   &:hover {
     transform: translateY(-10px);

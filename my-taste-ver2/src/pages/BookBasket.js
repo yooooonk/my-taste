@@ -47,9 +47,9 @@ const BookBasket = ({ history }) => {
   }, 300);
   return (
     <Container onScroll={onScroll}>
-      <PulseLoader loading={loading} css={spinnerStyle} color="#3a5378" />
       {basketCardList}
-      {bookBasket.length === 0 && (
+      <PulseLoader loading={loading} css={spinnerStyle} color="#3a5378" />
+      {!loading && bookBasket.length === 0 && (
         <NoResult msg="좋아하는 책을 담아주세요. &#10024;" />
       )}
     </Container>
@@ -57,15 +57,19 @@ const BookBasket = ({ history }) => {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   overflow-y: scroll;
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.color.orange};
-
+  position: relative;
   &::-webkit-scrollbar {
     display: none;
+  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50%, auto));
+
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: repeat(auto-fit, minmax(20%, auto));
   }
 `;
 
@@ -77,5 +81,6 @@ const spinnerStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 export default BookBasket;
