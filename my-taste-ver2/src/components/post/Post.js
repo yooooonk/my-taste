@@ -16,6 +16,7 @@ const Post = (props) => {
 
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.user?.uid);
+  const isMobile = useSelector((state) => state.common.isMobile);
 
   const isMe = user_info.user_id === uid;
 
@@ -55,7 +56,7 @@ const Post = (props) => {
       <ImageCarousel
         image={props.image_url}
         phraseList={props.phraseList}
-        size={15}
+        size={isMobile ? 70 : 15}
       />
 
       <ButtonBox>
@@ -89,12 +90,17 @@ const PostWrapper = styled.div`
   ${(props) => props.theme.flex_column};
   margin: 0.5rem;
   background-color: ${(props) => props.theme.color.gray_light};
-  width: 25%;
+  width: 100%;
+
   min-height: 75%;
   border-radius: 0.75rem;
   padding: 1rem;
   ${(props) => props.theme.boder_box};
   justify-content: flex-start;
+
+  @media ${(props) => props.theme.desktop} {
+    width: 25%;
+  }
 `;
 
 const ButtonBox = styled.div`
