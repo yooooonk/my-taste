@@ -1,6 +1,4 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-import { produce } from 'immer';
-import { firestore, storage, realtime } from '../../shared/firebase';
 import { actionCreators as imageActions } from './image';
 import 'moment';
 import moment from 'moment';
@@ -22,7 +20,6 @@ const initialState = {
 
 // actions
 const setPost = createAction('post/SET_POST');
-
 const addPost = createAction('post/ADD_POST');
 const editPost = createAction('post/EDIT_POST');
 const deletePost = createAction('post/DELETE_POST');

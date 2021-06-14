@@ -9,7 +9,7 @@ import PostList from '../pages/PostList';
 import Login from '../components/Login';
 import Signup from '../pages/Signup';
 import { useDispatch } from 'react-redux';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { userActions } from '../redux/modules/user';
 import { apiKey } from './firebase';
 import { useEffect } from 'react';
 import PostWrite from '../pages/PostWrite';
@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     if (is_session) {
-      dispatch(userActions.loginCheckFB());
+      dispatch(userActions.checkLogin());
     }
   }, []);
 

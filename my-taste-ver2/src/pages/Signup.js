@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Text, Input, Button, Wrapper } from '../elements';
+import { Text, Input, Button, Wrapper } from '../elements';
 import {
   testEmailValid,
   testPwValid,
@@ -8,7 +8,7 @@ import {
   testUsernameValid
 } from '../shared/common';
 import ErrorMsg from '../components/ErrorMsg';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { userActions } from '../redux/modules/user';
 import styled from 'styled-components';
 import InputValid from '../elements/InputValid';
 
@@ -86,7 +86,7 @@ const Signup = (props) => {
     console.log(checkTotalvalidation());
     if (!checkTotalvalidation()) return alert('입력요건을 지켜주세요');
 
-    dispatch(userActions.signupFB(id, nickname, pw));
+    dispatch(userActions.signup(id, nickname, pw));
   };
 
   useEffect(() => {

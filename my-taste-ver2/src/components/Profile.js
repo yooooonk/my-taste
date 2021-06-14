@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Wrapper, Image, Text } from '../elements';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { userActions } from '../redux/modules/user';
 import { FaUserAlt } from 'react-icons/fa';
 import { history } from '../redux/configStore';
 const Profile = (props) => {
@@ -10,7 +10,7 @@ const Profile = (props) => {
   const userInfo = useSelector((state) => state.user.user);
 
   const logout = (e) => {
-    dispatch(userActions.logoutFB());
+    dispatch(userActions.logout());
   };
 
   const editProfile = () => {

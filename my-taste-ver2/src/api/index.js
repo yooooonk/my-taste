@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { firestore, storage, realtime, auth } from '../shared/firebase';
+import firebase from 'firebase/app';
 
 const openApi = axios.create();
 openApi.defaults.withCredentials = false;
@@ -88,6 +89,18 @@ export const bookAPI = {
 };
 
 export const userAPI = {
+  setLoginPersistence: function (displayName, photoURL) {
+    return auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+  },
+  login: function (id, pw) {
+    return auth.signInWithEmailAndPassword(id, pw);
+  },
+  logout: function () {
+    return auth.signOut();
+  },
+  createUser: function (id, nickname, pw) {
+    return auth.createUserWithEmailAndPassword(id, pw);
+  },
   updateProfile: function (displayName, photoURL) {
     return auth.currentUser.updateProfile({
       displayName,

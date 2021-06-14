@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { I, Wrapper } from '../elements';
 import { history } from '../redux/configStore';
 import Permit from '../shared/Permit';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { userActions } from '../redux/modules/user';
 
 import NotiBadge from './NotiBadge';
 import styled, { keyframes } from 'styled-components';
@@ -21,7 +21,7 @@ const Navbar = (props) => {
   const { isMobile, currentMenu } = useSelector((state) => state.common);
 
   const logout = (e) => {
-    dispatch(userActions.logoutFB());
+    dispatch(userActions.logout());
   };
 
   const moveToPage = (path) => (e) => {

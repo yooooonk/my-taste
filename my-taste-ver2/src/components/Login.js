@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Input, Button } from '../elements';
 import ErrorMsg from './ErrorMsg';
 import Header from './Header';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { userActions } from '../redux/modules/user';
 import styled from 'styled-components';
 import Wrapper from '../elements/Wrapper';
 import { Container } from '@material-ui/core';
@@ -16,9 +16,11 @@ const Login = (props) => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
+  const loginError = useSelector((state) => state.user.loginError);
+
   const onLogin = (e) => {
     if (!id || !pw) return;
-    dispatch(userActions.loginFB(id, pw));
+    dispatch(userActions.login(id, pw));
   };
   return (
     <LoginContainer>
@@ -71,6 +73,7 @@ const Login = (props) => {
           </tr>
         </tbody>
       </Table>
+      <ErrorMsg valid={loginError.isError}>{loginError.msg}</ErrorMsg>
     </LoginContainer>
   );
 };

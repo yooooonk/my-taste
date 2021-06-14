@@ -24,7 +24,7 @@ const UserProfile = () => {
   }, [userInfo]);
 
   const updateUserProfile = () => {
-    dispatch(user.updateProfileFB(userName));
+    dispatch(user.updateProfile(userName));
   };
 
   if (!userInfo) return null;
