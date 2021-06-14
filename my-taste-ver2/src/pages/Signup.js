@@ -83,9 +83,8 @@ const Signup = (props) => {
   };
 
   const onSignup = (e) => {
-    console.log(checkTotalvalidation());
     if (!checkTotalvalidation()) return alert('입력요건을 지켜주세요');
-
+    console.log('페이지', id, nickname, pw);
     dispatch(userActions.signup(id, nickname, pw));
   };
 
@@ -126,13 +125,14 @@ const Signup = (props) => {
         <tbody>
           <tr>
             <td>
-              <Text>EMAIL</Text>{' '}
+              <Text>이메일</Text>{' '}
             </td>
             <td>
               <Input
                 _onChange={onChangeEmail}
                 _onFocus={() => setIsOpenEmailValid(true)}
                 placeholder="이메일을 입력해주세요"
+                value={id}
               />
               <ValidWrapper isOpen={isOpenEmailValid}>
                 <InputValid isStart={isStartEmailInput} isValid={isValidEmail}>
@@ -150,7 +150,7 @@ const Signup = (props) => {
           </tr>
           <tr>
             <td>
-              <Text>NAME</Text>
+              <Text>닉네임</Text>
             </td>
             <td>
               {' '}
@@ -158,6 +158,7 @@ const Signup = (props) => {
                 _onChange={onChangeUsername}
                 _onFocus={() => setIsOpenUsernameValid(true)}
                 placeholder="3~20자리의 숫자, 영어, 한글, -,_만 가능합니다."
+                value={nickname}
               />
               <ValidWrapper isOpen={isOpenUsernameValid}>
                 <InputValid
@@ -179,7 +180,7 @@ const Signup = (props) => {
           </tr>
           <tr>
             <td>
-              <Text>PW</Text>
+              <Text>비밀번호</Text>
             </td>
             <td>
               <Input
@@ -187,6 +188,7 @@ const Signup = (props) => {
                 _onChange={onChangePassword}
                 placeholder="비밀번호를 입력해주세요"
                 _onFocus={() => setIsOpenPasswordValid(true)}
+                value={pw}
               />
               <ValidWrapper isOpen={isOpenPasswordValid}>
                 <InputValid
@@ -212,10 +214,11 @@ const Signup = (props) => {
           </tr>
           <tr>
             <td>
-              <Text>PW CHECK</Text>
+              <Text>비밀번호 확인</Text>
             </td>
             <td>
               <Input
+                value={pwCheck}
                 type="password"
                 _onChange={(e) => {
                   setPwCheck(e.target.value);

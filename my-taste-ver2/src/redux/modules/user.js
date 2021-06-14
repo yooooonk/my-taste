@@ -52,7 +52,7 @@ const signup =
           msg: ''
         })
       );
-
+      dispatch(login(id, pw));
       history.replace('/');
     } catch (error) {
       console.error(error);

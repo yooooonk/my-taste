@@ -98,7 +98,7 @@ export const userAPI = {
   logout: function () {
     return auth.signOut();
   },
-  createUser: function (id, nickname, pw) {
+  createUser: function (id, pw) {
     return auth.createUserWithEmailAndPassword(id, pw);
   },
   updateProfile: function (displayName, photoURL) {
