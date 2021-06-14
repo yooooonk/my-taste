@@ -3,21 +3,25 @@ import { useCallback, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookActions } from '../../redux/modules/book';
 import styled from 'styled-components';
-
+import { BiBook } from 'react-icons/bi';
 const BookCard = ({ book, changeCardStyle }) => {
   const dispatch = useDispatch();
 
   const cardRef = useRef();
 
-  const onClickBookCard = useCallback((e) => {
+  const onClickBookCard = (e) => {
     dispatch(bookActions.setDetailBook(book));
 
     changeCardStyle(cardRef.current);
-  });
+  };
 
   return (
     <Container onClick={onClickBookCard} ref={cardRef}>
-      <img src={book.thumbnail} alt="thumbnail" />
+      <BookWrapper>
+        {book.thumbnail && <Thumbnail url={book.thumbnail} />}
+        {!book.thumbnail && <BiBook />}
+      </BookWrapper>
+
       <Content>
         <span className="title">{book.title}</span>
         <span className="author">{book.authors}</span>
@@ -42,15 +46,6 @@ const Container = styled.div`
     background-color: rgb(236, 236, 236, 0.9);
   }
 
-  img {
-    border-radius: 10px;
-    width: 30%;
-    height: 90%;
-    @media ${(props) => props.theme.desketop} {
-      height: 90%;
-    }
-  }
-
   @media ${(props) => props.theme.tablet} {
     height: 30%;
     width: 600px;
@@ -64,21 +59,40 @@ const Container = styled.div`
   }
 `;
 
+const BookWrapper = styled.div`
+  width: 30%;
+  height: 100%;
+  ${(props) => props.theme.flex_row};
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.color.yellow_light};
+  border-radius: 9px;
+
+  & svg {
+    font-size: 2rem;
+    color: ${(props) => props.theme.color.yellow};
+  }
+`;
+
+const Thumbnail = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.url});
+  background-size: cover;
+  border-radius: 9px;
+`;
+
 const Content = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
   margin: 1rem;
   ${(props) => props.theme.border_box};
-
-  & span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: ${(props) => props.theme.color.navy};
-  }
+  color: ${(props) => props.theme.color.navy};
 
   & span.title {
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: bold;
     font-size: 1.1rem;
     margin: 0.5rem 0;
