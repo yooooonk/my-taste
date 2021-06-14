@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
@@ -13,10 +13,13 @@ import { commonActions } from '../redux/modules/common';
 const Search = (props) => {
   const { detailBook } = useSelector((state) => state.book);
   const { isLogin } = useSelector((state) => state.user);
-  const { isMobile } = useSelector((state) => state.common);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('%c 💗책 검색💗', 'color: rgb(0, 0, 0); font-size: 16px');
+    console.log('open api를 이용해 책을 검색하고,');
+    console.log('하트를 누르면 shelf에 저장합니다.');
     dispatch(commonActions.setCurrentMenu('search'));
     return () => {
       dispatch(bookActions.clearBookState());

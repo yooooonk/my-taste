@@ -57,14 +57,6 @@ const Navbar = (props) => {
           Search
         </MenuItem>
         <MenuItem
-          currentMenu={currentMenu === 'feed'}
-          className="feed"
-          onClick={moveToPage('/feed')}
-        >
-          Feed
-        </MenuItem>
-
-        <MenuItem
           currentMenu={currentMenu === 'shelf'}
           className="shelf"
           onClick={moveToPage('/basket')}
@@ -77,6 +69,13 @@ const Navbar = (props) => {
           onClick={moveToPage('/calendar')}
         >
           Calendar
+        </MenuItem>
+        <MenuItem
+          currentMenu={currentMenu === 'feed'}
+          className="feed"
+          onClick={moveToPage('/feed')}
+        >
+          Feed
         </MenuItem>
       </Menu>
       {isMobile && (

@@ -102,7 +102,6 @@ export const userAPI = {
     return auth.createUserWithEmailAndPassword(id, pw);
   },
   updateProfile: function (displayName, photoURL) {
-    console.log('api', photoURL);
     return auth.currentUser.updateProfile({
       displayName,
       photoURL

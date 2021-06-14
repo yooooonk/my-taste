@@ -79,7 +79,7 @@ const login =
         setUser({
           user_name: user.user.displayName,
           id: id,
-          user_profile: '',
+          user_profile: user.photoURL,
           uid: user.user.uid
         })
       );
@@ -114,7 +114,7 @@ const checkLogin =
         dispatch(
           setUser({
             user_name: user.displayName,
-            user_profile: '',
+            user_profile: user.photoURL,
             id: user.email,
             uid: user.uid
           })

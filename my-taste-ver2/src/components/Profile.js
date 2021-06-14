@@ -42,8 +42,8 @@ const Container = styled.div`
 `;
 
 const ProfileImg = styled.div`
-  width: 80%;
-  height: 60%;
+  width: 60%;
+  height: 70%;
   ${(props) => props.theme.flex_row};
   justify-content: center;
   border-top-right-radius: 1rem;

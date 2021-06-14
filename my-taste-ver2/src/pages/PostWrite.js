@@ -33,6 +33,12 @@ const PostWrite = (props) => {
   };
 
   useEffect(() => {
+    console.log(
+      '%c 💗Post 쓰기/수정💗',
+      'color: rgb(0, 0, 0); font-size: 16px'
+    );
+    console.log('책의 감상과 좋았던 문장을 기록할 수 있습니다');
+    console.log('스위치를 움직여 감상 - 문장을 남겨보세요');
     // 수정일 때
     if (!isEdit || !id) return;
 

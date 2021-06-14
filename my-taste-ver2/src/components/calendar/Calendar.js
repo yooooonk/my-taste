@@ -8,8 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Day from './Day';
 
 const Calendar = ({ history }) => {
-  const dispatch = useDispatch();
-
   const dashBoard = useSelector((state) => state.book.dashBoard);
 
   const [current, setCurrent] = useState(moment());

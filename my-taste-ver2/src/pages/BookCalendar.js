@@ -14,6 +14,10 @@ const BookCalendar = (props) => {
   const { dashBoard, loading } = useSelector((state) => state.book);
 
   useEffect(() => {
+    console.log('%c 💗Calendar💗', 'color: rgb(0, 0, 0); font-size: 16px');
+    console.log('shelf에서 읽음을 누른 날짜에 읽은 책을 저장해');
+    console.log('독서량을 한 눈에 확인할 수 있습니다.');
+    console.log('기록을 했다면 해당 책을 눌러 바로 포스트로 이동합니다');
     dispatch(commonActions.setCurrentMenu('calendar'));
 
     return () => {

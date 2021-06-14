@@ -18,6 +18,10 @@ const PostList = (props) => {
   const { is_loading, paging } = useSelector((state) => state.post);
 
   useEffect(() => {
+    console.log('%c 💗Feed💗', 'color: rgb(0, 0, 0); font-size: 16px');
+    console.log('책을 기록한 Feed입니다');
+    console.log('다른 사람들이 쓴 글도 볼 수 있어요');
+
     dispatch(commonActions.setCurrentMenu('feed'));
     if (post_list.length < 2) {
       dispatch(postActions.fetchPosts());
@@ -59,6 +63,7 @@ const Container = styled.div`
   ${(props) => props.theme.flex_row};
   flex-wrap: wrap;
   overflow-y: scroll;
+
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.color.blue};

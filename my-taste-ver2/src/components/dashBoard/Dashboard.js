@@ -24,7 +24,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     console.log('%c 💗Dashboard💗', 'color: rgb(0, 0, 0); font-size: 16px');
     console.log('내가 담은 책, 읽은 책, 쓴 포스트 통계와');
-    console.log('오늘의 문장으로 기분을 환기해보세요');
+    console.log('포스트에 쓴 문장이 나타납니다');
 
     dispatch(bookActions.fetchBookBasketAll());
     dispatch(postActions.fetchRandomPhrase());

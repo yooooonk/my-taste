@@ -15,6 +15,14 @@ const BookBasket = ({ history }) => {
   const isLogin = useSelector((state) => state.user.isLogin);
 
   useEffect(() => {
+    console.log('%c 💗Shelf💗', 'color: rgb(0, 0, 0); font-size: 16px');
+    console.log('검색 탭에서 하트를 누른 책 목록입니다');
+    console.log(
+      '책 읽음 버튼을 누르면 읽은 책을 calendar에서 확인할 수 있습니다'
+    );
+    console.log(
+      '기록버튼을 누르면 책의 감상과 인상 깊은 문장을 기록할 수 있습니다.'
+    );
     dispatch(commonActions.setCurrentMenu('shelf'));
     return () => {
       dispatch(commonActions.setCurrentMenu(null));
@@ -69,7 +77,8 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(50%, auto));
 
   @media ${(props) => props.theme.desktop} {
-    grid-template-columns: repeat(auto-fit, minmax(20%, auto));
+    grid-template-columns: repeat(auto-fit, minmax(20%, 20%));
+    grid-template-rows: repeat(auto-fit, minmax(40%, 40%));
   }
 `;
 

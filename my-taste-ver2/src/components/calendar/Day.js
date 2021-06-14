@@ -1,16 +1,30 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { history } from '../../redux/configStore';
 
 const Day = (props) => {
   const { dateInfo, className } = props;
   const schedule = dateInfo.currentSch;
-  const dispatch = useDispatch();
+
+  const readPost = (postId) => {
+    if (postId) {
+      history.push(`/post/${postId}`);
+    }
+  };
 
   schedule.sort((a, b) => a.time - b.time);
-  const mapToPlan = schedule.map((s, idx) => {
+  const mapToBook = schedule.map((s, idx) => {
     return (
-      <Read key={idx} className={`${s.completed ? 'completed' : ''}`} data={s}>
+      <Read
+        onClick={() => {
+          readPost(s.postId);
+        }}
+        postId={s.postId}
+        key={idx}
+        className={`${s.completed ? 'completed' : ''}`}
+        data={s}
+      >
         <Thumbnail src={s.thumbnail} alt="thumbnail" />
       </Read>
     );
@@ -19,7 +33,7 @@ const Day = (props) => {
   return (
     <D className={className}>
       <span className="title">{dateInfo.day}</span>
-      {mapToPlan}
+      {mapToBook}
     </D>
   );
 };
@@ -65,7 +79,7 @@ const Read = styled.span`
   border-radius: 7px;
   background-color: ${(props) => props.theme.color.green_light};
   color: white;
-  cursor: pointer;
+  cursor: ${(props) => (props.postId ? 'pointer' : 'default')};
 `;
 
 const Thumbnail = styled.img`

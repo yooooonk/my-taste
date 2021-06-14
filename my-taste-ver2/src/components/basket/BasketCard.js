@@ -10,9 +10,7 @@ const BasketCard = ({ book, goTo }) => {
   const dispatch = useDispatch();
 
   const onRemove = (e) => {
-    if (window.confirm('basket에서 삭제하시겠습니까?')) {
-      dispatch(bookActions.fetchDeleteBookBasket(book.id));
-    }
+    dispatch(bookActions.fetchDeleteBookBasket(book.id));
   };
 
   const onRead = (e) => {
