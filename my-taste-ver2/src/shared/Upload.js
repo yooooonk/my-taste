@@ -68,6 +68,9 @@ const Btn = styled.div`
 const Wrapper = styled.div`
   cursor: pointer;
   width: 100%;
+  justify-content: center;
+  align-items: center;
   ${(props) => props.theme.boder_box};
+  ${(props) => props.theme.flex_column};
 `;
 export default Upload;

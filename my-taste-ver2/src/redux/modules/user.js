@@ -137,15 +137,30 @@ const logout =
 const updateProfile = (userName) => {
   return async (dispatch, getState, { history }) => {
     try {
-      const user_info = getState().user.user.user_info;
-      const preview = getState().image.preview;
-      const snapshot = await imageAPI.uploadImage(
-        `images/${user_info.user_id}_${new Date().getTime()}`,
-        preview
-      );
+      const user = getState().user.user;
 
-      const url = await snapshot.ref.getDownloadURL();
+      const preview = getState().image.preview;
+
+      let url = '';
+      if (preview) {
+        const snapshot = await imageAPI.uploadImage(
+          `images/${user.id}_${new Date().getTime()}`,
+          preview
+        );
+
+        url = await snapshot.ref.getDownloadURL();
+      }
+      console.log(url);
       const result = await userAPI.updateProfile(userName, url);
+      dispatch(
+        setUser({
+          user_name: userName,
+          user_profile: url,
+          id: user.id,
+          uid: user.uid
+        })
+      );
+      alert('수정했습니다');
       console.log('업데이트', result);
     } catch (error) {
       console.error(error);

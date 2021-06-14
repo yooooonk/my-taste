@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Upload from '../shared/Upload';
 import useInput from '../shared/useInput';
-import { Input, Button } from '../elements';
-import user from '../redux/modules/user';
+import { Input, Button, Image } from '../elements';
+import user, { userActions } from '../redux/modules/user';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -17,49 +17,40 @@ const UserProfile = () => {
   const [pwCheck, setPwCheck] = useState('');
 
   useEffect(() => {
-    console.log(userInfo?.id);
+    console.log(userInfo?.user_profile);
     if (!userInfo) return;
 
     setUserName(userInfo.user_name);
   }, [userInfo]);
 
   const updateUserProfile = () => {
-    dispatch(user.updateProfile(userName));
+    dispatch(userActions.updateProfile(userName));
   };
 
   if (!userInfo) return null;
   return (
     <Container>
-      <Upload size={isMobile ? '95' : '20'} />
-      <table>
-        <tbody>
-          <tr>
-            <td>이메일</td>
-            <td>
-              <Input disabled isGray value={userInfo?.id} />
-            </td>
-          </tr>
-          <tr>
-            <td>닉네임</td>
-            <td>
-              <Input _onChange={onChangeUserName} value={userName}></Input>
-            </td>
-          </tr>
-          {/* <tr>
-            <td>닉네임</td>
-            <td>
-              <Input isGray type="password"></Input>
-            </td>
-          </tr>
-          <tr>
-            <td>닉네임</td>
-            <td>
-              <Input isGray type="password"></Input>
-            </td>
-          </tr> */}
-        </tbody>
-      </table>
-      <Button _onClick={updateUserProfile}>수정하기</Button>
+      {!userInfo.user_profile && <Upload size={isMobile ? 90 : 25} />}
+      {userInfo.user_profile && (
+        <Image src={userInfo.user_profile} size={isMobile ? 90 : 25} />
+      )}
+      <FormTable>
+        <Tr>
+          <Th>이메일</Th>
+          <Td>
+            <Input disabled value={userInfo?.id} />
+          </Td>
+        </Tr>
+        <Tr>
+          <Th>닉네임</Th>
+          <Td>
+            <Input isGray _onChange={onChangeUserName} value={userName}></Input>
+          </Td>
+        </Tr>
+      </FormTable>
+      <Button width={isMobile ? '100%' : '50%'} _onClick={updateUserProfile}>
+        수정하기
+      </Button>
     </Container>
   );
 };
@@ -70,5 +61,30 @@ const Container = styled.div`
   ${(props) => props.theme.flex_row};
   background-color: ${(props) => props.theme.color.gray_light};
   ${(props) => props.theme.flex_column};
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const FormTable = styled.div`
+  color: ${(props) => props.theme.color.navy};
+  width: 100%;
+  padding: 1rem;
+  ${(props) => props.theme.border_box};
+  @media ${(props) => props.theme.desktop} {
+    width: 50%;
+  }
+`;
+
+const Tr = styled.div`
+  ${(props) => props.theme.flex_row};
+`;
+
+const Th = styled.span`
+  text-align: right;
+  width: 30%;
+`;
+
+const Td = styled.span`
+  width: 65%;
 `;
 export default UserProfile;
