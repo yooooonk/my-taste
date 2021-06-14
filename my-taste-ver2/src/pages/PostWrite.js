@@ -82,7 +82,7 @@ const PostWrite = (props) => {
   };
   return (
     <Container>
-      <Header>
+      <Header bg="#f9dccd">
         <Text bold>{isEdit ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
@@ -126,23 +126,25 @@ const PostWrite = (props) => {
 };
 
 const Container = styled.div`
+  padding: 1rem;
   width: 100%;
   height: 100%;
   ${(props) => props.theme.flex_column};
+  background-color: ${(props) => props.theme.color.orange_light};
   justify-content: space-between;
-  border: 1px solid black;
+
   ${(props) => props.theme.border_box};
   @media ${(props) => props.theme.desktop} {
-    width: 90%;
+    width: 100%;
   }
 `;
 
 const ContentsWrapper = styled.section`
   width: 100%;
+  ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex_column};
   @media ${(props) => props.theme.desktop} {
-    background-color: pink;
-    ${(props) => props.theme.flex_row};
+    flex-direction: row;
   }
 `;
 export default PostWrite;

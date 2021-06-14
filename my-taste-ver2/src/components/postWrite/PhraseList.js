@@ -10,21 +10,20 @@ const PhraseList = (props) => {
   const { phraseList, _onClick } = props;
 
   return (
-    <Wrapper is_column>
+    <Container>
       {phraseList?.map((p, idx) => {
         return (
-          <Grid key={idx}>
+          <PharaseWrapper key={idx}>
             <Phrase>{p}</Phrase>
-            <I color="gray">
-              <MdClose onClick={_onClick} />
-            </I>
-          </Grid>
+
+            <MdClose onClick={_onClick} />
+          </PharaseWrapper>
         );
       })}
       <ErrorMsg valid={phraseList.length >= 10}>
         10개까지만 추가할 수 있어요
       </ErrorMsg>
-    </Wrapper>
+    </Container>
   );
 };
 
@@ -33,13 +32,32 @@ PhraseList.defaultProps = {
   phraseList: []
 };
 
+const Container = styled.div`
+  width: 100%;
+`;
+
+const PharaseWrapper = styled.div`
+  ${(props) => props.theme.flex_row};
+  width: 100%;
+  margin: 0.25rem 0;
+
+  &:hover {
+    & div {
+      opacity: 1;
+    }
+  }
+
+  & svg {
+    cursor: pointer;
+  }
+`;
 const Phrase = styled.div`
   border-radius: 10px;
-  background-color: #ffe9ed;
-  padding: 0 10px;
+  background-color: ${(props) => props.theme.color.gray_light};
+  opacity: 0.8;
   width: 100%;
-  height: 100%;
-  margin: 1px 0;
+  padding: 0.2rem;
+
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
