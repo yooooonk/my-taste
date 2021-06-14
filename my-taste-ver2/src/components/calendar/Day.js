@@ -10,9 +10,9 @@ const Day = (props) => {
   schedule.sort((a, b) => a.time - b.time);
   const mapToPlan = schedule.map((s, idx) => {
     return (
-      <Plan key={idx} className={`${s.completed ? 'completed' : ''}`} data={s}>
+      <Read key={idx} className={`${s.completed ? 'completed' : ''}`} data={s}>
         <Thumbnail src={s.thumbnail} alt="thumbnail" />
-      </Plan>
+      </Read>
     );
   });
 
@@ -40,7 +40,7 @@ const D = styled.div`
 
   &.today > .title {
     color: white;
-    background-color: skyblue;
+    background-color: ${(props) => props.theme.color.green};
   }
 
   & > .title {
@@ -53,9 +53,8 @@ const D = styled.div`
   }
 `;
 
-const Plan = styled.span`
+const Read = styled.span`
   text-align: center;
-  //background-color: ${(props) => props.color};
   font-size: 0.8em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,16 +63,13 @@ const Plan = styled.span`
   height: 100%;
   width: 100%;
   border-radius: 7px;
-  background-color: #ff9aa3;
+  background-color: ${(props) => props.theme.color.green_light};
   color: white;
   cursor: pointer;
-  &.completed {
-    background-color: #bfbfbf;
-  }
 `;
 
 const Thumbnail = styled.img`
-  width: 20px;
+  height: 150%;
 `;
 
 export default Day;

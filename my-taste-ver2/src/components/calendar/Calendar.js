@@ -92,52 +92,50 @@ const Calendar = ({ history }) => {
   };
 
   return (
-    <div>
-      <CalendarWrapper>
-        <Header>
-          <MdChevronLeft
-            className="dir"
-            onClick={movePrevMonth}
-          ></MdChevronLeft>
-          <span>{current.format('MMMM')}</span>
-          <MdChevronRight
-            className="dir"
-            onClick={moveNextMonth}
-          ></MdChevronRight>
-        </Header>
-        <DateContainer>
-          <Weekend className="row">
-            <Dow color="#ff4b4b">
-              <span>S</span>
-            </Dow>
-            <Dow>
-              <span>M</span>
-            </Dow>
-            <Dow>
-              <span>T</span>
-            </Dow>
-            <Dow>
-              <span>W</span>
-            </Dow>
-            <Dow>
-              <span>T</span>
-            </Dow>
-            <Dow>
-              <span>F</span>
-            </Dow>
-            <Dow color="#4b87ff">
-              <span>S</span>
-            </Dow>
-          </Weekend>
-          {generate()}
-        </DateContainer>
-      </CalendarWrapper>
-    </div>
+    <CalendarWrapper>
+      <Header>
+        <MdChevronLeft className="dir" onClick={movePrevMonth}></MdChevronLeft>
+        <span>{current.format('MMMM')}</span>
+        <MdChevronRight
+          className="dir"
+          onClick={moveNextMonth}
+        ></MdChevronRight>
+      </Header>
+      <DateContainer>
+        <Weekend className="row">
+          <Dow color="#ff4b4b">
+            <span>S</span>
+          </Dow>
+          <Dow>
+            <span>M</span>
+          </Dow>
+          <Dow>
+            <span>T</span>
+          </Dow>
+          <Dow>
+            <span>W</span>
+          </Dow>
+          <Dow>
+            <span>T</span>
+          </Dow>
+          <Dow>
+            <span>F</span>
+          </Dow>
+          <Dow color="#4b87ff">
+            <span>S</span>
+          </Dow>
+        </Weekend>
+        {generate()}
+      </DateContainer>
+    </CalendarWrapper>
   );
 };
 
 const CalendarWrapper = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
+  ${(props) => props.theme.border_box};
 `;
 
 const Header = styled.div`
@@ -163,7 +161,7 @@ const Header = styled.div`
 const DateContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1vw;
+  margin-top: 1rem;
 `;
 
 const Weekend = styled.div`
