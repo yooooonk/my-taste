@@ -20,5 +20,6 @@ const Box = styled.div`
   background-color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
+  ${(props) => props.theme.border_box};
 `;
 export default Wrapper;

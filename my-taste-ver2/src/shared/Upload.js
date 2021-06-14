@@ -67,5 +67,7 @@ const Btn = styled.div`
 
 const Wrapper = styled.div`
   cursor: pointer;
+  width: 100%;
+  ${(props) => props.theme.boder_box};
 `;
 export default Upload;

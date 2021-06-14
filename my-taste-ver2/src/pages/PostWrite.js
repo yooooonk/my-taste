@@ -16,7 +16,7 @@ const PostWrite = (props) => {
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.post);
   const { preview } = useSelector((state) => state.image);
-  const { isMobile } = useSelector((state) => state.common);
+  const isMobile = useSelector((state) => state.common.isMobile);
   const [requireError, setRequireError] = useState(false);
 
   const isEdit = props.match.path.indexOf('edit') > -1;
@@ -81,50 +81,68 @@ const PostWrite = (props) => {
     setPhraseList([...temp]);
   };
   return (
-    <Wrapper is_column width={isMobile ? '100%' : '90%'}>
+    <Container>
       <Header>
         <Text bold>{isEdit ? '수정하기' : '기록하기'}</Text>
         <i />
       </Header>
-      <Wrapper is_column>
-        <Wrapper is_column={isMobile} width={isMobile ? '100%' : '35vw'}>
-          <Upload size={isMobile ? '100vw' : '50vh'} />
+      <ContentsWrapper>
+        <Wrapper width={isMobile ? '100%' : '50%'}>
+          <Upload size={isMobile ? '95' : '20'} />
+        </Wrapper>
+        <Wrapper width={isMobile ? '100%' : '50%'}>
           <PhraseList phraseList={phraseList} _onClick={deletePhrase} />
         </Wrapper>
-        <Wrapper is_column>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isPhrase}
-                onChange={handleChange}
-                name="checkedA"
-              />
-            }
-            label={isPhrase ? '문장' : '감상'}
-          />
+      </ContentsWrapper>
+      <Wrapper is_column>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isPhrase}
+              onChange={handleChange}
+              name="checkedA"
+            />
+          }
+          label={isPhrase ? '문장' : '감상'}
+        />
 
-          <Input
-            multiLine
-            value={value}
-            _onChange={(e) => setValue(e.target.value)}
-          />
-          <ErrorMsg valid={requireError}>
-            사진과 감상은 꼭 입력해주세요
-          </ErrorMsg>
-          <Button
-            width={isMobile ? '100%' : '50%'}
-            disabled={!isPhrase && (!value || !preview)}
-            _onClick={isPhrase ? addPhrase : write}
-            margin="10px"
-          >
-            {isPhrase ? '문장 추가하기' : '저장하기'}
-          </Button>
-        </Wrapper>
+        <Input
+          multiLine
+          value={value}
+          _onChange={(e) => setValue(e.target.value)}
+        />
+        <ErrorMsg valid={requireError}>사진과 감상은 꼭 입력해주세요</ErrorMsg>
+        <Button
+          width={isMobile ? '100%' : '50%'}
+          disabled={!isPhrase && (!value || !preview)}
+          _onClick={isPhrase ? addPhrase : write}
+          margin="10px"
+        >
+          {isPhrase ? '문장 추가하기' : '저장하기'}
+        </Button>
       </Wrapper>
-
-      <Grid is_flex is_column padding="0 16px" margin="10px"></Grid>
-    </Wrapper>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  ${(props) => props.theme.flex_column};
+  justify-content: space-between;
+  border: 1px solid black;
+  ${(props) => props.theme.border_box};
+  @media ${(props) => props.theme.desktop} {
+    width: 90%;
+  }
+`;
+
+const ContentsWrapper = styled.section`
+  width: 100%;
+  ${(props) => props.theme.flex_column};
+  @media ${(props) => props.theme.desktop} {
+    background-color: pink;
+    ${(props) => props.theme.flex_row};
+  }
+`;
 export default PostWrite;

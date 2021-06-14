@@ -89,10 +89,12 @@ const TextInput = styled.input`
 `;
 
 const Textarea = styled.textarea`
-  border: 1px solid #212121;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
+  border-radius: 1rem;
+  border: none;
+  background-color: ${(props) => props.theme.color.gray_light};
 `;
 
 export default Input;
