@@ -150,8 +150,8 @@ const updateProfile = (userName) => {
 
         url = await snapshot.ref.getDownloadURL();
       }
-      console.log(url);
-      const result = await userAPI.updateProfile(userName, url);
+
+      await userAPI.updateProfile(userName, url);
       dispatch(
         setUser({
           user_name: userName,
@@ -161,7 +161,6 @@ const updateProfile = (userName) => {
         })
       );
       alert('수정했습니다');
-      console.log('업데이트', result);
     } catch (error) {
       console.error(error);
     }

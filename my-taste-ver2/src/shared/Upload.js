@@ -61,12 +61,13 @@ const Upload = ({ size }) => {
 };
 
 const Btn = styled.div`
-  position: relative;
-  left: 23vh;
+  position: absolute;
+  left: 50%;
 `;
 
 const Wrapper = styled.div`
   cursor: pointer;
+  position: relative;
   width: 100%;
   justify-content: center;
   align-items: center;

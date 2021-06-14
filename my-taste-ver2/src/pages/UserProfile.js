@@ -5,6 +5,7 @@ import Upload from '../shared/Upload';
 import useInput from '../shared/useInput';
 import { Input, Button, Image } from '../elements';
 import user, { userActions } from '../redux/modules/user';
+import { actionCreators as imageActions } from '../redux/modules/image';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,8 @@ const UserProfile = () => {
   const [pwCheck, setPwCheck] = useState('');
 
   useEffect(() => {
-    console.log(userInfo?.user_profile);
     if (!userInfo) return;
-
+    dispatch(imageActions.setPreview(userInfo.user_profile));
     setUserName(userInfo.user_name);
   }, [userInfo]);
 
@@ -30,10 +30,8 @@ const UserProfile = () => {
   if (!userInfo) return null;
   return (
     <Container>
-      {!userInfo.user_profile && <Upload size={isMobile ? 90 : 25} />}
-      {userInfo.user_profile && (
-        <Image src={userInfo.user_profile} size={isMobile ? 90 : 25} />
-      )}
+      <Upload size={isMobile ? 90 : 25} />
+
       <FormTable>
         <Tr>
           <Th>이메일</Th>
