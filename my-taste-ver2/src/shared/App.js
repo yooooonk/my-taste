@@ -20,6 +20,7 @@ import Home from '../pages/Home';
 import Search from '../pages/Search';
 import BookBasket from '../pages/BookBasket';
 import BookCalendar from '../pages/BookCalendar';
+import UserProfile from '../pages/UserProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ function App() {
   const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
   useEffect(() => {
-    console.log('로그인유지');
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
@@ -40,6 +40,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/search" exact component={Search} />
         <Route path="/feed" exact component={PostList} />
+        <Route path="/user" exact component={UserProfile} />
         <Route path="/basket" exact component={BookBasket} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />

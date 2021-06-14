@@ -13,7 +13,8 @@ const Input = (props) => {
     value,
     is_submit,
     onSubmit,
-    isGray
+    isGray,
+    disabled
   } = props;
 
   if (multiLine) {
@@ -54,6 +55,8 @@ const Input = (props) => {
           placeholder={placeholder}
           onFocus={_onFocus}
           onChange={_onChange}
+          disabled={disabled}
+          value={value}
         />
       )}
     </React.Fragment>
@@ -70,7 +73,8 @@ Input.defaultProps = {
   onSubmit: () => {},
   _onChange: () => {},
   _onFocus: () => {},
-  isGray: false
+  isGray: false,
+  disabled: false
 };
 
 const TextInput = styled.input`

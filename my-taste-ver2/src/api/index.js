@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { firestore, storage, realtime } from '../shared/firebase';
+import { firestore, storage, realtime, auth } from '../shared/firebase';
 
 const openApi = axios.create();
 openApi.defaults.withCredentials = false;
@@ -84,5 +84,14 @@ export const bookAPI = {
   },
   updateBookBasket: function (basketId, data) {
     return basketDB.doc(basketId).update(data);
+  }
+};
+
+export const userAPI = {
+  updateProfile: function (displayName, photoURL) {
+    return auth.currentUser.updateProfile({
+      displayName,
+      photoURL
+    });
   }
 };

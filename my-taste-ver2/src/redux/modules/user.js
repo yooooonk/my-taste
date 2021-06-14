@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import firebase from 'firebase/app';
 import { auth } from '../../shared/firebase';
+import { imageAPI, userAPI } from '../../api';
 
 // initialState
 const initialState = {
@@ -169,12 +170,31 @@ const logoutFB = () => {
   };
 };
 
+const updateProfileFB = (userName) => {
+  return async (dispatch, getState, { history }) => {
+    try {
+      const user_info = getState().user.user.user_info;
+      const preview = getState().image.preview;
+      const snapshot = await imageAPI.uploadImage(
+        `images/${user_info.user_id}_${new Date().getTime()}`,
+        preview
+      );
+
+      const url = await snapshot.ref.getDownloadURL();
+      const result = await userAPI.updateProfile(userName, url);
+      console.log('업데이트', result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 // action creator export
 const actionCreators = {
   signupFB,
   loginFB,
   loginCheckFB,
-  logoutFB
+  logoutFB,
+  updateProfileFB
 };
 
 export { actionCreators };

@@ -8,9 +8,8 @@ const Image = (props) => {
 
 Image.defaultProps = {
   is_circle: false,
-
   size: 3,
-  radius: 0,
+  radius: '1rem',
   _onClick: () => {},
   _onDelete: () => {},
   margin: '4px'
