@@ -23,12 +23,12 @@ const BasketCard = ({ book, goTo }) => {
     }
   };
 
-  const onWrite = (e) => {
+  const onWrite = async (e) => {
     if (book.postId) {
       goTo(`/edit/${book.postId}`);
     } else {
+      await dispatch(imageActions.setPreview(book.thumbnail));
       goTo(`/write/${book.id}`);
-      dispatch(imageActions.setPreview(book.thumbnail));
     }
   };
 

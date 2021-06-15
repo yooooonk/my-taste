@@ -22,8 +22,7 @@ const PostWrite = (props) => {
   const isEdit = props.match.path.indexOf('edit') > -1;
   const id = props.match.params.id;
 
-  let idx = list.findIndex((p) => p.id === id);
-  let post = list[idx];
+  const idx = list.findIndex((p) => p.id === id);
 
   const [isPhrase, setIsPhrase] = useState(false);
   const [value, setValue] = useState('');
@@ -42,23 +41,28 @@ const PostWrite = (props) => {
     // 수정일 때
     if (!isEdit || !id) return;
 
-    if (post) return;
+    if (idx > 0) return;
 
     dispatch(postActions.fetchPost(id));
   }, []);
 
   useEffect(() => {
-    if (!post) return;
+    if (idx === -1) return;
+
+    const post = list[idx];
+
     dispatch(imageActions.setPreview(post.image_url));
     setPhraseList(post.phraseList);
     setValue(post.contents);
-  }, [post]);
+  }, [idx]);
 
   const write = (e) => {
     if (!value || !preview) {
       setRequireError(true);
       return;
     }
+
+    const post = list[idx];
     if (isEdit) {
       // 수정
       let updatedPost = {

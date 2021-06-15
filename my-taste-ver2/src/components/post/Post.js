@@ -18,7 +18,7 @@ const Post = (props) => {
   const uid = useSelector((state) => state.user.user?.uid);
   const isMobile = useSelector((state) => state.common.isMobile);
 
-  const isMe = user_info.user_id === uid;
+  const isMe = user_info?.user_id === uid;
 
   let like = props.likers.includes(uid);
 

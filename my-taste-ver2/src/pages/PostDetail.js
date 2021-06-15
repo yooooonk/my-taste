@@ -23,11 +23,12 @@ const PostDetail = (props) => {
   const idx = list.findIndex((p) => p.id === id);
   const post = list[idx];
   const uid = user?.uid;
-  let like = post.likers.includes(uid);
+  let like = post?.likers.includes(uid);
+
   useEffect(() => {
     if (post) return;
     dispatch(postActions.fetchPost(id));
-  });
+  }, []);
   const onUnlike = (e) => {
     e.stopPropagation();
     if (!uid) return alert('로그인을 해주세요');
