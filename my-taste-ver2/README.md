@@ -19,13 +19,14 @@
 
 # ver2의 개선 사항
 
-<details>
-<summary>무한 스크롤, resize 이벤트 throttle 처리</summary>
-<div markdown="1">
-```javascript
-  const handleResize  = _.throttle(() => {
+- 무한 스크롤, resize 이벤트 throttle 처리
+
+  ```tsx
+  // AppLayout.js
+  const handleResize = _.throttle(() => {
     dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
+
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -33,23 +34,8 @@
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-```
-</div>
-</details>
-```javascript
-const handleResize  = _.throttle(() => {
-    dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
-  }, 300);
-useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
- }, []);
-```
+  ```
 
-- 무한 스크롤, resize 이벤트 throttle 처리
 - 반응형 Scroll Wrapper에서 스크롤 에러 수정
 - async-await으로 리팩토링
 - firebase로 서버리스 구현
