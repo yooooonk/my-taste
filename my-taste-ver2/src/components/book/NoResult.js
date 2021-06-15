@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   color: ${(props) => props.theme.color.gray_light};
+  position: absolute;
 `;
 
 export default NoResult;

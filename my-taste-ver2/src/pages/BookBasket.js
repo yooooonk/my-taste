@@ -70,6 +70,7 @@ const Container = styled.div`
   height: 100%;
   background-color: ${(props) => props.theme.color.orange};
   position: relative;
+
   &::-webkit-scrollbar {
     display: none;
   }

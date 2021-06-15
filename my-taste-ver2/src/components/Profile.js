@@ -11,7 +11,7 @@ import NotiBadge from './NotiBadge';
 const Profile = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
-
+  console.log('Profile', userInfo);
   const logout = (e) => {
     dispatch(userActions.logout());
   };

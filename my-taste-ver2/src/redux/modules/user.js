@@ -79,7 +79,7 @@ const login =
         setUser({
           user_name: user.user.displayName,
           id: id,
-          user_profile: user.photoURL,
+          user_profile: user.user.photoURL,
           uid: user.user.uid
         })
       );
