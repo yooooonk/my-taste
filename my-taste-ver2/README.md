@@ -56,74 +56,71 @@
 
 ![](https://images.velog.io/images/ouo_yoonk/post/6022eff8-676d-44b4-8417-3268f5125d36/home.gif)
 
-# 🙋About
+# 프로젝트 정보
 
-My Taste를 수정하고, 개선한 ver2!
+좋아하는 것은 보고만 있어도 기분이 좋습니다.
 
-- stack : React, redux, thunk, styled-component, firebase
-- 개발기간 : 21.3.28~21.4.1(1차)
+그런 것들을 한 담고, 기록해, 모아서 본다면 팍팍한 하루에 잠깐이라도 기쁠 수 있지않을까?라는 마음에서 출발한 프로젝트입니다.
 
-## 상세기능과 개선기능
+우선은 개발자의 독서습관을 담아 책에 대한 서비스를 만들었습니다.
 
-### 반응형으로 수정
+- URL : [https://my-taste-e6d3f.firebaseapp.com/](https://my-taste-e6d3f.firebaseapp.com/)
+- stack : react, redux, thunk, firebase, styled-component
+- 개발 기간 : 21.3.28~21.4.1(1차 수정) 이후 개선 수정 중
 
-![](https://images.velog.io/images/ouo_yoonk/post/7ed3cb47-912a-47fa-83a7-68665efeb7b7/responsive.gif)
+✔️ 책을 검색해, 읽을 예정인 책 혹은 관심있는 책을 담을 수 있다
 
-### 로그인, 회원가입
+✔️ 책에 대해 감상과 기억하고 싶은 문장을 기록할 수 있다
 
-![](https://images.velog.io/images/ouo_yoonk/post/0a626ff3-a9d7-406e-91c8-2cc24a5a7612/login.gif)
+✔️ 달력으로 독서 현황을 한 눈에 확인할 수 있다
 
-- 로그인은 firebase의 authentication 기능 이용
-- Error Msg 컴포넌트를 만들어 error msg 처리
-- 로그인 여부에 따른 버튼 노출은 Permit 컴포넌트를 만들어 처리
+✔️ 피드에서 다른 사람이 남긴 글을 볼 수 있다
 
-### 이미지 캐루셀과 레이아웃 선택기능
+# ver2의 개선 사항
 
-![](https://images.velog.io/images/ouo_yoonk/post/44fd61ac-258a-4a0d-8810-ef6cb52de108/layout.gif)
-🐤 radio 버튼으로 layout을 선택하면 layout type을 store에 저장.
-{layouttype && ()}
-{layouttype && ()} 이런식으로 타입별로 조건부 렌더링을 했다. layout component를 만들어서 끼워넣는 방법이 있을까..? -이미지 캐루셀 버튼 이동
+- 무한 스크롤, resize 이벤트 throttle 처리
+- 반응형 Scroll Wrapper에서 스크롤 에러 수정
+- async-await으로 리팩토링
+- firebase로 서버리스 구현
+- styled component사용, 디자인 수정 및 반응형 디자인 추가
+- 이미지 캐루셀 수정
+- atomic 디자인 패턴 중 atom-component-page 구조 적용
+- 회원가입 벨리데이션 수정
+- Post Feed에서 좋아요, 댓글, 알림 기능 추가 - firebase realtile database 이용
+- 독서 달력 추가
+- 글쓰기 누르면 썸네일 자동 삽입
+- loading spinner 적용
+- 서버통신관련에서 리덕스에서 관리, Error Msg 컴포넌트 만들어 처리
+- bookShelf Grid 적용
 
-### 포스트 디테일에서 좋아요, 댓글, 알림기능 추가
+# 상세기능
 
-![](https://images.velog.io/images/ouo_yoonk/post/1db8c48f-6e2e-40bc-bfcf-1ecfc6bd283f/noti.gif)
+- 메인화면
+- 회원관련 페이지
+- 검색기능
 
-- firebase의 realtime database를 이용해 알람기능을 만들었다
+  - 이미지
 
-### thunk async-await 사용
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e75307f4-5c65-4e95-95f4-6316e66eddaf/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e75307f4-5c65-4e95-95f4-6316e66eddaf/Untitled.png)
 
-### modal 만들기
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c08f9f79-ac5f-4293-b424-a946fefa53ca/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c08f9f79-ac5f-4293-b424-a946fefa53ca/Untitled.png)
 
-- 라이브러리를 사용하지 않고 재사용 가능한 dialog를 만들었다.
-- basketCard의 경우 각 카드마다 dialog를 호출했다. 좋은 방법이 아닐것같은데..
+  - 무한 스크롤 적용
 
-## ?
+- 책장 기능
+- 책 기록 기능
+- Feed 기능
 
-- styled component 글로벌
-  https://howdy-mj.me/css/styled-components-with-global-style/
+  - 무한 스크롤 적용
+  - 좋아요 기능 - 좋아요, 댓글 알림
+  - 포스트 수정,삭제 기능
+  - 이미지
 
-- firebase realtime -- 복합쿼리 설정
-- list가져올 때 중복없이 하는 법!
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8961da74-b33b-4a2b-97aa-27a925320bde/post.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8961da74-b33b-4a2b-97aa-27a925320bde/post.gif)
 
-- 좋아요 데이터를 post collection에 넣을지? 따로 like로 뺄지? -- like로 뺐음 --> Post 컴포넌트에서 like를 가지고오면 할때마다 like를 힛함..post에 넣음
-- like할 때 알람울림
+- Caleandar
 
-- saga와 locash, thunk
+  - shelf에서 좋아요 한 책 저장
+  - 이미지
 
-- 레이아웃을 바꿨더니 무한 스크롤안됨-- div에 scroll이 생기는건 widnow scroll이 아님. wrapper를 만들어서 scroll 이벤트를 주고, 모바일와 데스크탑모드의 스크롤이벤트를 분리해 가져오는 값을 ㅂ꿈
-
-- 반응형 웹을 위해 resize할때마다 이벤트를 불러오는데 너무 자주불러옴..괜찮은것? -- header에 resize할 때 viewMode를 설정하게끔 만듦, \_throttle 붙임
-
-- 반응형 wrapper 만들기!
-
-- 레이아웃 선택.... -> 모드에 따라 각각 레이아웃을 일단 만들자
-
-- 책검색 목록에서 카드 선택하면 translate 이동?
-
-  - 처음에는 bookCard 컴포넌트에서 uesRef를 이용했는데 이전 카드 정보를 기억못함
-  - bookCard는 현재 자기자신의 ref만 가지고잇음.
-  - store에 selected card를 저장했음
-  - 상위컴포넌트인 SearchList에서 preCard state를 줘서 관리하는 걸로 바꿈
-
-- 컴포넌트 디렉토리 구조에 대한 고민
-  - page별로 나눴는데, 재사용성이라는 리액트 철학에 안 맞는 것 같다.
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3446a9a1-be11-410e-bf66-2d77c426f6cd/caleandar.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3446a9a1-be11-410e-bf66-2d77c426f6cd/caleandar.gif)
