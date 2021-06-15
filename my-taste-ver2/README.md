@@ -22,7 +22,7 @@
 <details>
 <summary>무한 스크롤, resize 이벤트 throttle 처리</summary>
 <div markdown="1">
-``` javascript
+```javascript
   const handleResize  = _.throttle(() => {
     dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
