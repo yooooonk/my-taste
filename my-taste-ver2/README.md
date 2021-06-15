@@ -43,7 +43,7 @@
 <summary>메인페이지</summary>
 <div markdown="1">
 <summary>xhrmf2
-<div markdown="1"></div>
+<div markdown="2"></div>
 </summary>
 ``` javascript
   const onRemovePhrase = useCallback((phrase)=> (e) => {
