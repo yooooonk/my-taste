@@ -36,6 +36,18 @@
 ```
 </div>
 </details>
+```javascript
+  const handleResize  = _.throttle(() => {
+    dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
+  }, 300);
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+```
 
 - 무한 스크롤, resize 이벤트 throttle 처리
 - 반응형 Scroll Wrapper에서 스크롤 에러 수정
