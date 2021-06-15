@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid } from '../elements';
-import Permit from '../shared/Permit';
 import Post from '../components/post/Post';
 import { postActions } from '../redux/modules/post';
 import { commonActions } from '../redux/modules/common';
 import _ from 'lodash';
 import styled from 'styled-components';
-import ScrollWrapper from '../shared/ScrollWrapper';
+import PulseLoader from 'react-spinners/PulseLoader';
+import { css } from '@emotion/react';
 
 const PostList = (props) => {
-  const { isMobile } = useSelector((state) => state.common);
   const { history } = props;
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
-  const user_info = useSelector((state) => state.user.user);
-  const { is_loading, paging } = useSelector((state) => state.post);
+  const { is_loading } = useSelector((state) => state.post);
 
   useEffect(() => {
     console.log('%c 💗Feed💗', 'color: rgb(0, 0, 0); font-size: 16px');
@@ -46,6 +43,7 @@ const PostList = (props) => {
 
   return (
     <Container onScroll={onScroll}>
+      <PulseLoader loading={is_loading} css={spinnerStyle} color="#3a5378" />
       {post_list.map((p, idx) => {
         console.log(p);
         return (
@@ -64,7 +62,6 @@ const Container = styled.div`
   ${(props) => props.theme.flex_row};
   flex-wrap: wrap;
   overflow-y: scroll;
-
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.theme.color.blue};
@@ -75,5 +72,14 @@ const Container = styled.div`
     display: none;
   }
 `;
-
+const spinnerStyle = css`
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
 export default PostList;

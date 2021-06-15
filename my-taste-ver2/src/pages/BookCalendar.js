@@ -33,7 +33,7 @@ const BookCalendar = (props) => {
   return (
     <Container>
       <Calendar />
-      <PulseLoader loading={loading} css={spinnerStyle} color="pink" />
+      <PulseLoader loading={loading} css={spinnerStyle} color="#3a5378" />
     </Container>
   );
 };
