@@ -22,7 +22,7 @@ const theme = {
   border_style: `border-top-left-radius:2rem; border-bottom-right-radius:2rem`,
   color: {
     red: '#f9685d',
-    red_light: '#9998b',
+    red_light: '#f9998b',
     orange: '#ffbc92',
     orange_light: '#f9dccd',
     navy: '#3a5378',

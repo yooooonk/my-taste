@@ -4,7 +4,7 @@ import Card from '../components/Card';
 import { realtime } from '../shared/firebase';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
-import { history } from '../redux/configStore';
+import styled from 'styled-components';
 
 const Notification = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -31,18 +31,32 @@ const Notification = (props) => {
   }, [user]);
 
   return (
-    <React.Fragment>
-      <Header>
+    <Container>
+      <Header bg="#c5dee2">
         <Text bold>알림확인</Text>
         <i />
       </Header>
-      <Grid padding="16px" bg="#EFF6FF" is_flex is_column>
+      <NotiWrapper>
         {noti.map((n, idx) => {
           return <Card {...n} key={`noti_${idx}`} />;
         })}
-      </Grid>
-    </React.Fragment>
+      </NotiWrapper>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  ${(props) => props.theme.flex_column};
+  background-color: ${(props) => props.theme.color.blue_light};
+  padding: 1rem;
+  ${(props) => props.theme.border_box};
+`;
+
+const NotiWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export default Notification;

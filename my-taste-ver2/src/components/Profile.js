@@ -5,6 +5,9 @@ import { Wrapper, Image, Text } from '../elements';
 import { userActions } from '../redux/modules/user';
 import { FaUserAlt } from 'react-icons/fa';
 import { history } from '../redux/configStore';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import NotiBadge from './NotiBadge';
 const Profile = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
@@ -16,6 +19,11 @@ const Profile = (props) => {
   const editProfile = () => {
     history.push('/user');
   };
+
+  const moveToPage = (url) => {
+    history.push('/noti');
+    // TODO moveToPage cokmmon으로 빼기
+  };
   return (
     <Container>
       <ProfileImg>
@@ -24,12 +32,18 @@ const Profile = (props) => {
         )}
         {!userInfo.user_profile && <FaUserAlt />}
       </ProfileImg>
+
       <Text bold>{userInfo.user_name}</Text>
 
       <Wrapper>
         <Button onClick={logout}>LOGOUT</Button>
         <Button onClick={editProfile}>EDIT</Button>
       </Wrapper>
+      <Tooltip title="알림">
+        <IconButton onClick={() => moveToPage('/noti')}>
+          <NotiBadge />
+        </IconButton>
+      </Tooltip>
     </Container>
   );
 };
@@ -38,7 +52,7 @@ const Container = styled.div`
   width: 100%;
   color: ${(props) => props.theme.color.navy};
   ${(props) => props.theme.flex_column};
-  height: 80%;
+  height: 85%;
 `;
 
 const ProfileImg = styled.div`
