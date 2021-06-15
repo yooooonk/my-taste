@@ -13,7 +13,7 @@ import PostHeader from './PostHeader';
 
 const Post = (props) => {
   const { user_info, basketId, id, _onClick } = props;
-
+  console.log('user_info', user_info);
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.user?.uid);
   const isMobile = useSelector((state) => state.common.isMobile);
@@ -47,8 +47,8 @@ const Post = (props) => {
     <PostWrapper>
       <PostHeader
         goBack={props.is_detail}
-        src={props.user_info.user_profile}
-        userName={props.user_info.user_name}
+        src={user_info?.user_profile}
+        userName={user_info?.user_name}
         isMe={isMe}
         editPost={editPost}
         deletePost={deletePost}

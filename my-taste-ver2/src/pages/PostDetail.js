@@ -144,6 +144,7 @@ const PostWrapper = styled.div`
 const ContentsWrapper = styled.section`
   ${(props) => props.theme.flex_column};
   height: 70%;
+  width: 100%;
 `;
 
 const CommentWrapper = styled.div`
@@ -157,6 +158,7 @@ const CommentWrapper = styled.div`
 
 const Des = styled.div`
   height: 100%;
+  width: 100%;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

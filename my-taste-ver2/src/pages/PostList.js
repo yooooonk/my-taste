@@ -47,6 +47,7 @@ const PostList = (props) => {
   return (
     <Container onScroll={onScroll}>
       {post_list.map((p, idx) => {
+        console.log(p);
         return (
           <Post
             {...p}
