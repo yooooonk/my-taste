@@ -5,7 +5,7 @@
 
 # ver1
 
-![](https://images.velog.io/images/ouo_yoonk/post/e42bc205-62e3-4b48-acb3-b19b37891761/image.png)
+![](https://images.velog.io/images/ouo_yoonk/post/aa1f3f1a-5e7d-41ed-8834-5535f7f3980c/ver1main.gif)
 
 ## ABOUT
 
