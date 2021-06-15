@@ -16,7 +16,7 @@ const PhraseList = (props) => {
           <PharaseWrapper key={idx}>
             <Phrase>{p}</Phrase>
 
-            <MdClose onClick={_onClick} />
+            <MdClose onClick={() => _onClick(idx)} />
           </PharaseWrapper>
         );
       })}

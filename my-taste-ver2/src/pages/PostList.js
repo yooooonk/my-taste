@@ -20,9 +20,7 @@ const PostList = (props) => {
     console.log('다른 사람들이 쓴 글도 볼 수 있어요');
 
     dispatch(commonActions.setCurrentMenu('feed'));
-    if (post_list.length < 2) {
-      dispatch(postActions.fetchPosts());
-    }
+    dispatch(postActions.fetchPosts());
 
     return () => {
       dispatch(commonActions.setCurrentMenu(null));

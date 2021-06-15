@@ -86,6 +86,7 @@ const PostWrite = (props) => {
   };
 
   const deletePhrase = (idx) => {
+    console.log(idx);
     let temp = phraseList;
     temp.splice(idx, 1);
     setPhraseList([...temp]);

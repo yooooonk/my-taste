@@ -80,6 +80,7 @@ const fetchCreatePost =
   async (dispatch, getState, { history }) => {
     try {
       const _user = getState().user.user;
+
       // user 정보
       const user_info = {
         user_name: _user.user_name,
@@ -218,8 +219,8 @@ const fetchPosts =
 
       docs.forEach((doc) => {
         let _post = doc.data();
+        console.log('_post', _post);
 
-        // ['commenct_cnt', 'contents', ..]
         let post = Object.keys(_post).reduce(
           (acc, cur) => {
             if (cur.indexOf('user_') !== -1) {
@@ -235,7 +236,7 @@ const fetchPosts =
 
         post_list.push(post);
       });
-      post_list.pop();
+      //post_list.pop();
 
       dispatch(setPost({ paging, post: post_list }));
     } catch (error) {
