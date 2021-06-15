@@ -268,10 +268,18 @@
   <ErrorMsg valid={loginError.isError}>{loginError.msg}</ErrorMsg>
   ```
 
+- 백엔드 firebase 적용
 - 독서 달력 추가
 - atomic 디자인 패턴 중 atom-component-page 구조 적용
 - 회원가입 벨리데이션 수정
--
+- scss 대신 styled 컴포넌트 적용
+- nextjs 대신 react-router 이용
+- 반응형으로 수정, 반응형 헤더 추가
+- saga말고 thunk를 적용해 봄
+- lodash 사용
+- realtime database를 이용해 알림기능 적용
+- 글쓰기 누르면 썸네일 자동 삽입
+- 무한스크롤링 + 스피너 적용
 
 ## 상세기능
 
