@@ -23,19 +23,16 @@
 <summary>무한 스크롤, resize 이벤트 throttle 처리</summary>
 <div markdown="1">
 ``` javascript
-// AppLayout.js
-const handleResize = _.throttle(() => {
+  const handleResize  = _.throttle(() => {
     dispatch(commonActions.setIsMobile(window.innerWidth < 1025));
   }, 300);
-
-useEffect(() => {
-handleResize();
-window.addEventListener('resize', handleResize);
-return () => {
-window.removeEventListener('resize', handleResize);
-};
-}, []);
-
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 ```
 </div>
 </details>
@@ -58,35 +55,52 @@ window.removeEventListener('resize', handleResize);
 ## 상세기능
 
 ### 메인화면
+
 ![](https://images.velog.io/images/ouo_yoonk/post/7e018fed-f0e0-44d5-89c3-005cd1d0014f/login.gif)
--  dashboard에서 저장한 책, 읽은 책, 기록한 책 통계를 확인할 수 있다
+
+- dashboard에서 저장한 책, 읽은 책, 기록한 책 통계를 확인할 수 있다
 - 저장한 문장을 랜덤으로 보여준다
 
 ### 회원가입
+
 ![](https://images.velog.io/images/ouo_yoonk/post/659778d8-67dc-4018-be3e-84f4ba04a65d/signup.gif)
+
 - 회원가입 후 바로 로그인
 
 ### 프로필 수정
+
 ![](https://images.velog.io/images/ouo_yoonk/post/277faa81-2caf-4da9-82b0-f5832a26f378/profile.gif)
+
 - firebase auth 기능 이용
 
 ### 검색 후 저장
+
 ![](https://images.velog.io/images/ouo_yoonk/post/67ac17d3-683d-4cf1-a725-3e70cca84601/search.gif)
+
 - 무한 스크롤, spinner 추가
 
 ### 포스트 쓰기
+
 ![](https://images.velog.io/images/ouo_yoonk/post/39da54bd-9955-48ac-8f45-a7149042ac60/writefull.gif)
+
 - 썸네일 자동 추가
 - 문장, 감상 스위치를 이용해 하나의 text area에서 작성
 - 이미 작성한 글이 있으면 수정 페이지로 감
 
 ### Feed
+
 ![](https://images.velog.io/images/ouo_yoonk/post/c2da62d6-52eb-455a-9e81-bf5704fa71d5/post.gif)
+
 - 무한 스크롤 적용
 - 좋아요, 댓글 기능 - 알림 기능 추가
 - 포스트 수정, 삭제
 
 ### Calendar
+
 ![](https://images.velog.io/images/ouo_yoonk/post/d3707e45-c662-4b90-a4e2-0ab845c88b24/caleandar.gif)
+
 - shelf에서 읽음 표시하면 달력에 저장
+
+```
+
 ```
