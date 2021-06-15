@@ -34,7 +34,7 @@ const SearchList = () => {
   return (
     <Container>
       {searchList.length > 0 && (
-        <ScrollWrapper callNext={searchNext} is_next={!isEnd} loading="true">
+        <ScrollWrapper callNext={searchNext} is_next={!isEnd} loading={loading}>
           {searchList.map((book, idx) => {
             return (
               <BookCard
