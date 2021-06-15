@@ -11,7 +11,7 @@ const Notification = (props) => {
   const [noti, setNoti] = useState([]);
   useEffect(() => {
     if (!user) return;
-
+    // TODO websocket으로 구현해보기
     const notiDB = realtime.ref(`noti/${user.uid}/list`);
 
     const _noti = notiDB.orderByChild('insert_dt');
