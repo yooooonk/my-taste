@@ -68,6 +68,7 @@ const DetailWrapper = styled.div`
   ${(props) => props.theme.flex_column};
   justify-content: space-between;
   background-color: ${(props) => props.theme.color.gray_light};
+  
 
   @media ${(props) => props.theme.desktop} {
     width: 60%;

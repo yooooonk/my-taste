@@ -76,9 +76,10 @@ const InnerWrapper = styled.div`
 `;
 
 const override = css`
-  display: block;
+  display: flex;
   margin: 0 auto;
-  border-color: red;
+  justify-content: center;
+  width: 100%;
 `;
 
 export default ScrollWrapper;

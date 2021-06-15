@@ -10,8 +10,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  color: ${(props) => props.theme.color.gray_light};
-  position: absolute;
+  color: ${(props) => props.theme.color.navy};
 `;
 
 export default NoResult;

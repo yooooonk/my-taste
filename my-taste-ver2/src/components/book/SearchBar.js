@@ -10,25 +10,23 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [query, onChangeQuery] = useInput('');
 
-  const searchBook = (value) => {
-    dispatch(bookActions.fetchBookList({ page: 1, keyword: value }));
+  const searchBook = () => {
+    if (!query) return;
+    dispatch(bookActions.fetchBookList({ page: 1, keyword: query }));
   };
 
   const onEnter = useCallback(
     (e) => {
       if (e.code === 'Enter' && query) {
-        searchBook(query);
+        searchBook();
       }
     },
     [query]
   );
 
-  const onClickSearchBtn = useCallback(
-    (e) => {
-      searchBook(query);
-    },
-    [query]
-  );
+  const onClickSearchBtn = useCallback((e) => {
+    searchBook();
+  }, []);
 
   return (
     <Bar>

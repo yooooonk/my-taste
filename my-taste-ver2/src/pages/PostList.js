@@ -45,7 +45,6 @@ const PostList = (props) => {
     <Container onScroll={onScroll}>
       <PulseLoader loading={is_loading} css={spinnerStyle} color="#3a5378" />
       {post_list.map((p, idx) => {
-        console.log(p);
         return (
           <Post
             {...p}

@@ -13,7 +13,7 @@ import PostHeader from './PostHeader';
 
 const Post = (props) => {
   const { user_info, basketId, id, _onClick } = props;
-  console.log('user_info', user_info);
+
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.user?.uid);
   const isMobile = useSelector((state) => state.common.isMobile);
